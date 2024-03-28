@@ -11,7 +11,6 @@ import { useMessageAndErrorUser } from "../../utils/hooks";
 import { register } from "../../redux/actions/userActions";
 
 const SignUp = ({ navigation, route }) => {
-    // const navigation = useNavigation();
     const [avatar, setAvatar] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,50 +19,13 @@ const SignUp = ({ navigation, route }) => {
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
     const [pinCode, setPinCode] = useState("");
-    const [googleId, setGoogleId] = useState();
 
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.user)
-    const disableBtn = googleId ? !name || !email || !address || !city || !country || !pinCode :
+
+    const disableBtn =
         !name || !email || !password || !address || !city || !country || !pinCode;
 
-    // const submitHandler = async () => {
-    //     const myForm = new FormData();
-
-    //     myForm.append("name", name);
-    //     myForm.append("email", email);
-    //     myForm.append("password", password);
-    //     myForm.append("address", address);
-    //     myForm.append("city", city);
-    //     myForm.append("country", country);
-    //     myForm.append("pinCode", pinCode);
-    //     // myForm.append("googleId", googleId);
-    //     // if (googleId) {
-    //     //     myForm.append("file", avatar);
-    //     // } else {
-    //     //     if (avatar !== "") {
-    //     //         myForm.append("file", {
-    //     //             uri: avatar,
-    //     //             type: mime.getType(avatar),
-    //     //             name: avatar.split("/").pop(),
-    //     //         });
-    //     //     }
-    //     // }
-
-    //     try {
-    //         await dispatch(register(myForm));
-    //         navigation.navigate('login');
-    //     } catch (error) {
-    //         console.error(error);
-    //         // handle error here
-    //     }
-    // };
-
     const submitHandler = () => {
-        // dispatch(forgetPassword(email));
-        // alert("shEysh");
-
-        navigation.navigate("login");
         const myForm = new FormData();
 
         myForm.append("name", name);
@@ -86,20 +48,9 @@ const SignUp = ({ navigation, route }) => {
     };
 
     const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
-    // useEffect(() => {
-    //     if (user) {
 
-    //         setName(user.name)
-    //         setEmail(user.email)
-    //         setAvatar(user.picture)
-    //         // setGoogleId(user.sub)
-    //         // setPassword(googleId)
-    //         setPassword(user.password)
-
-    //     }
-    // }, [user])
-    
     useEffect(() => {
+        console.log("Route params:", route.params); // Check if route.params is defined
         if (route.params?.image) setAvatar(route.params.image);
     }, [route.params]);
 
@@ -109,8 +60,9 @@ const SignUp = ({ navigation, route }) => {
                 <View className="flex">
                     <View className="flex-row justify-start">
                         <TouchableOpacity onPress={() => navigation.goBack()}
-                            className="bg-yellow-700 p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
-                            <Icons.ArrowLeftIcon size='20' color='black'
+                            style={{ backgroundColor: "#bc430b" }}
+                            className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
+                            <Icons.ArrowLeftIcon size='20' color='white'
                             />
                         </TouchableOpacity>
                     </View>
@@ -137,9 +89,9 @@ const SignUp = ({ navigation, route }) => {
                                 size={80}
                                 source={avatar ? { uri: avatar } : require("../../assets/images/default-user-icon.jpg")}
                             />
-                        <TouchableOpacity onPress={() => navigation.navigate("camera")}>
-                            <Button textColor="gray">Change Photo</Button>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate("camera")}>
+                                <Button textColor="gray">Change Photo</Button>
+                            </TouchableOpacity>
 
 
                             <Text className="text-gray-700 ml-4">
@@ -214,10 +166,10 @@ const SignUp = ({ navigation, route }) => {
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
                             <TouchableOpacity
-                            loading={loading} 
-                            className="py-2 bg-yellow-400 rounded-xl"
-                            // disabled={disableBtn}
-                            onPress={submitHandler}
+                                loading={loading}
+                                className="py-2 bg-yellow-400 rounded-xl"
+                                disabled={disableBtn}
+                                onPress={submitHandler}
                             >
                                 <Text className="text-gray-700 font-bold text-center">
                                     Sign Up

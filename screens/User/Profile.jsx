@@ -28,8 +28,9 @@ const Profile = () => {
                                 console.log("Can't go back");
                             }
                         }}
-                            className="bg-yellow-700 p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
-                            <Icons.ArrowLeftIcon size='20' color='black'
+                        style={{ backgroundColor: "#bc430b" }}
+                            className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
+                            <Icons.ArrowLeftIcon size='20' color='white'
                             />
                         </TouchableOpacity>
                     </View>
