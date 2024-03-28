@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Camera from "./screens/Camera";
 import ProductDetails from "./screens/ProductDetails";
-// import Cart from "./screens/Cart";
+import Cart from "./screens/Cart/Cart";
 // import ConfirmOrder from "./screens/ConfirmOrder";
 // import Payment from "./screens/Payment";
 import Login from "./screens/User/Login";
@@ -28,7 +28,7 @@ const Main = () => {
             <Stack.Group>
             <Stack.Screen name="home" component={Home} />
             <Stack.Screen name="productdetails" component={ProductDetails} />
-            {/* <Stack.Screen name="cart" component={Cart} /> */}
+            <Stack.Screen name="cart" component={Cart} />
             {/* <Stack.Screen name="confirmorder" component={ConfirmOrder} /> */}
             {/* <Stack.Screen name="payment" component={Payment} /> */}
             <Stack.Screen name="camera" component={Camera} />
