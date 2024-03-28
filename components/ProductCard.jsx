@@ -132,13 +132,20 @@ const ProductCard = ({
                     </View>
                 )
             ) : null} */}
-            <Text className="text-semibold text-md">$ {price}</Text>
+            <Text 
+            style={{
+                fontSize: 18,
+                fontWeight: '500',
+                color: '#e84219',
+                marginBottom: 4,
+            }} 
+            className="text-semibold text-md">$ {price}</Text>
             <View
                 style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    backgroundColor: i % 2 === 0 ? "rgb(45,45,45)" :  "#F4B546",
+                    backgroundColor: i % 2 === 0 ? "rgb(45,45,45)" : "#F4B546",
                     borderRadius: 0,
                     paddingVertical: 4,
                     borderBottomRightRadius: 20,
@@ -148,7 +155,7 @@ const ProductCard = ({
             >
                 <Button
                     onPress={() => addToCardHandler(id, name, price, image, stock)}
-                    textColor={i % 2 === 0 ?   "#F4B546" : "rgb(45,45,45)"}
+                    textColor={i % 2 === 0 ? "#F4B546" : "rgb(45,45,45)"}
                     style={{ flex: 4 }}
                     disabled={isOutOfStock}
                 >
@@ -161,7 +168,7 @@ const ProductCard = ({
                     <FontAwesome
                         name="heart"
                         size={18}
-                        color="#ffffff" 
+                        color="#ffffff"
                     />
                 </TouchableOpacity>
             </View>

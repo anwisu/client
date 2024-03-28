@@ -392,14 +392,14 @@ const ProductDetails = ({ route: { params } }) => {
                                 fontSize: 24,
                                 fontWeight: '500',
                                 maxWidth: '85%',
-                                color: '#000000',
+                                color: '#e84219',
                                 marginBottom: 4,
                                 marginTop: 10,
                             }}>
                             $ {price}
                         </Text>
                         <Text>
-                            Tax Rate 2%~ ${price / 20} (&#8377;
+                            Tax Rate 2%~ ${price / 20} ($
                             {price + price / 20})
                         </Text>
                     </View>
