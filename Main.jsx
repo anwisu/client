@@ -11,7 +11,7 @@ import SignUp from "./screens/User/SignUp";
 // import Toast from "react-native-toast-message";
 // import ForgetPassword from "./screens/ForgetPassword";
 // import Verify from "./screens/Verify";
-// import Profile from "./screens/Profile";
+import Profile from "./screens/User/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +32,7 @@ const Main = () => {
             <Stack.Screen name="payment" component={Payment} /> */}
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signup" component={SignUp} />
-            {/* <Stack.Screen name="profile" component={Profile} /> */}
+            <Stack.Screen name="profile" component={Profile} />
 
 
 

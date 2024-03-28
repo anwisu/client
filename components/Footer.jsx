@@ -2,11 +2,13 @@ import { View, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from "react-redux"
 
 const Footer = ({ activeRoute = "home" }) => {
     const navigate = useNavigation();
-    const loading = false;
-    const isAuthenticated = false;
+
+    // const isAuthenticated = false;
+    const { loading, isAuthenticated } = useSelector((state) => state.user)
 
     const navigationHandler = (key) => {
         switch (key) {

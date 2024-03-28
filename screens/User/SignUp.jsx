@@ -1,11 +1,77 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView , Button} from "react-native";
-import React, { useState } from "react";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Button } from "react-native";
+import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import mime from "mime";
+import { useDispatch, useSelector } from "react-redux";
+import { useMessageAndErrorUser } from "../../utils/hooks";
+import { register } from "../../redux/actions/userActions";
 
-const SignUp = () => {
-    const navigation = useNavigation();
+const SignUp = ({ navigation, route }) => {
+    // const navigation = useNavigation();
+    const [avatar, setAvatar] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [country, setCountry] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    const [googleId, setGoogleId] = useState();
+
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user)
+    const disableBtn = googleId ? !name || !email || !address || !city || !country || !pinCode :
+        !name || !email || !password || !address || !city || !country || !pinCode;
+
+    const submitHandler = async () => {
+        const myForm = new FormData();
+
+        myForm.append("name", name);
+        myForm.append("email", email);
+        myForm.append("password", password);
+        myForm.append("address", address);
+        myForm.append("city", city);
+        myForm.append("country", country);
+        myForm.append("pinCode", pinCode);
+        // myForm.append("googleId", googleId);
+        // if (googleId) {
+        //     myForm.append("file", avatar);
+        // } else {
+        //     if (avatar !== "") {
+        //         myForm.append("file", {
+        //             uri: avatar,
+        //             type: mime.getType(avatar),
+        //             name: avatar.split("/").pop(),
+        //         });
+        //     }
+        // }
+
+        try {
+            await dispatch(register(myForm));
+            navigation.navigate('login');
+        } catch (error) {
+            console.error(error);
+            // handle error here
+        }
+    };
+
+    const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
+    useEffect(() => {
+        if (user) {
+
+            setName(user.name)
+            setEmail(user.email)
+            setAvatar(user.picture)
+            // setGoogleId(user.sub)
+            setPassword(googleId)
+
+        }
+    }, [user])
+    useEffect(() => {
+        if (route.params?.image) setAvatar(route.params.image);
+    }, [route.params]);
 
     return (
         <>
@@ -78,25 +144,26 @@ const SignUp = () => {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     className="flex-1 bg-white" style={{
-                        elevation: 10, borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+                        elevation: 10, borderTopLeftRadius: 50, borderTopRightRadius: 50
+                    }}
                 >
                     <View className="flex-1 bg-white px-8 pt-8" style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}>
                         <View className="form space-y-2">
-                        <Image
-                            style={{
-                                alignSelf: "center",
-                                // backgroundColor: colors.color1,
-                            }}
-                            size={80}
+                            <Image
+                                style={{
+                                    alignSelf: "center",
+                                    // backgroundColor: colors.color1,
+                                }}
+                                size={80}
                             // source={{
                             //     uri: avatar ? avatar : defaultImg,
                             // }}
-                        />
-                        <TouchableOpacity onPress={() => navigation.navigate("camera")}>
-                            <Button title="Change Photo"/>
-                        </TouchableOpacity>
+                            />
+                            <TouchableOpacity onPress={() => navigation.navigate("camera")}>
+                                <Button title="Change Photo" />
+                            </TouchableOpacity>
 
-                            
+
                             <Text className="text-gray-700 ml-4">
                                 Name
                             </Text>

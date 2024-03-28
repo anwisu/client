@@ -7,7 +7,7 @@
     "icon": "./assets/logosolo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logosolo.png",
+      "image": "./assets/images/logotwo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
