@@ -1,8 +1,10 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Button } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+// import UserAvatar from 'react-native-user-avatar';
+import { Avatar, Button } from "react-native-paper";
 import mime from "mime";
 import { useDispatch, useSelector } from "react-redux";
 import { useMessageAndErrorUser } from "../../utils/hooks";
@@ -25,7 +27,43 @@ const SignUp = ({ navigation, route }) => {
     const disableBtn = googleId ? !name || !email || !address || !city || !country || !pinCode :
         !name || !email || !password || !address || !city || !country || !pinCode;
 
-    const submitHandler = async () => {
+    // const submitHandler = async () => {
+    //     const myForm = new FormData();
+
+    //     myForm.append("name", name);
+    //     myForm.append("email", email);
+    //     myForm.append("password", password);
+    //     myForm.append("address", address);
+    //     myForm.append("city", city);
+    //     myForm.append("country", country);
+    //     myForm.append("pinCode", pinCode);
+    //     // myForm.append("googleId", googleId);
+    //     // if (googleId) {
+    //     //     myForm.append("file", avatar);
+    //     // } else {
+    //     //     if (avatar !== "") {
+    //     //         myForm.append("file", {
+    //     //             uri: avatar,
+    //     //             type: mime.getType(avatar),
+    //     //             name: avatar.split("/").pop(),
+    //     //         });
+    //     //     }
+    //     // }
+
+    //     try {
+    //         await dispatch(register(myForm));
+    //         navigation.navigate('login');
+    //     } catch (error) {
+    //         console.error(error);
+    //         // handle error here
+    //     }
+    // };
+
+    const submitHandler = () => {
+        // dispatch(forgetPassword(email));
+        // alert("shEysh");
+
+        navigation.navigate("login");
         const myForm = new FormData();
 
         myForm.append("name", name);
@@ -35,96 +73,38 @@ const SignUp = ({ navigation, route }) => {
         myForm.append("city", city);
         myForm.append("country", country);
         myForm.append("pinCode", pinCode);
-        // myForm.append("googleId", googleId);
-        // if (googleId) {
-        //     myForm.append("file", avatar);
-        // } else {
-        //     if (avatar !== "") {
-        //         myForm.append("file", {
-        //             uri: avatar,
-        //             type: mime.getType(avatar),
-        //             name: avatar.split("/").pop(),
-        //         });
-        //     }
-        // }
 
-        try {
-            await dispatch(register(myForm));
-            navigation.navigate('login');
-        } catch (error) {
-            console.error(error);
-            // handle error here
+        if (avatar !== "") {
+            myForm.append("file", {
+                uri: avatar,
+                type: mime.getType(avatar),
+                name: avatar.split("/").pop(),
+            });
         }
+
+        dispatch(register(myForm));
     };
 
     const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
-    useEffect(() => {
-        if (user) {
+    // useEffect(() => {
+    //     if (user) {
 
-            setName(user.name)
-            setEmail(user.email)
-            setAvatar(user.picture)
-            // setGoogleId(user.sub)
-            setPassword(googleId)
+    //         setName(user.name)
+    //         setEmail(user.email)
+    //         setAvatar(user.picture)
+    //         // setGoogleId(user.sub)
+    //         // setPassword(googleId)
+    //         setPassword(user.password)
 
-        }
-    }, [user])
+    //     }
+    // }, [user])
+    
     useEffect(() => {
         if (route.params?.image) setAvatar(route.params.image);
     }, [route.params]);
 
     return (
         <>
-            {/* <View style={defaultStyle}>
-            <View style={{ marginBottom: 20 }}>
-            <Text style={formHeading}>Login</Text>
-            </View>
-
-            <View style={styles.container}>
-            <TextInput
-                {...inputOptions}
-                placeholder="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-                
-            />
-
-            <TextInput
-                {...inputOptions}
-                placeholder="Password"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={setPassword}
-            />
-
-            <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate("forgetpassword")}
-            >
-                <Text style={styles.forget}>Forget Password?</Text>
-            </TouchableOpacity>
-
-            <Button
-                textColor={colors.color2}
-                disabled={email === "" || password === ""}
-                style={styles.btn}
-                onPress={submitHandler}
-            >
-                Log In
-            </Button>
-
-            <Text style={styles.or}>OR</Text>
-
-            <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate("signup")}
-            >
-                <Text style={styles.link}>Sign Up</Text>
-            </TouchableOpacity>
-            </View>
-        </View> */}
-
             <View className="flex-1" style={{ backgroundColor: "#F4B546" }}>
                 <View className="flex">
                     <View className="flex-row justify-start">
@@ -136,7 +116,7 @@ const SignUp = ({ navigation, route }) => {
                     </View>
                     <View className="flex-row justify-center mt-[-40px]">
                         <Image source={require("../../assets/images/cat_dog_home.png")}
-                            style={{ width: 100, height: 100, marginTop: 50 }}
+                            style={{ width: 200, height: 200, marginTop: 50 }}
                         />
                     </View>
 
@@ -149,26 +129,26 @@ const SignUp = ({ navigation, route }) => {
                 >
                     <View className="flex-1 bg-white px-8 pt-8" style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}>
                         <View className="form space-y-2">
-                            <Image
+                            <Avatar.Image
                                 style={{
                                     alignSelf: "center",
-                                    // backgroundColor: colors.color1,
+                                    backgroundColor: "#c70049",
                                 }}
                                 size={80}
-                            // source={{
-                            //     uri: avatar ? avatar : defaultImg,
-                            // }}
+                                source={avatar ? { uri: avatar } : require("../../assets/images/default-user-icon.jpg")}
                             />
-                            <TouchableOpacity onPress={() => navigation.navigate("camera")}>
-                                <Button title="Change Photo" />
-                            </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("camera")}>
+                            <Button textColor="gray">Change Photo</Button>
+                        </TouchableOpacity>
 
 
                             <Text className="text-gray-700 ml-4">
                                 Name
                             </Text>
                             <TextInput
-                                placeholder="Enter email address"
+                                placeholder="Enter name"
+                                value={name}
+                                onChangeText={setName}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
 
@@ -177,6 +157,9 @@ const SignUp = ({ navigation, route }) => {
                             </Text>
                             <TextInput
                                 placeholder="Enter email address"
+                                keyboardType="email-address"
+                                value={email}
+                                onChangeText={setEmail}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
 
@@ -184,16 +167,20 @@ const SignUp = ({ navigation, route }) => {
                                 Password
                             </Text>
                             <TextInput
+                                secureTextEntry={true}
                                 placeholder="Enter password"
+                                value={password}
+                                onChangeText={setPassword}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
-                                secureTextEntry
                             />
 
                             <Text className="text-gray-700 ml-4">
                                 Address
                             </Text>
                             <TextInput
-                                placeholder="Enter email address"
+                                placeholder="Enter address"
+                                value={address}
+                                onChangeText={setAddress}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
 
@@ -201,7 +188,9 @@ const SignUp = ({ navigation, route }) => {
                                 City
                             </Text>
                             <TextInput
-                                placeholder="Enter email address"
+                                placeholder="Enter city"
+                                value={city}
+                                onChangeText={setCity}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
 
@@ -209,7 +198,9 @@ const SignUp = ({ navigation, route }) => {
                                 Country
                             </Text>
                             <TextInput
-                                placeholder="Enter email address"
+                                placeholder="Enter country"
+                                value={country}
+                                onChangeText={setCountry}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
 
@@ -217,10 +208,17 @@ const SignUp = ({ navigation, route }) => {
                                 Pin Code
                             </Text>
                             <TextInput
-                                placeholder="Enter email address"
+                                placeholder="Enter email pin code"
+                                value={pinCode}
+                                onChangeText={setPinCode}
                                 className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
                             />
-                            <TouchableOpacity className="py-2 bg-yellow-400 rounded-xl">
+                            <TouchableOpacity
+                            loading={loading} 
+                            className="py-2 bg-yellow-400 rounded-xl"
+                            // disabled={disableBtn}
+                            onPress={submitHandler}
+                            >
                                 <Text className="text-gray-700 font-bold text-center">
                                     Sign Up
                                 </Text>

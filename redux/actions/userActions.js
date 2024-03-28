@@ -26,11 +26,12 @@ export const register = (formData) => async (dispatch) => {
         })
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        const errorMessage = error.response ? error.response.data.message : 'Network error';
         dispatch({
             type: "registerFail",
-            payload: error.response.data.message
-        })
+            payload: errorMessage
+        });
     }
 
 }
