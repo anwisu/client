@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Camera from "./screens/Camera";
-// import ProductDetails from "./screens/ProductDetails";
+import ProductDetails from "./screens/ProductDetails";
 // import Cart from "./screens/Cart";
 // import ConfirmOrder from "./screens/ConfirmOrder";
 // import Payment from "./screens/Payment";
@@ -27,10 +27,10 @@ const Main = () => {
         >
             <Stack.Group>
             <Stack.Screen name="home" component={Home} />
-            {/* <Stack.Screen name="productdetails" component={ProductDetails} />
-            <Stack.Screen name="cart" component={Cart} />
-            <Stack.Screen name="confirmorder" component={ConfirmOrder} />
-            <Stack.Screen name="payment" component={Payment} /> */}
+            <Stack.Screen name="productdetails" component={ProductDetails} />
+            {/* <Stack.Screen name="cart" component={Cart} /> */}
+            {/* <Stack.Screen name="confirmorder" component={ConfirmOrder} /> */}
+            {/* <Stack.Screen name="payment" component={Payment} /> */}
             <Stack.Screen name="camera" component={Camera} />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signup" component={SignUp} />
