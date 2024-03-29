@@ -14,17 +14,37 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      "expo-secure-store"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.barknmeow.jjjapp",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.289389880504-kti3af55ufh1fbfensr659ipb59kogi8"
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logosolo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.barknmeow.jjjapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logosolo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cc8a69e9-0387-459f-9422-7f2b012af153"
+      }
     }
   }
 }

@@ -1,10 +1,10 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
-// import {
-//     GoogleSignin,
-//     GoogleSigninButton,
-//     statusCodes,
-// } from "@react-native-google-signin/google-signin";
+import {
+    GoogleSignin,
+    GoogleSigninButton,
+    statusCodes,
+} from "@react-native-google-signin/google-signin";
 import Footer from "../../components/Layout/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import Toast from "react-native-toast-message";
@@ -12,19 +12,20 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { login, verifyToken } from "../../redux/actions/userActions";
 import { useMessageAndErrorUser } from "../../utils/hooks";
+import { CLIENT_ID_WEB, CLIENT_ID_ANDROID, CLIENT_ID_IOS } from "@env";
 
 const Login = ({ navigation }) => {
     // const navigation = useNavigation();
     const [error, setError] = useState();
 
     const { newUser, user } = useSelector((state) => state.user);
-    // const configureGoogleSignIn = () => {
-    //     GoogleSignin.configure({
-    //         webClientId: CLIENT_ID_WEB,
-    //         androidClientId: CLIENT_ID_ANDROID,
-    //         iosClientId: CLIENT_ID_IOS,
-    //     });
-    // };
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            webClientId: CLIENT_ID_WEB,
+            androidClientId: CLIENT_ID_ANDROID,
+            iosClientId: CLIENT_ID_IOS,
+        });
+    };
     const navigateToHome = () => {
         navigation.reset({
             index: 0,
@@ -48,10 +49,10 @@ const Login = ({ navigation }) => {
         }
     }, [newUser, user, navigation]);
 
-    // useEffect(() => {
-    //     configureGoogleSignIn();
-    //     GoogleSignin.signOut();
-    // });
+    useEffect(() => {
+        configureGoogleSignIn();
+        GoogleSignin.signOut();
+    });
 
     const showToast = (type, text) => {
         Toast.show({
@@ -72,19 +73,19 @@ const Login = ({ navigation }) => {
         dispatch(login(email, password));
     };
 
-    // const signIn = async () => {
-    //     try {
-    //         await GoogleSignin.hasPlayServices();
-    //         const userInfo = await GoogleSignin.signIn();
+    const signIn = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
 
-    //         dispatch(verifyToken(userInfo.idToken));
-    //         setError();
+            dispatch(verifyToken(userInfo.idToken));
+            setError();
 
-    //     } catch (e) {
-    //         setError(e);
-    //     }
+        } catch (e) {
+            setError(e);
+        }
 
-    // };
+    };
 
     return (
         <>
@@ -151,11 +152,12 @@ const Login = ({ navigation }) => {
                         Or
                     </Text>
                     <View className="flex-row justify-center">
-                        <TouchableOpacity className="flex-row items-center p-2 bg-gray-100 rounded-2xl">
+                        <TouchableOpacity className="flex-row items-center p-2 bg-gray-100 rounded-2xl" onPress={signIn}>
                             <Image source={require("../../assets/images/google-icon.png")}
                                 className="w-8 h-8"
                             />
                             <Text className="text-gray-700 font-bold text-center mx-6">Google Sign In</Text>
+                            
                         </TouchableOpacity>
                     </View>
                     <View className="flex-row justify-center py-2">

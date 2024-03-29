@@ -17,8 +17,8 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import mime from "mime";
 import { updatePic } from "../../redux/actions/otherActions";
-// import { GoogleSignin } from "@react-native-google-signin/google-signin";
-// import { CLIENT_ID_ANDROID, CLIENT_ID_IOS, CLIENT_ID_WEB } from "@env";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { CLIENT_ID_ANDROID, CLIENT_ID_IOS, CLIENT_ID_WEB } from "@env";
 
 
 const Profile = ({ navigation, route }) => {

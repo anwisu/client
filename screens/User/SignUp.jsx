@@ -19,40 +19,63 @@ const SignUp = ({ navigation, route }) => {
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
     const [pinCode, setPinCode] = useState("");
+    const [googleId, setGoogleId] = useState();
 
     const dispatch = useDispatch();
 
-    const disableBtn =
+    const { user } = useSelector((state) => state.user)
+    const disableBtn = googleId ? !name || !email || !address || !city || !country || !pinCode :
         !name || !email || !password || !address || !city || !country || !pinCode;
 
-    const submitHandler = () => {
-        const myForm = new FormData();
+        const submitHandler = async () => {
+            const myForm = new FormData();
+          
+            myForm.append("name", name);
+            myForm.append("email", email);
+            myForm.append("password", password);
+            myForm.append("address", address);
+            myForm.append("city", city);
+            myForm.append("country", country);
+            myForm.append("pinCode", pinCode);
+            myForm.append("googleId", googleId);
+            if (googleId) {
+              myForm.append("file", avatar);
+            } else {
+              if (avatar !== "") {
+                myForm.append("file", {
+                  uri: avatar,
+                  type: mime.getType(avatar),
+                  name: avatar.split("/").pop(),
+                });
+              }
+            }
+          
+            try {
+              await dispatch(register(myForm));
+              navigation.navigate('login');
+            } catch (error) {
+              console.error(error);
+              // handle error here
+            }
+          };
 
-        myForm.append("name", name);
-        myForm.append("email", email);
-        myForm.append("password", password);
-        myForm.append("address", address);
-        myForm.append("city", city);
-        myForm.append("country", country);
-        myForm.append("pinCode", pinCode);
+          const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
+          useEffect(() => {
+              if (user) {
+      
+                  setName(user.name)
+                  setEmail(user.email)
+                  setAvatar(user.picture)
+                  setGoogleId(user.sub)
+                  setPassword(googleId)
+      
+              }
+          }, [user])
+          useEffect(() => {
+            console.log("Route params:", route.params); // Check if route.params is defined
+            if (route.params?.image) setAvatar(route.params.image);
+        }, [route.params]);
 
-        if (avatar !== "") {
-            myForm.append("file", {
-                uri: avatar,
-                type: mime.getType(avatar),
-                name: avatar.split("/").pop(),
-            });
-        }
-
-        dispatch(register(myForm));
-    };
-
-    const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
-
-    useEffect(() => {
-        console.log("Route params:", route.params); // Check if route.params is defined
-        if (route.params?.image) setAvatar(route.params.image);
-    }, [route.params]);
 
     return (
         <>
@@ -189,7 +212,10 @@ const SignUp = ({ navigation, route }) => {
                         </View>
                         <View className="flex-row justify-center py-2">
                             <Text className="text-gray-500 font-semibold">Already have an account?</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('signup')}>
+                            <TouchableOpacity 
+                            onPress={() => {
+                                dispatch({type: "resetUser"})
+                                navigation.navigate('login')}}>
                                 <Text className="text-yellow-400 font-semibold ml-2">Login</Text>
                             </TouchableOpacity>
                         </View>

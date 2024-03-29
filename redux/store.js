@@ -19,6 +19,7 @@ export const store = configureStore({
     },
 });
 //Deployed server
-export const server = "https://barknmeow-backend.onrender.com/api/v1"
+/* export const server = "https://barknmeow-backend.onrender.com/api/v1" */
 
-// export const server = "http://192.168.100.3:5000/api/v1"
+//IP ni wanel
+export const server = "http://192.168.100.138:5000/api/v1"
