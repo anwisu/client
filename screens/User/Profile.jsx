@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 //     GoogleSigninButton,
 //     statusCodes,
 // } from "@react-native-google-signin/google-signin";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Layout/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";

@@ -10,7 +10,6 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar } from "react-native-paper";
 import { iconOptions } from "../screens/ProductDetails";
-import { useNavigation } from "@react-navigation/native";
 
 const CartItem = ({
     name,
@@ -26,12 +25,11 @@ const CartItem = ({
     addToWishlistHandler,
     navigate,
 }) => {
-    const navigation = useNavigation();
 
     return (
         <TouchableOpacity
             // key={data.key}
-            onPress={() => navigation.navigate('productdetails', {id})}
+            onPress={() => navigate.navigate('productdetails', {id})}
             style={{
                 width: '100%',
                 height: 100,

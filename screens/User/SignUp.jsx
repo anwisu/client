@@ -1,6 +1,6 @@
 import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Layout/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 // import UserAvatar from 'react-native-user-avatar';
