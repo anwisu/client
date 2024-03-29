@@ -40,7 +40,7 @@ const ProductCard = ({
             <View
                 style={{
                     width: '100%',
-                    height: 100,
+                    height: 140,
                     borderRadius: 10,
                     backgroundColor: '#F0F0F3',
                     position: 'relative',
