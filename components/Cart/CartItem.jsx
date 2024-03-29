@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Avatar } from "react-native-paper";
-import { iconOptions } from "../screens/ProductDetails";
+import { iconOptions } from "../../screens/ProductDetails";
 
 const CartItem = ({
     name,

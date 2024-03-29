@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 // import { COLOURS, Items } from '../database/Database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import ConfirmOrderItem from '../../components/ConfirmOrderItem'
+import ConfirmOrderItem from '../../components/Cart/ConfirmOrderItem'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { placeOrder } from "../../redux/actions/cartActions";

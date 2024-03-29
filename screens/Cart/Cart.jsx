@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 // import { COLOURS, Items } from '../database/Database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CartItem from "../../components/CartItem";
+import CartItem from "../../components/Cart/CartItem";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
