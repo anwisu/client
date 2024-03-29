@@ -66,7 +66,7 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
-    const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
+    const loading = useMessageAndErrorUser(navigation, dispatch, "home");
 
     const submitHandler = () => {
         dispatch(login(email, password));

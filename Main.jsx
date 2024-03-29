@@ -9,6 +9,7 @@ import ConfirmOrder from "./screens/Cart/ConfirmOrder";
 import Payment from "./screens/Cart/Payment";
 import Login from "./screens/User/Login";
 import SignUp from "./screens/User/SignUp";
+import Orders from "./screens/Order/Orders";
 // import Toast from "react-native-toast-message";
 // import ForgetPassword from "./screens/ForgetPassword";
 // import Verify from "./screens/Verify";
@@ -36,6 +37,7 @@ const Main = () => {
             <Stack.Screen name="signup" component={SignUp} />
             <Stack.Screen name="profile" component={Profile} />
 
+            <Stack.Screen name="orders" component={Orders} />
             {/* Password Reset Routes */}
             {/* <Stack.Screen name="forgetpassword" component={ForgetPassword} />
             <Stack.Screen name="verify" component={Verify} /> */}
