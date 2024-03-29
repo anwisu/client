@@ -154,8 +154,9 @@ const Cart = ({ navigation }) => {
                         </Text>
                     )}
                 </View>
+                </ScrollView>
                 <View>
-                    <View
+                    {/* <View
                         style={{
                             paddingHorizontal: 16,
                             marginVertical: 10,
@@ -300,7 +301,7 @@ const Cart = ({ navigation }) => {
                                 style={{ fontSize: 22, color: '#000000' }}
                             />
                         </View>
-                    </View>
+                    </View> */}
                     <View
                         style={{
                             paddingHorizontal: 16,
@@ -404,7 +405,7 @@ const Cart = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-            </ScrollView>
+            
 
             <View
                 style={{

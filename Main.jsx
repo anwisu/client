@@ -5,8 +5,8 @@ import Home from "./screens/Home";
 import Camera from "./screens/Camera";
 import ProductDetails from "./screens/ProductDetails";
 import Cart from "./screens/Cart/Cart";
-// import ConfirmOrder from "./screens/ConfirmOrder";
-// import Payment from "./screens/Payment";
+import ConfirmOrder from "./screens/Cart/ConfirmOrder";
+import Payment from "./screens/Cart/Payment";
 import Login from "./screens/User/Login";
 import SignUp from "./screens/User/SignUp";
 // import Toast from "react-native-toast-message";
@@ -29,8 +29,8 @@ const Main = () => {
             <Stack.Screen name="home" component={Home} />
             <Stack.Screen name="productdetails" component={ProductDetails} />
             <Stack.Screen name="cart" component={Cart} />
-            {/* <Stack.Screen name="confirmorder" component={ConfirmOrder} /> */}
-            {/* <Stack.Screen name="payment" component={Payment} /> */}
+            <Stack.Screen name="confirmorder" component={ConfirmOrder} />
+            <Stack.Screen name="payment" component={Payment} />
             <Stack.Screen name="camera" component={Camera} />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signup" component={SignUp} />

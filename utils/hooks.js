@@ -44,42 +44,79 @@ export const useMessageAndErrorUser = (
     return loading;
 };
 
-// export const useMessageAndErrorOther = (
-//     dispatch,
-//     navigation,
-//     navigateTo,
-//     func
-// ) => {
-//     const { loading, message, error } = useSelector((state) => state.other);
+export const useMessageAndErrorOther = (
+    dispatch,
+    navigation,
+    navigateTo,
+    func
+) => {
+    const { loading, message, error } = useSelector((state) => state.other);
 
-//     useEffect(() => {
-//         if (error) {
-//             Toast.show({
-//                 type: "error",
-//                 text1: error,
-//             });
-//             dispatch({
-//                 type: "clearError",
-//             });
-//         }
+    useEffect(() => {
+        if (error) {
+            Toast.show({
+                type: "error",
+                text1: error,
+            });
+            dispatch({
+                type: "clearError",
+            });
+        }
 
-//         if (message) {
-//             Toast.show({
-//                 type: "success",
-//                 text1: message,
-//             });
-//             dispatch({
-//                 type: "clearMessage",
-//             });
+        if (message) {
+            Toast.show({
+                type: "success",
+                text1: message,
+            });
+            dispatch({
+                type: "clearMessage",
+            });
 
-//             navigateTo && navigation.navigate(navigateTo);
+            navigateTo && navigation.navigate(navigateTo);
 
-//             func && dispatch(func());
-//         }
-//     }, [error, message, dispatch, navigateTo, func]);
+            func && dispatch(func());
+        }
+    }, [error, message, dispatch, navigateTo, func]);
 
-//     return loading;
-// };
+    return loading;
+};
+
+export const useMessageAndErrorCart = (
+    dispatch,
+    navigation,
+    navigateTo,
+    func
+) => {
+    const { loading, message, error } = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        if (error) {
+            Toast.show({
+                type: "error",
+                text1: error,
+            });
+            dispatch({
+                type: "clearError",
+            });
+        }
+
+        if (message) {
+            Toast.show({
+                type: "success",
+                text1: message,
+            });
+            dispatch({
+                type: "clearMessage",
+            });
+
+            navigateTo && navigation.navigate(navigateTo);
+
+            func && dispatch(func());
+        }
+    }, [error, message, dispatch, navigateTo, func]);
+
+    return loading;
+};
 
 export const useSetCategories = (setCategories, isFocused) => {
     useEffect(() => {
