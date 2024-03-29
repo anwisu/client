@@ -18,12 +18,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productActions";
 import { useSetCategories } from "../utils/hooks";
 import ProductCard from '../components/ProductCard';
+import { Avatar, Button } from "react-native-paper";
 
 const Home = () => {
     const [category, setCategory] = useState("");
     const [activeSearch, setActiveSearch] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    // const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const navigate = useNavigation();
     const dispatch = useDispatch();
@@ -33,10 +35,11 @@ const Home = () => {
     const { user } = useSelector((state) => state.user);
 
     console.log(user)
-    // const categoryButtonHandler = (id) => {
-    //     setCategory(id);
-    // };
+    const categoryButtonHandler = (id) => {
+        setCategory(id);
+    };
 
+    
     const addToCardHandler = (id, name, price, image, stock) => {
         if (!user) {
             navigate.navigate("login");
@@ -90,11 +93,20 @@ const Home = () => {
         });
     };
 
-    // useSetCategories(setCategories, isFocused);
+    const handleCategoryClick = (categoryId) => {
+        setSelectedCategory(categoryId);
+        if (categoryId === null) {
+            setCategory("");
+        } else {
+            setCategory(categoryId);
+        }
+    };
+
+    useSetCategories(setCategories, isFocused);
 
     useEffect(() => {
         const timeOutId = setTimeout(() => {
-            dispatch(getAllProducts(searchQuery, category));
+            dispatch(getAllProducts(searchQuery, category, ""));
         }, 200);
         return () => {
             clearTimeout(timeOutId);
@@ -147,30 +159,9 @@ const Home = () => {
                     </View>
                     <View
                         style={{
-                            marginBottom: 10,
-                            padding: 16,
+                            marginBottom: 0,
+                            padding: 0,
                         }}>
-                        {/* <Text
-                            style={{
-                                fontSize: 26,
-                                color: '#000000',
-                                fontWeight: '500',
-                                letterSpacing: 1,
-                                marginBottom: 10,
-                            }}>
-                            Hi-Fi Shop &amp; Service
-                        </Text> */}
-                        {/* <Text
-                            style={{
-                                fontSize: 14,
-                                color: '#000000',
-                                fontWeight: '400',
-                                letterSpacing: 1,
-                                lineHeight: 24,
-                            }}>
-                            Audio shop on Rustaveli Ave 57.
-                            {'\n'}This shop offers both products and services
-                        </Text> */}
                     </View>
                     <View
                         style={{
@@ -196,26 +187,63 @@ const Home = () => {
                                     }}>
                                     Products
                                 </Text>
-                                {/* <Text
-                                    style={{
-                                        fontSize: 14,
-                                        color: '#000000',
-                                        fontWeight: '400',
-                                        opacity: 0.5,
-                                        marginLeft: 10,
-                                    }}>
-                                    41
-                                </Text> */}
                             </View>
-                            {/* <Text
-                                style={{
-                                    fontSize: 14,
-                                    color: '#0043F9',
-                                    fontWeight: '400',
-                                }}>
-                                SeeAll
-                            </Text> */}
                         </View>
+
+                        <View
+                        style={{
+                            flexDirection: "row",
+                            height: 80,
+                        }}
+                        >
+                        <ScrollView
+                            horizontal
+                            contentContainerStyle={{ alignItems: "center" }}
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            {/* "All" button */}
+                            <Button
+                                style={{
+                                    backgroundColor: selectedCategory === null ? "gray" : "#F4B546",
+                                    borderRadius: 100,
+                                    margin: 5,
+                                    paddingHorizontal: 12,
+                                }}
+                                onPress={() => handleCategoryClick(null)}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: 12,
+                                        color: selectedCategory === null ? "#F4B546" : "#FFFFFF"
+                                    }}
+                                >
+                                    All
+                                </Text>
+                            </Button>
+                            {categories.map((item, index) => (
+                                <Button
+                                    key={item._id}
+                                    style={{
+                                        backgroundColor: selectedCategory === item._id ? "gray" : "#F4B546",
+                                        borderRadius: 100,
+                                        margin: 5,
+                                        paddingHorizontal: 12,
+                                    }}
+                                    onPress={() => handleCategoryClick(item._id)}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 12,
+                                            color: selectedCategory === item._id ? "#F4B546" : "#FFFFFF"
+                                        }}
+                                    >
+                                        {item.category}
+                                    </Text>
+                                </Button>
+                            ))}
+                        </ScrollView>
+                        </View>
+
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -242,7 +270,7 @@ const Home = () => {
                         </View>
                     </View>
 
-                    <View
+                    {/* <View
                         style={{
                             padding: 16,
                         }}>
@@ -295,8 +323,8 @@ const Home = () => {
                             {/* {accessory.map(data => {
                                 return <ProductCard data={data} key={data.id} />;
                             })} */}
-                        </View>
-                    </View>
+                        {/* </View>
+                    </View> */}
                 </ScrollView>
             </View>
             <Footer activeRoute={"home"} />

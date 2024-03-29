@@ -81,23 +81,23 @@ export const useMessageAndErrorUser = (
 //     return loading;
 // };
 
-// export const useSetCategories = (setCategories, isFocused) => {
-//     useEffect(() => {
-//         axios
-//             .get(`${server}/category/all`)
-//             .then((res) => {
-//                 console.log(res)
-//                 setCategories(res.data.categories);
-//             })
-//             .catch((e) => {
-//                 console.log(e.message)
-//                 Toast.show({
-//                     type: "error",
-//                     text1: e.message,
-//                 });
-//             });
-//     }, [isFocused]);
-// };
+export const useSetCategories = (setCategories, isFocused) => {
+    useEffect(() => {
+        axios
+            .get(`${server}/category/all`)
+            .then((res) => {
+                console.log(res)
+                setCategories(res.data.categories);
+            })
+            .catch((e) => {
+                console.log(e.message)
+                Toast.show({
+                    type: "error",
+                    text1: e.message,
+                });
+            });
+    }, [isFocused]);
+};
 
 // export const useGetOrders = (isFocused, isAdmin = false) => {
 //     const [orders, setOrders] = useState([]);

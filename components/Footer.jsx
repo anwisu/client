@@ -29,20 +29,20 @@ const Footer = ({ activeRoute = "home" }) => {
     };
 
     const iconStyle = {
-        color: "#ffffff",
-        fontSize: 50,
-        backgroundColor: "#c70049",
+        color:"rgb(45,45,45)",
+        fontSize: 30,
     };
 
     return (
         <View
         style={{
-            backgroundColor: "#c70049",
-            borderTopRightRadius: 120,
-            borderTopLeftRadius: 120,
+            backgroundColor: "#F4B546",
             position: "absolute",
             width: "100%",
             bottom: 0,
+            borderRadius: 50,
+            height: 50,
+            justifyContent: "center"
         }}
         >
         <View
@@ -51,6 +51,16 @@ const Footer = ({ activeRoute = "home" }) => {
             justifyContent: "space-evenly",
             }}
         >
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigationHandler(0)}
+            >
+                <Icon
+                name={activeRoute === "home" ? "home" : "home-outline"}
+                style={iconStyle}
+                />
+            </TouchableOpacity>
+            
             <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigationHandler(1)}
@@ -78,7 +88,7 @@ const Footer = ({ activeRoute = "home" }) => {
             </TouchableOpacity>
         </View>
 
-        <View
+        {/* <View
             style={{
             position: "absolute",
             width: 80,
@@ -108,7 +118,7 @@ const Footer = ({ activeRoute = "home" }) => {
                 />
             </TouchableOpacity>
             </View>
-        </View>
+        </View> */}
         </View>
     );
 };
