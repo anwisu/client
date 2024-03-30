@@ -7,6 +7,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Image,
+    StyleSheet,
 } from 'react-native';
 // import {COLOURS, Items} from '../database/Database';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -19,6 +20,7 @@ import { getAllProducts } from "../redux/actions/productActions";
 import { useSetCategories } from "../utils/hooks";
 import ProductCard from '../components/ProductCard';
 import { Avatar, Button } from "react-native-paper";
+import { SliderBox } from "react-native-image-slider-box";
 
 const Home = () => {
     const [category, setCategory] = useState("");
@@ -26,6 +28,10 @@ const Home = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const slides = [
+        require("../assets/images/banner/banner1.png"),
+        require("../assets/images/banner/banner2.png"),
+    ];
 
     const navigate = useNavigation();
     const dispatch = useDispatch();
@@ -39,7 +45,7 @@ const Home = () => {
         setCategory(id);
     };
 
-    
+
     const addToCardHandler = (id, name, price, image, stock) => {
         if (!user) {
             navigate.navigate("login");
@@ -95,11 +101,7 @@ const Home = () => {
 
     const handleCategoryClick = (categoryId) => {
         setSelectedCategory(categoryId);
-        if (categoryId === null) {
-            setCategory("");
-        } else {
-            setCategory(categoryId);
-        }
+        setCategory(categoryId === null ? "" : categoryId);
     };
 
     useSetCategories(setCategories, isFocused);
@@ -157,16 +159,78 @@ const Home = () => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View
-                        style={{
-                            marginBottom: 0,
-                            padding: 0,
-                        }}>
+                    <View style={styles.promotiomSliderContainer}>
+                        <SliderBox
+                            images={slides}
+                            sliderBoxHeight={140}
+                            dotColor="#FB6831"
+                            inactiveDotColor="#707981"
+                            paginationBoxVerticalPadding={10}
+                            autoplayInterval={1000}
+                        />
                     </View>
                     <View
                         style={{
                             padding: 16,
                         }}>
+
+                        <View style={styles.primaryTextContainer}>
+                            <Text style={styles.primaryText}>Categories</Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                height: 80,
+                            }}
+                        >
+                            <ScrollView
+                                horizontal
+                                contentContainerStyle={{ alignItems: "center" }}
+                                showsHorizontalScrollIndicator={false}
+                            >
+                                {/* "All" button */}
+                                <Button
+                                    style={{
+                                        backgroundColor: selectedCategory === null ? "gray" : '#bc430b',
+                                        borderRadius: 10,
+                                        margin: 5,
+                                        paddingHorizontal: 12,
+                                    }}
+                                    onPress={() => handleCategoryClick(null)}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 12,
+                                            color: selectedCategory === null ? "#FFFFFF" : "#FFFFFF"
+                                        }}
+                                    >
+                                        All
+                                    </Text>
+                                </Button>
+
+                                {categories.map((item, index) => (
+                                    <Button
+                                        key={item._id}
+                                        style={{
+                                            backgroundColor: category === item._id ? '#bc430b' : "#F4B546",
+                                            borderRadius: 10,
+                                            margin: 5,
+                                            paddingHorizontal: 12,
+                                        }}
+                                        onPress={() => categoryButtonHandler(item._id)}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontSize: 12,
+                                                color: category === item._id ? "#FFFFFF" : '#000000'
+                                            }}
+                                        >
+                                            {item.category}
+                                        </Text>
+                                    </Button>
+                                ))}
+                            </ScrollView>
+                        </View>
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -180,7 +244,7 @@ const Home = () => {
                                 }}>
                                 <Text
                                     style={{
-                                        fontSize: 22,
+                                        fontSize: 24,
                                         color: '#000000',
                                         fontWeight: '700',
                                         letterSpacing: 1,
@@ -189,61 +253,6 @@ const Home = () => {
                                 </Text>
                             </View>
                         </View>
-
-                        <View
-                        style={{
-                            flexDirection: "row",
-                            height: 80,
-                        }}
-                        >
-                        <ScrollView
-                            horizontal
-                            contentContainerStyle={{ alignItems: "center" }}
-                            showsHorizontalScrollIndicator={false}
-                        >
-                            {/* "All" button */}
-                            <Button
-                                style={{
-                                    backgroundColor: selectedCategory === null ? "gray" : "#F4B546",
-                                    borderRadius: 100,
-                                    margin: 5,
-                                    paddingHorizontal: 12,
-                                }}
-                                onPress={() => handleCategoryClick(null)}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 12,
-                                        color: selectedCategory === null ? "#F4B546" : "#FFFFFF"
-                                    }}
-                                >
-                                    All
-                                </Text>
-                            </Button>
-                            {categories.map((item, index) => (
-                                <Button
-                                    key={item._id}
-                                    style={{
-                                        backgroundColor: selectedCategory === item._id ? "gray" : "#F4B546",
-                                        borderRadius: 100,
-                                        margin: 5,
-                                        paddingHorizontal: 12,
-                                    }}
-                                    onPress={() => handleCategoryClick(item._id)}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 12,
-                                            color: selectedCategory === item._id ? "#F4B546" : "#FFFFFF"
-                                        }}
-                                    >
-                                        {item.category}
-                                    </Text>
-                                </Button>
-                            ))}
-                        </ScrollView>
-                        </View>
-
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -274,3 +283,23 @@ const Home = () => {
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+    primaryTextContainer: {
+        // padding: 20,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        width: "100%",
+        paddingTop: 10
+    },
+    primaryText: {
+        fontSize: 24,
+        fontWeight: "bold",
+    },
+    promotiomSliderContainer: {
+        height: 140,
+        backgroundColor: "#F5F5F5",
+    },
+});
