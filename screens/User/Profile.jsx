@@ -219,16 +219,16 @@ const Profile = ({ navigation, route }) => {
                                     iconName={"person"}
                                     onPress={() => navigateHandler("Orders")}
                                 />
-                                {/* {user?.role === "admin" && (
+                                {user?.role === "admin" && (
                                     <OptionList
                                         handler={navigateHandler}
                                         icon={"view-dashboard"}
-                                        text={"Dashboard"}
+                                        text={"Admin"}
                                         Icon={Ionicons}
                                         iconName={"person"}
-                                        onPress={() => navigation.navigate("myaccount", { user: userInfo })}
+                                        onPress={() => navigateHandler("Admin")}
                                     />
-                                )} */}
+                                )}
                                 <OptionList
                                     text={"My Account"}
                                     Icon={Ionicons}
