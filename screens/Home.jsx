@@ -264,67 +264,8 @@ const Home = () => {
                                     navigate={navigate}
                                 />
                             ))}
-                            {/* {products.map(data => {
-                                return <ProductCard data={data} key={data.id} />;
-                            })} */}
                         </View>
                     </View>
-
-                    {/* <View
-                        style={{
-                            padding: 16,
-                        }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                            }}>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 18,
-                                        color: '#000000',
-                                        fontWeight: '500',
-                                        letterSpacing: 1,
-                                    }}>
-                                    Accessories
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontSize: 14,
-                                        color: '#000000',
-                                        fontWeight: '400',
-                                        opacity: 0.5,
-                                        marginLeft: 10,
-                                    }}>
-                                    78
-                                </Text>
-                            </View>
-                            <Text
-                                style={{
-                                    fontSize: 14,
-                                    color: '#0043F9',
-                                    fontWeight: '400',
-                                }}>
-                                SeeAll
-                            </Text>
-                        </View>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                flexWrap: 'wrap',
-                                justifyContent: 'space-around',
-                            }}>
-                            {/* {accessory.map(data => {
-                                return <ProductCard data={data} key={data.id} />;
-                            })} */}
-                        {/* </View>
-                    </View> */}
                 </ScrollView>
             </View>
             <Footer activeRoute={"home"} />

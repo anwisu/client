@@ -68,13 +68,59 @@ const ProductCard = ({
                 }}>
                 {truncateName(name, 50)}
             </Text>
-            <Text 
+            {isOutOfStock ? (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}>
+                    <FontAwesome
+                        name="circle"
+                        style={{
+                            fontSize: 12,
+                            marginRight: 6,
+                            color: '#C04345',
+                        }}
+                    />
+                    <Text
+                        style={{
+                            fontSize: 12,
+                            color: '#C04345',
+                        }}>
+                        Unavailable
+                    </Text>
+                </View>
+
+            ) : (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}>
+                    <FontAwesome
+                        name="circle"
+                        style={{
+                            fontSize: 12,
+                            marginRight: 6,
+                            color: '#00AC76',
+                        }}
+                    />
+                    <Text
+                        style={{
+                            fontSize: 12,
+                            color: '#00AC76',
+                        }}>
+                        Available
+                    </Text>
+                </View>
+            )}
+            <Text
                 style={{
                     fontSize: 18,
                     fontWeight: '500',
                     color: '#e84219',
                     marginBottom: 4,
-                }} 
+                }}
                 className="text-semibold text-md">$ {price}
             </Text>
             <View
@@ -82,7 +128,7 @@ const ProductCard = ({
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    backgroundColor:"#F4B546",
+                    backgroundColor: "#F4B546",
                     borderRadius: 0,
                     paddingVertical: 4,
                     borderBottomRightRadius: 20,
