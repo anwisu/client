@@ -15,6 +15,10 @@ import OrderDetails from "./screens/Order/OrderDetails";
 // import ForgetPassword from "./screens/ForgetPassword";
 // import Verify from "./screens/Verify";
 import Profile from "./screens/User/Profile";
+import AdminPanel from "./screens/Admin/AdminPanel";
+import Categories from "./screens/Admin/Categories";
+import UpdateCategory from "./screens/Admin/UpdateCategory";
+import CategoryImages from "./screens/Admin/CategoryImages";
 
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +45,14 @@ const Main = () => {
 
             <Stack.Screen name="orders" component={Orders} />
             <Stack.Screen name="orderdetails" component={OrderDetails} />
+
+
+
+            {/* Dashboard */}
+            <Stack.Screen name="adminpanel" component={AdminPanel} />
+            <Stack.Screen name="categories" component={Categories} />
+            <Stack.Screen name="updatecategory" component={UpdateCategory} />
+            <Stack.Screen name="categoryimages" component={CategoryImages} />
 
             {/* Password Reset Routes */}
             {/* <Stack.Screen name="forgetpassword" component={ForgetPassword} />
