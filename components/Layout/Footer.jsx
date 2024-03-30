@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from "react-redux"
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const Footer = ({ activeRoute = "home" }) => {
     const navigate = useNavigation();
@@ -19,7 +20,7 @@ const Footer = ({ activeRoute = "home" }) => {
             navigate.navigate("cart");
             break;
         case 2:
-            if (isAuthenticated) navigate.navigate("profile");
+            if (isAuthenticated) console.log("is Authenticated:",isAuthenticated), navigate.navigate("profile");
             else navigate.navigate("login");
             break;
         default:
@@ -27,6 +28,21 @@ const Footer = ({ activeRoute = "home" }) => {
             break;
         }
     };
+
+    const logoutHandler = () => {
+        if (user.signInMethod === "google") {
+            signOut();
+        }
+        dispatch(logout());
+    };
+
+    const signOut = async () => {
+        try {
+            await GoogleSignin.signOut();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const iconStyle = {
         color:"rgb(45,45,45)",

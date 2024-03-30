@@ -29,31 +29,32 @@ const Profile = ({ navigation, route }) => {
     const isFocused = useIsFocused();
 
     const loading = useMessageAndErrorUser(navigation, dispatch, "login");
-    // const configureGoogleSignIn = () => {
-    //     GoogleSignin.configure({
-    //         webClientId: CLIENT_ID_WEB,
-    //         androidClientId: CLIENT_ID_ANDROID,
-    //         iosClientId: CLIENT_ID_IOS,
-    //     });
-    // }
-    // useEffect(() => {
-    //     configureGoogleSignIn();
-    // });
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            webClientId: CLIENT_ID_WEB,
+            androidClientId: CLIENT_ID_ANDROID,
+            iosClientId: CLIENT_ID_IOS,
+        });
+    }
+    useEffect(() => {
+        configureGoogleSignIn();
+    });
 
-    // const logoutHandler = () => {
-    //     if (user.signInMethod === "google") {
-    //         signOut();
-    //     }
-    //     dispatch(logout());
-    // };
+    const logoutHandler = () => {
+        if (user.signInMethod === "google") {
+            signOut();
+            console.log("google logout")
+        }
+        dispatch(logout());
+    };
 
-    // const signOut = async () => {
-    //     try {
-    //         await GoogleSignin.signOut();
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const signOut = async () => {
+        try {
+            await GoogleSignin.signOut();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const navigateHandler = (text) => {
         switch (text) {
@@ -257,10 +258,14 @@ const Profile = ({ navigation, route }) => {
                                     text={"Logout"}
                                     Icon={Ionicons}
                                     iconName={"log-out"}
-                                // onPress={async () => {
-                                //     await AsyncStorage.removeItem("authUser");
-                                //     navigation.replace("login");
-                                // }}
+                                    onPress={() => {
+                                    logoutHandler();
+                                    dispatch({type: "resetUser"})
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: "home" }],
+                                    });
+                                    }}
                                 />
                             </View>
                         </View>
