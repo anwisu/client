@@ -86,7 +86,7 @@ const Cart = ({ navigation }) => {
                 backgroundColor: '#ffffff',
                 position: 'relative',
             }}>
-            <ScrollView>
+            
                 <View
                     style={{
                         width: '100%',
@@ -130,6 +130,7 @@ const Cart = ({ navigation }) => {
                     }}>
                     My Cart
                 </Text>
+                <ScrollView>
                 <View style={{ paddingHorizontal: 16 }}>
                     {cartItems.length > 0 ? (
                         cartItems.map((i, index) => (
@@ -327,7 +328,7 @@ const Cart = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: '400',
                                     maxWidth: '80%',
                                     color: '#000000',
@@ -337,7 +338,7 @@ const Cart = ({ navigation }) => {
                             </Text>
                             <Text
                                 style={{
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: '400',
                                     color: '#000000',
                                     opacity: 0.8,
@@ -357,7 +358,7 @@ const Cart = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: '400',
                                     maxWidth: '80%',
                                     color: '#000000',
@@ -367,7 +368,7 @@ const Cart = ({ navigation }) => {
                             </Text>
                             <Text
                                 style={{
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: '400',
                                     color: '#000000',
                                     opacity: 0.8,
@@ -383,7 +384,7 @@ const Cart = ({ navigation }) => {
                             }}>
                             <Text
                                 style={{
-                                    fontSize: 12,
+                                    fontSize: 20,
                                     fontWeight: '400',
                                     maxWidth: '80%',
                                     color: '#000000',
@@ -393,9 +394,9 @@ const Cart = ({ navigation }) => {
                             </Text>
                             <Text
                                 style={{
-                                    fontSize: 18,
+                                    fontSize: 24,
                                     fontWeight: '500',
-                                    color: '#000000',
+                                    color: '#e84219',
                                 }}>
                                 ${cartItems.reduce(
                                     (prev, curr) => prev + curr.quantity * curr.price,

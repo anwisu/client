@@ -34,7 +34,7 @@ const ConfirmOrder = () => {
                 backgroundColor: '#ffffff',
                 position: 'relative',
             }}>
-            <ScrollView>
+            
                 <View
                     style={{
                         width: '100%',
@@ -78,6 +78,7 @@ const ConfirmOrder = () => {
                     }}>
                     Confirm Order
                 </Text>
+                <ScrollView>
                 <View style={{ paddingHorizontal: 16 }}>
                     {cartItems.map((i) => (
                         <ConfirmOrderItem

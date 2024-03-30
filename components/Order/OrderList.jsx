@@ -15,6 +15,7 @@ const OrderList = ({
     admin = false,
     loading,
     i = 0,
+    navigate,
 }) => {
     const navigation = useNavigation("Comment");
 
@@ -46,7 +47,7 @@ const OrderList = ({
                 <Text style={styles.secondaryText} i={i}>Total Amount : ${price}</Text>
             </View>
             <View style={styles.innerRow}>
-                <TouchableOpacity style={styles.detailButton} >
+                <TouchableOpacity style={styles.detailButton} onPress={() => navigate.navigate("orderdetails", { id })}>
                     <Text>Details</Text>
                 </TouchableOpacity>
                 <Text style={styles.secondaryText} i={i}>{status}</Text>

@@ -13,36 +13,37 @@ import { Ionicons } from "@expo/vector-icons";
 import Entypo from 'react-native-vector-icons/Entypo';
 import OrderList from "../../components/Order/OrderList";
 import { useGetOrders } from "../../utils/hooks";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
-const Orders = ({ navigation }) => {
+const Orders = () => {
     const isFocused = useIsFocused();
     const { loading, orders } = useGetOrders(isFocused);
+    const navigate = useNavigation();
 
     return (
         <View style={styles.container}>
             {/* <StatusBar></StatusBar>
             <ProgressDialog visible={isloading} label={label} /> */}
             <View style={styles.topBarContainer}>
-            <View
-                        style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}>
-                        <TouchableOpacity onPress={() => navigation.goBack('home')}>
-                            <Entypo
-                                name="chevron-left"
-                                style={{
-                                    fontSize: 18,
-                                    color: '#ffffff',
-                                    padding: 12,
-                                    backgroundColor: '#bc430b',
-                                    borderRadius: 10,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View>
+                <View
+                    style={{
+                        width: '100%',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}>
+                    <TouchableOpacity onPress={() => navigate.goBack('home')}>
+                        <Entypo
+                            name="chevron-left"
+                            style={{
+                                fontSize: 18,
+                                color: '#ffffff',
+                                padding: 12,
+                                backgroundColor: '#bc430b',
+                                borderRadius: 10,
+                            }}
+                        />
+                    </TouchableOpacity>
+                </View>
                 <TouchableOpacity onPress={() => handleOnRefresh()}>
                     <Ionicons name="cart-outline" size={30} color="#FB6831" />
                 </TouchableOpacity>
@@ -60,25 +61,26 @@ const Orders = ({ navigation }) => {
 
             {/* <CustomAlert message={error} type={alertType} /> */}
             {orders.length > 0 ? (
-                orders.map((item, index) => (
-                    <ScrollView
-                        style={{ flex: 1, width: "100%", padding: 20 }}
-                        showsVerticalScrollIndicator={false}
-                        
-                    >
-                        <OrderList
-                            key={item._id}
-                            id={item._id}
-                            i={index}
-                            price={item.totalAmount}
-                            status={item.orderStatus}
-                            paymentMethod={item.paymentMethod}
-                            orderedOn={item.createdAt.split("T")[0]}
-                            address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pinCode}`}
-                        />
-                        <View style={styles.emptyView}></View>
-                    </ScrollView>
-                ))
+                <ScrollView
+                    style={{ flex: 1, width: "100%", padding: 20 }}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {orders.map((item, index) => (
+                        <View key={item._id}>
+                            <OrderList
+                                id={item._id}
+                                i={index}
+                                price={item.totalAmount}
+                                status={item.orderStatus}
+                                paymentMethod={item.paymentMethod}
+                                orderedOn={item.createdAt.split("T")[0]}
+                                address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pinCode}`}
+                                navigate={navigate}
+                            />
+                            <View style={styles.emptyView}></View>
+                        </View>
+                    ))}
+                </ScrollView>
             ) : (
                 <View style={styles.ListContiainerEmpty}>
                     <Text style={styles.secondaryTextSmItalic}>
