@@ -27,6 +27,7 @@ const SignUp = ({ navigation, route }) => {
     const disableBtn = googleId ? !name || !email || !address || !city || !country || !pinCode :
         !name || !email || !password || !address || !city || !country || !pinCode;
 
+        console.log(name, email, password, address, city, country, pinCode, googleId, avatar)
         const submitHandler = async () => {
             const myForm = new FormData();
           
@@ -38,39 +39,53 @@ const SignUp = ({ navigation, route }) => {
             myForm.append("country", country);
             myForm.append("pinCode", pinCode);
             myForm.append("googleId", googleId);
-            if (googleId) {
+            if (googleId !== undefined && googleId !== null && googleId !== "") {
               myForm.append("file", avatar);
             } else {
               if (avatar !== "") {
-                myForm.append("file", {
-                  uri: avatar,
-                  type: mime.getType(avatar),
-                  name: avatar.split("/").pop(),
-                });
+                const file = {
+                    uri: avatar,
+                    type: mime.getType(avatar),
+                    name: avatar.split("/").pop(),
+                  };
+                  myForm.append("file", file);
               }
             }
+
           
-            try {
-              await dispatch(register(myForm));
+            /* try {
+                await dispatch(register(myForm));
               navigation.navigate('login');
             } catch (error) {
               console.error(error);
               // handle error here
             }
-          };
+          }; */
+          try {
+            const result = await dispatch(register(myForm));
+            console.log('Result:', result)
+            if (result === 'success') {
+                console.log('Registration was successful');
+                navigation.navigate('login');
+            } else {
+                console.log('Registration was not successful');
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+        }
+        };
 
           const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
           useEffect(() => {
-              if (user) {
-      
-                  setName(user.name)
-                  setEmail(user.email)
-                  setAvatar(user.picture)
-                  setGoogleId(user.sub)
-                  setPassword(googleId)
-      
+            if (user && googleId) {
+                setName(user.name);
+                setEmail(user.email);
+                setAvatar(user.picture);
+                setGoogleId(user.sub);
+                setPassword(googleId);
               }
-          }, [user])
+            }, [user, googleId]);
+            
           useEffect(() => {
             console.log("Route params:", route.params); // Check if route.params is defined
             if (route.params?.image) setAvatar(route.params.image);

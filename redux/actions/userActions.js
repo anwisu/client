@@ -25,6 +25,7 @@ export const register = (formData) => async (dispatch) => {
             payload: data.message
         })
 
+        return 'success';
     } catch (error) {
         console.log(error);
         const errorMessage = error.response ? error.response.data.message : 'Network error';
@@ -32,6 +33,7 @@ export const register = (formData) => async (dispatch) => {
             type: "registerFail",
             payload: errorMessage
         });
+        return 'fail';
     }
 
 }
@@ -59,13 +61,14 @@ export const login = (email, password) => async (dispatch) => {
             type: "loginSuccess",
             payload: data.message
         })
-
+        return data.message;
     } catch (error) {
         
         dispatch({
             type: "loginFail",
             payload: error.response.data.message
         })
+        throw error;
     }
 
 }
