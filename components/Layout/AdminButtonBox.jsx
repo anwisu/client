@@ -27,13 +27,13 @@ const AdminButtonBox = ({
         >
             <Avatar.Icon
                 size={50}
-                color="#F4B546"
+                color="#bc430b"
                 style= {{backgroundColor: "transparent"}}
                 icon={icon}
             />
             <Text
                 style={{
-                    color:"#F4B546",
+                    color:"#bc430b",
                     textAlign: "center",
                     fontSize: 16,
                 }}

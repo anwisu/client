@@ -12,7 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 const Categories = ({ navigation, route, navigate }) => {
     const [category, setCategory] = useState("");
-    const [image, setImage] = useState([]);
+    const [image, setImage] = useState([]); // Changed to array to hold multiple images
     const [categories, setCategories] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -29,14 +29,14 @@ const Categories = ({ navigation, route, navigate }) => {
 
     const submitHandler = async () => {
         try {
-            console.log('Submitting form data:', category, image); // Add this log statement
+            console.log('Submitting form data:', category, image);
             const myForm = new FormData();
             myForm.append("category", category);
-            image.forEach((image, index) => {
-                myForm.append(`file${index}`, {
-                    uri: image,
-                    type: mime.getType(image),
-                    name: image.split("/").pop(),
+            image.forEach((imageUri, index) => {
+                myForm.append(`files`, {
+                    uri: imageUri,
+                    type: mime.getType(imageUri),
+                    name: imageUri.split("/").pop(),
                 });
             });
             await dispatch(addCategory(myForm));
@@ -47,6 +47,7 @@ const Categories = ({ navigation, route, navigate }) => {
         }
     };
     
+    
     const openImagePicker = async () => {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
@@ -54,7 +55,7 @@ const Categories = ({ navigation, route, navigate }) => {
                 allowsEditing: true,
                 aspect: [4, 3],
                 quality: 1,
-                multiple: true,
+                multiple: true, // Allow multiple image selection
             });
     
             if (!result.cancelled && result.assets.length > 0) {
@@ -62,14 +63,14 @@ const Categories = ({ navigation, route, navigate }) => {
                 setImage([...image, ...newImages]);
             }
         } catch (error) {
-            console.log('Error picking images:', error); // Add console log here
+            console.log('Error picking images:', error);
         }
     };
 
     const exitAddForm = () => {
         setShowAddForm(false);
         setCategory("");
-        setImage("");
+        setImage([]); 
     };
 
     useEffect(() => {
@@ -89,7 +90,6 @@ const Categories = ({ navigation, route, navigate }) => {
         </View>
     );
     
-
     return (
         <View style={{ flex: 1, backgroundColor: "#F4B546", padding: 15 }}>
             <View className="flex-row justify-start">
