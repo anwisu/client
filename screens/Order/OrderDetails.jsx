@@ -113,7 +113,9 @@ const OrderDetails = () => {
                     </View>
                 </View>
                 <View style={styles.ShipingInfoContainer}>
-                    <Text style={styles.secondarytextSm}>{order.shippingInfo.address}, {order.shippingInfo.city}, {order.shippingInfo.country} {order.shippingInfo.pinCode}</Text>
+                    <Text style={styles.secondarytextSm}>
+                        {order?.shippingInfo?.address}, {order?.shippingInfo?.city}, {order?.shippingInfo?.country} {order?.shippingInfo?.pinCode}
+                    </Text>                    
                     {/* <Text style={styles.secondarytextSm}>{orderDetail?.zipcode}</Text> */}
                 </View>
                 <View>
@@ -121,10 +123,10 @@ const OrderDetails = () => {
                 </View>
                 <View style={styles.orderInfoContainer}>
                     <Text style={styles.secondarytextMedian}>
-                        Order # {order._id}
+                        Order # {order?._id}
                     </Text>
                     <Text style={styles.secondarytextSm}>
-                        Ordered on {order.createdAt.split("T")[0]}
+                        Ordered on {order?.createdAt?.split("T")[0]}
                     </Text>
                     {/* {orderDetail?.shippedOn && (
                         <Text style={styles.secondarytextSm}>
@@ -154,11 +156,11 @@ const OrderDetails = () => {
                 <View style={styles.orderItemsContainer}>
                     <View style={styles.orderItemContainer}>
                         <Text style={styles.orderItemText}>Package</Text>
-                        <Text>{order.orderStatus}</Text>
+                        <Text>{order?.orderStatus}</Text>
                     </View>
                     <View style={styles.orderItemContainer}>
                         <Text style={styles.orderItemText}>
-                            Payment Method : {order.paymentMethod ? order.orderStatus : ''}
+                            Payment Method : {order?.paymentMethod ? order?.orderStatus : ''}
                         </Text>
                     </View>
                     <ScrollView
@@ -187,7 +189,7 @@ const OrderDetails = () => {
                             fontSize: 24,
                             fontWeight: '500',
                             color: '#e84219',
-                        }}>${order.totalAmount}</Text>
+                        }}>${order?.totalAmount}</Text>
                     </View>
                 </View>
                 <View style={styles.emptyView}></View>

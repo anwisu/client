@@ -44,9 +44,6 @@ const Orders = () => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => handleOnRefresh()}>
-                    <Ionicons name="cart-outline" size={30} color="#FB6831" />
-                </TouchableOpacity>
             </View>
             <View style={styles.screenNameContainer}>
                 <View>
