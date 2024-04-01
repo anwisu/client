@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-export const userReducer = createReducer({}, (builder) => {
+export const userReducer = createReducer({users: [], user: {},}, (builder) => {
     builder
         .addCase("loginRequest", (state) => {
             state.loading = true;
@@ -45,7 +45,6 @@ export const userReducer = createReducer({}, (builder) => {
             state.loading = false;
             state.isAuthenticated = true;
             state.message =action.payload
-            
         })
 
     builder

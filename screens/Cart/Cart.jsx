@@ -13,6 +13,7 @@ import CartItem from "../../components/Cart/CartItem";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import Header from '../../components/Layout/Header';
 
 const Cart = ({ navigation }) => {
     const navigate = useNavigation();
@@ -86,8 +87,8 @@ const Cart = ({ navigation }) => {
                 backgroundColor: '#ffffff',
                 position: 'relative',
             }}>
-            
-                <View
+            <Header back={true}/>
+                {/* <View
                     style={{
                         width: '100%',
                         flexDirection: 'row',
@@ -108,21 +109,12 @@ const Cart = ({ navigation }) => {
                             }}
                         />
                     </TouchableOpacity>
-                    <Text
-                        style={{
-                            fontSize: 14,
-                            color: '#000000',
-                            fontWeight: '400',
-                        }}>
-                        Order Details
-                    </Text>
-                    <View></View>
-                </View>
+                </View> */}
                 <Text
                     style={{
-                        fontSize: 20,
+                        fontSize: 26,
                         color: '#000000',
-                        fontWeight: '500',
+                        fontWeight: '700',
                         letterSpacing: 1,
                         paddingTop: 20,
                         paddingLeft: 16,

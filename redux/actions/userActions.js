@@ -2,7 +2,7 @@ import { server } from "../store"
 import axios from "axios"
 
 export const register = (formData) => async (dispatch) => {
-    
+
     try {
         dispatch({
             type: "registerRequest",
@@ -10,15 +10,15 @@ export const register = (formData) => async (dispatch) => {
 
         // Axios request
         console.log(formData._parts[8][1])
-        const { data } = await axios.post(`${server}/user/new`, 
+        const { data } = await axios.post(`${server}/user/new`,
 
-        formData
-        ,{
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true
-        })
+            formData
+            , {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true
+            })
 
         dispatch({
             type: "registerSuccess",
@@ -39,7 +39,7 @@ export const register = (formData) => async (dispatch) => {
 }
 
 export const login = (email, password) => async (dispatch) => {
-    
+
     try {
         dispatch({
             type: "loginRequest",
@@ -50,7 +50,7 @@ export const login = (email, password) => async (dispatch) => {
         const { data } = await axios.post(`${server}/user/login`, {
             email,
             password
-        },{
+        }, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -63,7 +63,7 @@ export const login = (email, password) => async (dispatch) => {
         })
         return data.message;
     } catch (error) {
-        
+
         dispatch({
             type: "loginFail",
             payload: error.response.data.message
@@ -74,7 +74,7 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const loadUser = () => async (dispatch) => {
-    
+
     try {
         dispatch({
             type: "loadUserRequest",
@@ -83,10 +83,10 @@ export const loadUser = () => async (dispatch) => {
         // Axios request
 
         const { data } = await axios.get(`${server}/user/me`,
-        
-        {
-            withCredentials: true
-        })
+
+            {
+                withCredentials: true
+            })
 
         dispatch({
             type: "loadUserSuccess",
@@ -94,7 +94,7 @@ export const loadUser = () => async (dispatch) => {
         })
 
     } catch (error) {
-        
+
         dispatch({
             type: "loadUserFail",
             payload: error.response.data.message
@@ -104,7 +104,7 @@ export const loadUser = () => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
-    
+
     try {
         dispatch({
             type: "logoutRequest",
@@ -113,10 +113,10 @@ export const logout = () => async (dispatch) => {
         // Axios request
 
         const { data } = await axios.get(`${server}/user/logout`,
-        
-        {
-            withCredentials: true
-        })
+
+            {
+                withCredentials: true
+            })
 
         dispatch({
             type: "logoutSuccess",
@@ -124,7 +124,7 @@ export const logout = () => async (dispatch) => {
         })
 
     } catch (error) {
-        
+
         dispatch({
             type: "logoutFail",
             payload: error.response.data.message
@@ -134,30 +134,100 @@ export const logout = () => async (dispatch) => {
 }
 
 export const verifyToken = (idToken) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "verifyTokenRequest",
+        })
+        // Axios request
+        const { data } = await axios.post(`${server}/user/verifyidtoken`, {
+            idToken
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true
+        })
+
+        dispatch({
+            type: "verifyTokenSuccess",
+            payload: data.message
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type: "verifyTokenFail",
+            payload: error.response.data
+        })
+    }
+}
+
+export const updatePassword =
+    (oldPassword, newPassword) => async (dispatch) => {
         try {
             dispatch({
-                type: "verifyTokenRequest",
-            })
-            // Axios request
-            const { data } = await axios.post(`${server}/user/verifyidtoken`, {
-                idToken
-            },{
-                headers: {
-                    "Content-Type": "application/json",
+                type: "updatePasswordRequest",
+            });
+
+            const { data } = await axios.put(
+                `${server}/user/changepassword`,
+                {
+                    oldPassword,
+                    newPassword,
                 },
-                withCredentials: true
-            })
-            
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+
             dispatch({
-                type: "verifyTokenSuccess",
-                payload: data.message
-            })
-    
+                type: "updatePasswordSuccess",
+                payload: data.message,
+            });
         } catch (error) {
-            
             dispatch({
-                type: "verifyTokenFail",
-                payload: error.response.data
-            })
+                type: "updatePasswordFail",
+                payload: error.response.data.message,
+            });
         }
-}
+    };
+
+export const updateProfile =
+    (name, email, address, city, country, pinCode) => async (dispatch) => {
+        try {
+            dispatch({
+                type: "updateProfileRequest",
+            });
+
+            const { data } = await axios.put(
+                `${server}/user/updateprofile`,
+                {
+                    name,
+                    email,
+                    address,
+                    city,
+                    country,
+                    pinCode,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+
+            dispatch({
+                type: "updateProfileSuccess",
+                payload: data.message,
+            });
+        } catch (error) {
+            dispatch({
+                type: "updateProfileFail",
+                payload: error.response.data.message,
+            });
+        }
+    };

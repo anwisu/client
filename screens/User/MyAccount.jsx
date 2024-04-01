@@ -1,9 +1,8 @@
-import { StatusBar, View, Text, Image, TextInput, TouchableOpacity, StyleSheet, } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, } from "react-native";
 import React, { useState, useEffect } from "react";
 import Footer from "../../components/Layout/Footer";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
-import Entypo from 'react-native-vector-icons/Entypo';
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import Loader from "../../components/Layout/Loader";
@@ -17,11 +16,9 @@ import {
 import { useIsFocused } from "@react-navigation/native";
 import mime from "mime";
 import { updatePic } from "../../redux/actions/otherActions";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { CLIENT_ID_ANDROID, CLIENT_ID_IOS, CLIENT_ID_WEB } from "@env";
 import Header from "../../components/Layout/Header";
 
-const Profile = ({ navigation, route }) => {
+const MyAccount = ({ navigation, route }) => {
     const { user } = useSelector((state) => state.user);
     const [avatar, setAvatar] = useState(user?.avatar ? user.avatar.url : require("../../assets/images/default-user-icon.jpg"));
 
@@ -29,63 +26,17 @@ const Profile = ({ navigation, route }) => {
     const isFocused = useIsFocused();
 
     const loading = useMessageAndErrorUser(navigation, dispatch, "login");
-    const configureGoogleSignIn = () => {
-        GoogleSignin.configure({
-            webClientId: CLIENT_ID_WEB,
-            androidClientId: CLIENT_ID_ANDROID,
-            iosClientId: CLIENT_ID_IOS,
-        });
-    }
-    useEffect(() => {
-        configureGoogleSignIn();
-    });
-
-    const logoutHandler = () => {
-        if (user.signInMethod === "google") {
-            signOut();
-            console.log("google logout")
-        }
-        dispatch(logout());
-    };
-
-    const signOut = async () => {
-        try {
-            await GoogleSignin.signOut();
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const navigateHandler = (text) => {
         switch (text) {
-            case "Admin":
-                navigation.navigate("adminpanel");
-                break;
-            case "Orders":
-                navigation.navigate("orders");
-                break;
-            case "Profile":
+            case "Update Profile":
                 navigation.navigate("updateprofile");
                 break;
-            case "Password":
+            case "Change Password":
                 navigation.navigate("changepassword");
                 break;
-            case "People":
-                navigation.navigate("peoplescreen");
-                break;
-            case "Contacts":
-                navigation.navigate("contactscreen");
-                break;
-            case "Message":
-                navigation.navigate("chatscreen");
-                break;
-            case "Sign Out":
-                logoutHandler();
-                break;
-
             default:
-            case "Orders":
-                navigation.navigate("orders");
+                console.log(`No navigation handler for ${text}`);
                 break;
         }
     };
@@ -114,34 +65,13 @@ const Profile = ({ navigation, route }) => {
         }
     }, [user]);
 
+
     return (
         <>
         <Header back={true} />
             <View style={styles.container}>
-                <View style={styles.TopBarContainer}>
-                    {/* <View
-                        style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}>
-                        <TouchableOpacity onPress={() => navigation.goBack('home')}>
-                            <Entypo
-                                name="chevron-left"
-                                style={{
-                                    fontSize: 18,
-                                    color: '#ffffff',
-                                    padding: 12,
-                                    backgroundColor: '#bc430b',
-                                    borderRadius: 10,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View> */}
-                    
-                </View>
                 <View style={styles.screenNameContainer}>
-                    <Text style={styles.screenNameText}>Profile</Text>
+                    <Text style={styles.screenNameText}>My Account</Text>
                 </View>
 
                 {loading ? (
@@ -160,7 +90,7 @@ const Profile = ({ navigation, route }) => {
                                             style={{ backgroundColor: "#c70049" }}
                                         />
 
-                                        {/* <TouchableOpacity
+                                        <TouchableOpacity
                                             disabled={loadingPic}
                                             onPress={() =>
                                                 navigation.navigate("camera", { updateProfile: true })
@@ -173,70 +103,29 @@ const Profile = ({ navigation, route }) => {
                                             >
                                                 Change Photo
                                             </Button>
-                                        </TouchableOpacity> */}
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                                 <View style={styles.infoContainer}>
                                     <Text style={styles.usernameText}>
-                                        <Text style={{ color: '#000000' }}>Hi,</Text> {user?.name}
+                                        {user?.name}
                                     </Text>
                                     <Text style={styles.secondaryText}>{user?.email}</Text>
+                                    <Text style={styles.addressText}>{user?.address} {user?.city}, {user?.country}, {user?.pinCode}</Text>
                                 </View>
                             </View>
                             <View style={styles.OptionsContainer}>
                                 <OptionList
-                                    text={"Orders"}
+                                    text={"Change Password"}
+                                    Icon={Ionicons}
+                                    iconName={"key-sharp"}
+                                    onPress={() => navigation.navigate("changepassword")}
+                                />
+                                <OptionList
+                                    text={"Update Profile"}
                                     Icon={Ionicons}
                                     iconName={"person"}
-                                    onPress={() => navigateHandler("Orders")}
-                                />
-                                {user?.role === "admin" && (
-                                    <OptionList
-                                        handler={navigateHandler}
-                                        icon={"view-dashboard"}
-                                        text={"Admin"}
-                                        Icon={Ionicons}
-                                        iconName={"person"}
-                                        onPress={() => navigateHandler("Admin")}
-                                    />
-                                )}
-                                <OptionList
-                                    text={"My Account"}
-                                    Icon={Ionicons}
-                                    iconName={"person"}
-                                    onPress={() => navigation.navigate("myaccount")}
-                                />
-                                <OptionList
-                                    handler={navigateHandler}
-                                    text={"Wishlist"}
-                                    Icon={Ionicons}
-                                    iconName={"heart"}
-                                    onPress={() => navigation.navigate("wishlist")}
-                                />
-                                {/* <OptionList
-                                text={"Settings"}
-                                Icon={Ionicons}
-                                iconName={"settings-sharp"}
-                                onPress={() => console.log("working....")}
-                                />
-                                <OptionList
-                                text={"Help Center"}
-                                Icon={Ionicons}
-                                iconName={"help-circle"}
-                                onPress={() => console.log("working....")}
-                                /> */}
-                                <OptionList
-                                    text={"Logout"}
-                                    Icon={Ionicons}
-                                    iconName={"log-out"}
-                                    onPress={() => {
-                                        logoutHandler();
-                                        dispatch({ type: "resetUser" })
-                                        navigation.reset({
-                                            index: 0,
-                                            routes: [{ name: "home" }],
-                                        });
-                                    }}
+                                    onPress={() => navigation.navigate("updateprofile")}
                                 />
                             </View>
                         </View>
@@ -249,7 +138,7 @@ const Profile = ({ navigation, route }) => {
     );
 };
 
-export default Profile;
+export default MyAccount;
 
 const styles = StyleSheet.create({
     container: {
@@ -317,11 +206,15 @@ const styles = StyleSheet.create({
     },
     usernameText: {
         fontWeight: "bold",
-        fontSize: 24,
+        fontSize: 26,
         color: '#bc430b',
     },
     secondaryText: {
         fontWeight: "bold",
         fontSize: 16,
+    },
+    addressText: {
+        // fontWeight: "bold",
+        fontSize: 14,
     },
 });

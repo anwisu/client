@@ -10,6 +10,7 @@ const OrderList = ({
     address,
     orderedOn,
     status,
+    statusColor,
     paymentMethod,
     updateHandler,
     admin = false,
@@ -50,7 +51,7 @@ const OrderList = ({
                 <TouchableOpacity style={styles.detailButton} onPress={() => navigate.navigate("orderdetails", { id })}>
                     <Text>Details</Text>
                 </TouchableOpacity>
-                <Text style={styles.secondaryText} i={i}>{status}</Text>
+                <Text style={{ color: statusColor }}  i={i}>{status}</Text>
             </View>
 
             {!admin && status === "Delivered" && (

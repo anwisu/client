@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Footer from "../../components/Layout/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-// import UserAvatar from 'react-native-user-avatar';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { Avatar, Button } from "react-native-paper";
 import mime from "mime";
 import { useDispatch, useSelector } from "react-redux";
@@ -97,12 +97,27 @@ const SignUp = ({ navigation, route }) => {
             <View className="flex-1" style={{ backgroundColor: "#F4B546" }}>
                 <View className="flex">
                     <View className="flex-row justify-start">
-                        <TouchableOpacity onPress={() => navigation.goBack()}
-                            style={{ backgroundColor: "#bc430b" }}
-                            className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
-                            <Icons.ArrowLeftIcon size='20' color='white'
+                    <View
+                        style={{
+                            width: '100%',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                        }}>
+                        <TouchableOpacity onPress={() => navigation.goBack('home')}>
+                            <Entypo
+                                name="chevron-left"
+                                style={{
+                                    fontSize: 18,
+                                    color: '#ffffff',
+                                    padding: 12,
+                                    backgroundColor: '#bc430b',
+                                    borderRadius: 10,
+                                    marginTop: 30,
+                                    marginLeft: 10
+                                }}
                             />
                         </TouchableOpacity>
+                    </View>
                     </View>
                     <View className="flex-row justify-center mt-[-40px]">
                         <Image source={require("../../assets/images/cat_dog_home.png")}

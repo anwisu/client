@@ -102,7 +102,30 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    // END UPDATE PIC
+
+        //  UPDATE PROFILE
+        .addCase("updateProfileRequest", (state) => {
+            state.loading = true;
+        })
+        .addCase("updateProfileSuccess", (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        })
+        .addCase("updateProfileFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        
+        // UPDATE PASSWORD
+        .addCase("updatePasswordSuccess", (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        })
+        .addCase("updatePasswordFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+    
     builder.addCase("clearError", (state) => {
         state.error = null;
     });

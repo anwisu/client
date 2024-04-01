@@ -8,11 +8,13 @@ import {
 import Footer from "../../components/Layout/Footer";
 import * as Icons from "react-native-heroicons/solid";
 import Toast from "react-native-toast-message";
+import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { login, verifyToken } from "../../redux/actions/userActions";
 import { useMessageAndErrorUser } from "../../utils/hooks";
 import { CLIENT_ID_WEB, CLIENT_ID_ANDROID, CLIENT_ID_IOS } from "@env";
+import Header from "../../components/Layout/Header";
 
 const Login = ({ navigation }) => {
     // const navigation = useNavigation();
@@ -31,26 +33,26 @@ const Login = ({ navigation }) => {
             index: 0,
             routes: [{ name: "home" }],
         });
-        console.log("is Authenticated:",isAuthenticated)
+        console.log("is Authenticated:", isAuthenticated)
     };
 
     useEffect(() => {
         console.log(user);
         if (user && user.googleId) {
             console.log("User with Google ID found");
-            console.log("is Authenticated:",isAuthenticated)
+            console.log("is Authenticated:", isAuthenticated)
             navigateToHome();
         } else if (user && user.signInMethod === "local") {
             // User logged in via email and password
             console.log("User with email found");
-            console.log("is Authenticated:",isAuthenticated)
+            console.log("is Authenticated:", isAuthenticated)
             navigateToHome();
         } else if (newUser) {
             console.log("verified yung token at di pa existing");
             navigation.navigate("signup");
             // showToast("success", "Kindly complete your profile before continue");
         } else if (user === null && newUser === false) {
-           console.log("User null")
+            console.log("User null")
         }
     }, [newUser, user, navigation]);
 
@@ -96,11 +98,24 @@ const Login = ({ navigation }) => {
         <>
             <View className="flex-1" style={{ backgroundColor: "#F4B546" }}>
                 <View className="flex">
-                    <View className="flex-row justify-start">
-                        <TouchableOpacity onPress={() => navigation.goBack()}
-                            style={{ backgroundColor: "#bc430b" }}
-                            className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
-                            <Icons.ArrowLeftIcon size='20' color='white'
+                    <View
+                        style={{
+                            width: '100%',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                        }}>
+                        <TouchableOpacity onPress={() => navigation.goBack('home')}>
+                            <Entypo
+                                name="chevron-left"
+                                style={{
+                                    fontSize: 18,
+                                    color: '#ffffff',
+                                    padding: 12,
+                                    backgroundColor: '#bc430b',
+                                    borderRadius: 10,
+                                    marginTop: 30,
+                                    marginLeft: 10
+                                }}
                             />
                         </TouchableOpacity>
                     </View>
@@ -162,7 +177,7 @@ const Login = ({ navigation }) => {
                                 className="w-8 h-8"
                             />
                             <Text className="text-gray-700 font-bold text-center mx-6">Google Sign In</Text>
-                            
+
                         </TouchableOpacity>
                     </View>
                     <View className="flex-row justify-center py-2">

@@ -11,7 +11,7 @@ import Login from "./screens/User/Login";
 import SignUp from "./screens/User/SignUp";
 import Orders from "./screens/Order/Orders";
 import OrderDetails from "./screens/Order/OrderDetails";
-// import Toast from "react-native-toast-message";
+import Toast from "react-native-toast-message";
 // import ForgetPassword from "./screens/ForgetPassword";
 // import Verify from "./screens/Verify";
 import Profile from "./screens/User/Profile";
@@ -19,7 +19,10 @@ import AdminPanel from "./screens/Admin/AdminPanel";
 import Categories from "./screens/Admin/Categories";
 import UpdateCategory from "./screens/Admin/UpdateCategory";
 import CategoryImages from "./screens/Admin/CategoryImages";
-
+import Wishlist from "./screens/Wishlist";
+import MyAccount from "./screens/User/MyAccount";
+import UpdateProfile from "./screens/User/UpdateProfile";
+import ChangePassword from "./screens/User/ChangePassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,10 +41,14 @@ const Main = () => {
             <Stack.Screen name="cart" component={Cart} />
             <Stack.Screen name="confirmorder" component={ConfirmOrder} />
             <Stack.Screen name="payment" component={Payment} />
+            <Stack.Screen name="wishlist" component={Wishlist} />
             <Stack.Screen name="camera" component={Camera} />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signup" component={SignUp} />
             <Stack.Screen name="profile" component={Profile} />
+            <Stack.Screen name="myaccount" component={MyAccount} />
+            <Stack.Screen name="updateprofile" component={UpdateProfile} />
+            <Stack.Screen name="changepassword" component={ChangePassword} />
 
             <Stack.Screen name="orders" component={Orders} />
             <Stack.Screen name="orderdetails" component={OrderDetails} />
@@ -60,7 +67,7 @@ const Main = () => {
             </Stack.Group>
         </Stack.Navigator>
 
-        {/* <Toast position="top" bottomOffset={20} /> */}
+        <Toast position="top" bottomOffset={20} />
         </NavigationContainer>
     );
 };

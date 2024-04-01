@@ -89,12 +89,12 @@ const Footer = ({ activeRoute = "home" }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigationHandler(2)}
+                activeOpacity={0.8}
+                onPress={() => navigationHandler(2)}
             >
                 <Icon
                 name={
-                    isAuthenticated === false
+                    isAuthenticated !== true
                     ? "login"
                     : activeRoute === "profile"
                     ? "account"

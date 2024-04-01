@@ -14,17 +14,33 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import OrderList from "../../components/Order/OrderList";
 import { useGetOrders } from "../../utils/hooks";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
+import Header from "../../components/Layout/Header";
 
 const Orders = () => {
     const isFocused = useIsFocused();
     const { loading, orders } = useGetOrders(isFocused);
     const navigate = useNavigation();
 
+    const getStatusColor = (status) => {
+        switch (status.toLowerCase()) {
+            case 'preparing':
+                return 'red';
+            case 'shipped':
+                return 'yellow';
+            case 'delivered':
+                return 'green';
+            default:
+                return 'gray';
+        }
+    };
+    
     return (
-        <View style={styles.container}>
-            {/* <StatusBar></StatusBar>
+        <>
+            <Header back={true} />
+            <View style={styles.container}>
+                {/* <StatusBar></StatusBar>
             <ProgressDialog visible={isloading} label={label} /> */}
-            <View style={styles.topBarContainer}>
+                {/* <View style={styles.topBarContainer}>
                 <View
                     style={{
                         width: '100%',
@@ -44,48 +60,50 @@ const Orders = () => {
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
-            <View style={styles.screenNameContainer}>
-                <View>
-                    <Text style={styles.screenNameText}>My Orders</Text>
+            </View> */}
+                <View style={styles.screenNameContainer}>
+                    <View>
+                        <Text style={styles.screenNameText}>My Orders</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.screenNameParagraph}>
+                            Your order and your order status
+                        </Text>
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.screenNameParagraph}>
-                        Your order and your order status
-                    </Text>
-                </View>
-            </View>
 
-            {/* <CustomAlert message={error} type={alertType} /> */}
-            {orders.length > 0 ? (
-                <ScrollView
-                    style={{ flex: 1, width: "100%", padding: 20 }}
-                    showsVerticalScrollIndicator={false}
-                >
-                    {orders.map((item, index) => (
-                        <View key={item._id}>
-                            <OrderList
-                                id={item._id}
-                                i={index}
-                                price={item.totalAmount}
-                                status={item.orderStatus}
-                                paymentMethod={item.paymentMethod}
-                                orderedOn={item.createdAt.split("T")[0]}
-                                address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pinCode}`}
-                                navigate={navigate}
-                            />
-                            <View style={styles.emptyView}></View>
-                        </View>
-                    ))}
-                </ScrollView>
-            ) : (
-                <View style={styles.ListContiainerEmpty}>
-                    <Text style={styles.secondaryTextSmItalic}>
-                        "There are no orders placed yet."
-                    </Text>
-                </View>
-            )}
-        </View>
+                {/* <CustomAlert message={error} type={alertType} /> */}
+                {orders.length > 0 ? (
+                    <ScrollView
+                        style={{ flex: 1, width: "100%", padding: 20 }}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {orders.map((item, index) => (
+                            <View key={item._id}>
+                                <OrderList
+                                    id={item._id}
+                                    i={index}
+                                    price={item.totalAmount}
+                                    status={item.orderStatus}
+                                    statusColor={getStatusColor(item.orderStatus)}
+                                    paymentMethod={item.paymentMethod}
+                                    orderedOn={item.createdAt.split("T")[0]}
+                                    address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pinCode}`}
+                                    navigate={navigate}
+                                />
+                                <View style={styles.emptyView}></View>
+                            </View>
+                        ))}
+                    </ScrollView>
+                ) : (
+                    <View style={styles.ListContiainerEmpty}>
+                        <Text style={styles.secondaryTextSmItalic}>
+                            "There are no orders placed yet."
+                        </Text>
+                    </View>
+                )}
+            </View>
+        </>
     );
 };
 
@@ -95,7 +113,7 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         flexDirecion: "row",
-        backgroundColor: "#F4B546",
+        backgroundColor: "#F5F5F5",
         alignItems: "center",
         justifyContent: "flex-start",
         flex: 1,

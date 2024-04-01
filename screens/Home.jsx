@@ -21,6 +21,7 @@ import { useSetCategories } from "../utils/hooks";
 import ProductCard from '../components/ProductCard';
 import { Avatar, Button } from "react-native-paper";
 import { SliderBox } from "react-native-image-slider-box";
+import Header from '../components/Layout/Header';
 
 const Home = () => {
     const [category, setCategory] = useState("");
@@ -85,7 +86,7 @@ const Home = () => {
             type: "addToWishlist",
             payload: {
                 product:
-                    id,
+                id,
                 name,
                 price,
                 image,
@@ -124,9 +125,9 @@ const Home = () => {
                     height: '100%',
                     backgroundColor: "#ffffff",
                 }}>
-                <StatusBar backgroundColor={"#ffffff"} barStyle="dark-content" />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View
+                    <Header />
+                    {/* <View
                         style={{
                             width: '100%',
                             flexDirection: 'row',
@@ -158,7 +159,7 @@ const Home = () => {
                                 }}
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                     <View style={styles.promotiomSliderContainer}>
                         <SliderBox
                             images={slides}
@@ -299,6 +300,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     promotiomSliderContainer: {
+        marginTop: 30,
         height: 140,
         backgroundColor: "#F5F5F5",
     },
