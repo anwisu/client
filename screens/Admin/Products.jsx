@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useAdminProducts, useMessageAndErrorOther } from "../../utils/hooks";
 import { Avatar } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { deleteProduct } from "../../redux/actions/otherActions";
 import { getAdminProducts } from "../../redux/actions/productActions";
-import { useDispatch } from "react-redux";
+import { getAllCategories } from "../../redux/actions/otherActions";
+import { useDispatch, useSelector } from "react-redux";
 import * as Icons from "react-native-heroicons/solid";
 import Carousel from "react-native-snap-carousel";
 
 const Products = ({ navigation }) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
-    const { products } = useAdminProducts(dispatch, isFocused);
+    // const { products } = useAdminProducts(dispatch, isFocused);
+    const products = useSelector((state) => state.product.products);
+
+    const fetchProducts = async () => {
+        try {
+            await dispatch(getAdminProducts());
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    };
+
+    useEffect(() => {
+        dispatch(getAllCategories());
+    }, [dispatch, isFocused]);
 
     const deleteProductHandler = (id) => {
         dispatch(deleteProduct(id));
+        fetchProducts();
     };
 
     const loadingDelete = useMessageAndErrorOther(
@@ -35,7 +50,7 @@ const Products = ({ navigation }) => {
                         console.log("Can't go back");
                     }
                 }}
-                    style={{ backgroundColor: "#bc430b", padding: 8, borderRadius: 10, marginLeft: 4, marginTop: 10 }}>
+                    style={{ backgroundColor: "#bc430b", padding: 8, borderRadius: 10, marginLeft: 4, marginTop: 50 }}>
                     <Icons.ArrowLeftIcon size={20} color='white' />
                 </TouchableOpacity>
             </View>

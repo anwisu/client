@@ -23,6 +23,7 @@ import MyAccount from "./screens/User/MyAccount";
 import UpdateProfile from "./screens/User/UpdateProfile";
 import ChangePassword from "./screens/User/ChangePassword";
 import Products from "./screens/Admin/Products";
+import NewProduct from "./screens/Admin/NewProduct";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,7 @@ const Main = () => {
             <Stack.Screen name="categories" component={Categories} />
             <Stack.Screen name="updatecategory" component={UpdateCategory} />
             <Stack.Screen name="products" component={Products} />
+            <Stack.Screen name="newproduct" component={NewProduct} />
 
             {/* Password Reset Routes */}
             {/* <Stack.Screen name="forgetpassword" component={ForgetPassword} />

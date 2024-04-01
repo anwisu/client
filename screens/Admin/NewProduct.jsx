@@ -6,10 +6,11 @@ import { useSetCategories, useMessageAndErrorOther } from "../../utils/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import mime from "mime";
-import { createProduct } from "../../redux/actions/otherActions";
+import { createProduct, getAdminProducts } from "../../redux/actions/otherActions";
 import * as Icons from "react-native-heroicons/solid";
 import * as ImagePicker from 'expo-image-picker';
 import Carousel from "react-native-snap-carousel";
+import { IconButton } from "react-native-paper";
 
 const NewProduct = ({ navigation, route }) => {
     const isFocused = useIsFocused();
@@ -26,6 +27,15 @@ const NewProduct = ({ navigation, route }) => {
     const [categories, setCategories] = useState([]);
 
     useSetCategories(setCategories, isFocused);
+    const loading = useMessageAndErrorOther(dispatch, navigation, "adminpanel");
+
+    const fetchProducts = async () => {
+        try {
+            await dispatch(getAdminProducts());
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    }
 
     const disableBtnCondition =
         !name || !description || !price || !stock || !image;
@@ -56,7 +66,7 @@ const NewProduct = ({ navigation, route }) => {
             myForm.append("description", description);
             myForm.append("price", price);
             myForm.append("stock", stock);
-            image.forEach((imageUri, index) => {
+            image.forEach((imageUri) => {
                 myForm.append(`files`, {
                     uri: imageUri,
                     type: mime.getType(imageUri),
@@ -66,15 +76,12 @@ const NewProduct = ({ navigation, route }) => {
             if (categoryID) {
                 myForm.append("category", categoryID);
             }
-            dispatch(createProduct(myForm));
+            fetchProducts();
             navigation.navigate("products");
         } catch (error) {
             console.error("Error submitting form:", error);
         }
     };
-    
-
-    const loading = useMessageAndErrorOther(dispatch, navigation, "products");
 
     useEffect(() => {
         if (route.params?.image) setImage(route.params.image);
@@ -88,22 +95,36 @@ const NewProduct = ({ navigation, route }) => {
         }
     }, [route.params]);
 
+    const deleteImage = (index) => {
+        const updatedImages = [...image];
+        updatedImages.splice(index, 1); // Remove the image at the specified index
+        setImage(updatedImages); // Update the state with the new array of images
+    };
+
     const renderCarouselItem = ({ item, index }) => (
         <View key={index}>
-            <Image
-                style={{ width: 300, height: 150, resizeMode: 'contain' }}
-                source={item ? { uri: item } : require("../../assets/images/default-user-icon.jpg")}
-            />
+            {item && (
+                <View style={{ marginBottom: 5 }}>
+                    <Image
+                        style={{ width: 300, height: 150, resizeMode: 'contain' }}
+                        source={{ uri: item }}
+                    />
+                    <IconButton
+                        icon="delete"
+                        color="#f44336"
+                        size={20}
+                        onPress={() => deleteImage(index)}
+                        style={{ alignSelf: 'center' }}
+                    />
+                </View>
+            )}
         </View>
     );
-
+    
     return (
     <>
-        <View style={{ flex: 1, backgroundColor: "#F4B546", padding: 15 }}>
-            <View style={{ marginBottom: 20, paddingTop: 70 }}>
-                <Text>Create Product</Text>
-            </View>
-            <View className="flex-row justify-start">
+        <View style={{ flex: 1, backgroundColor: "#F4B546", padding: 20, }}>
+            <View style={{ flexDirection: "row", justifyContent: "flex-start", marginTop:20}}>
                 <TouchableOpacity onPress={() => {
                     if (navigation.canGoBack()) {
                         navigation.goBack();
@@ -111,28 +132,25 @@ const NewProduct = ({ navigation, route }) => {
                         console.log("Can't go back");
                     }
                 }}
-                    style={{ backgroundColor: "#bc430b" }}
-                    className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4 mt-10">
-                    <Icons.ArrowLeftIcon size='20' color='white'
-                    />
+                    style={{ backgroundColor: "#bc430b", padding: 8, borderRadius: 10, marginLeft: 4, marginTop: 20 }}>
+                    <Icons.ArrowLeftIcon size={20} color='white' />
                 </TouchableOpacity>
             </View>
-
+            <View style={{ alignItems: "center", marginBottom: 20 }}>
+                <Text style={{ fontSize: 24, color: "black", fontWeight: "800", marginTop:20 }}>Add Product</Text>
+            </View>
             <ScrollView
-            style={{
-                padding: 20,
-                elevation: 10,
-                borderRadius: 10,
-                backgroundColor: "yellow",
-            }}
+                style={{
+                    backgroundColor: "#FFFFFF",
+                }}
             >
             <View
                 style={{
                 justifyContent: "center",
-                height: 650,
+                height: 630,
                 }}
             >
-                <View style={{ marginBottom: 20, alignItems: "center" }}>
+                <View style={{ marginTop:20, alignItems: "center" }}>
                     <Carousel
                         layout="default"
                         data={image}
@@ -145,7 +163,7 @@ const NewProduct = ({ navigation, route }) => {
                 <Button
                     mode="contained"
                     onPress={openImagePicker}
-                    style={{ marginBottom: 20, marginTop: 10, backgroundColor: "#BC430B" }}
+                    style={{ backgroundColor: "#BC430B", marginHorizontal: 80 }}
                 >
                     Select Images
                 </Button>
@@ -179,23 +197,29 @@ const NewProduct = ({ navigation, route }) => {
 
                 <Text
                 style={{
-                    textAlign: "center",
+                    padding: 10,
+                    paddingLeft:15,
+                    // textAlign: "center",
                     textAlignVertical: "center",
-                    borderRadius: 3,
+                    // borderRadius: 10,
+                    marginBottom: 25,
                     backgroundColor: "transparent" 
                 }}
                 onPress={() => setVisible(true)}
                 >
                 {category}
-                
                 </Text>
 
                 <Button
                 textColor={"#FFFFFF"}
-                style={{
+                style={{                     
                     backgroundColor: "#BC430B",
-                    margin: 20,
-                    padding: 6,
+                    marginLeft: 80,
+                    marginRight: 80,
+                    marginTop: 10,
+                    marginBottom: 10,
+                    padding: 5,
+                    borderRadius: 30
                 }}
                 onPress={submitHandler}
                 loading={loading}
