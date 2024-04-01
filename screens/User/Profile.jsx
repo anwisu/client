@@ -187,16 +187,16 @@ const Profile = ({ navigation, route }) => {
                                 <OptionList
                                     text={"Orders"}
                                     Icon={Ionicons}
-                                    iconName={"person"}
+                                    iconName={"albums"}
                                     onPress={() => navigateHandler("Orders")}
                                 />
                                 {user?.role === "admin" && (
                                     <OptionList
                                         handler={navigateHandler}
-                                        icon={"view-dashboard"}
+                                        iconName={"bar-chart"}
                                         text={"Admin"}
                                         Icon={Ionicons}
-                                        iconName={"person"}
+                                        // iconName={"person"}
                                         onPress={() => navigateHandler("Admin")}
                                     />
                                 )}
@@ -210,7 +210,7 @@ const Profile = ({ navigation, route }) => {
                                     handler={navigateHandler}
                                     text={"Wishlist"}
                                     Icon={Ionicons}
-                                    iconName={"heart"}
+                                    iconName={"heart-circle"}
                                     onPress={() => navigation.navigate("wishlist")}
                                 />
                                 {/* <OptionList

@@ -29,14 +29,14 @@ const WishListCard = ({
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>    ${price ? price : amount}
                     </Text>
-                    <TouchableOpacity style={styles.cartButton} onPress={() => addToCartHandler()}>
+                    <TouchableOpacity style={styles.cartButton} onPress={() => addToCartHandler(id, name, price, imgSrc, stock)}>
                         <Text style={styles.cartButtonText}>Add to Cart</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <TouchableOpacity
                 style={styles.removeButton}
-                onPress={() => removeWishlistHandler(id)}
+                onPress={() => removeWishlistHandler(id, name, amount, imgSrc, stock)}
             >
                 <Ionicons name="trash-outline" size={20} color="#FF4848" />
             </TouchableOpacity>

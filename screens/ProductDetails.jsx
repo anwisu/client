@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import Header from "../components/Header";
-// import Comment from "../components/Comment";
+import Header from "../components/Layout/Header";
 import Carousel from "react-native-snap-carousel";
 import { Avatar, Button } from "react-native-paper";
 import Toast from "react-native-toast-message";
@@ -22,8 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { getProductDetails } from "../redux/actions/productActions";
 import { server } from "../redux/store";
-// import { AirbnbRating } from "react-native-ratings";
-// import { deleteComment, getAllComments, getProductRatings } from "../redux/actions/commentActions";
 import { FontAwesome } from 'react-native-vector-icons';
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
@@ -170,51 +167,30 @@ const ProductDetails = ({ route: { params } }) => {
     // };
 
     return (
-        <View
-            style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: "#ffffff",
-                position: 'relative',
-            }}>
-            <StatusBar
-                backgroundColor='#F0F0F3'
-                barStyle="dark-content"
-            />
-            <ScrollView>
-                <View
-                    style={{
-                        width: '100%',
-                        backgroundColor: "#F4B546",
-                        borderBottomRightRadius: 20,
-                        borderBottomLeftRadius: 20,
-                        position: 'relative',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginBottom: 4,
-                    }}>
+        <>
+            {/* <Header back={true} /> */}
+            <View
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: "#ffffff",
+                    position: 'relative',
+                }}>
+
+                <ScrollView>
                     <View
                         style={{
                             width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            paddingTop: 16,
-                            paddingLeft: 16,
+                            backgroundColor: "#F4B546",
+                            borderBottomRightRadius: 20,
+                            borderBottomLeftRadius: 20,
+                            position: 'relative',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: 4,
                         }}>
-                        <TouchableOpacity onPress={() => navigate.goBack('home')}>
-                            <Entypo
-                                name="chevron-left"
-                                style={{
-                                    fontSize: 18,
-                                    color: '#ffffff',
-                                    padding: 12,
-                                    backgroundColor: '#bc430b',
-                                    borderRadius: 10,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    {/* <FlatList
+                        <Header back={true} />
+                        {/* <FlatList
                         data={images ? images : null}
                         horizontal
                         renderItem={renderProduct}
@@ -227,17 +203,17 @@ const ProductDetails = ({ route: { params } }) => {
                             { useNativeDriver: false },
                         )}
                     /> */}
-                    <View
-                        style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginBottom: 16,
-                            marginTop: 16,
-                            
-                        }}>
-                        {/* {product.productImageList
+                        <View
+                            style={{
+                                width: '100%',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginBottom: 16,
+                                marginTop: 16,
+
+                            }}>
+                            {/* {product.productImageList
                             ? product.productImageList.map((data, index) => {
                                 let opacity = position.interpolate({
                                     inputRange: [index - 1, index, index + 1],
@@ -258,85 +234,85 @@ const ProductDetails = ({ route: { params } }) => {
                                 );
                             })
                             : null} */}
-                        <Carousel
-                            layout="stack"
-                            sliderWidth={SLIDER_WIDTH}
-                            itemWidth={ITEM_WIDTH}
-                            ref={isCarousel}
-                            data={images}
-                            renderItem={CarouselCardItem}
-                        />
-                    </View>
-                </View>
-                <View
-                    style={{
-                        paddingHorizontal: 16,
-                        marginTop: 6,
-                    }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginVertical: 14,
-                        }}>
-                        <Entypo
-                            name="shopping-cart"
-                            style={{
-                                fontSize: 18,
-                                color: '#8b061d',
-                                marginRight: 6,
-                            }}
-                        />
-                        <Text
-                            style={{
-                                fontSize: 12,
-                                color: '#000000',
-                            }}>
-                            Shopping
-                        </Text>
+                            <Carousel
+                                layout="stack"
+                                sliderWidth={SLIDER_WIDTH}
+                                itemWidth={ITEM_WIDTH}
+                                ref={isCarousel}
+                                data={images}
+                                renderItem={CarouselCardItem}
+                            />
+                        </View>
                     </View>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            marginVertical: 4,
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: 24,
-                                fontWeight: '600',
-                                letterSpacing: 0.5,
-                                marginVertical: 4,
-                                color: '#000000',
-                                maxWidth: '84%',
-                            }}>
-                            {name}
-                        </Text>
-                    </View>
-                    <View
-                    style={{
                             paddingHorizontal: 16,
-                            borderBottomColor: '#F0F0F3',
-                            borderBottomWidth: 1,
-                            paddingBottom: 6,
-                        }}>                    
-                    <Text
-                        style={{
-                            fontSize: 12,
-                            color: '#000000',
-                            fontWeight: '400',
-                            letterSpacing: 1,
-                            opacity: 0.5,
-                            lineHeight: 20,
-                            maxWidth: '85%',
-                            maxHeight: 44,
-                            marginBottom: 12,
+                            marginTop: 6,
                         }}>
-                        {description}
-                    </Text>
-                    </View>
-                    {/* <View
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginVertical: 14,
+                            }}>
+                            <Entypo
+                                name="shopping-cart"
+                                style={{
+                                    fontSize: 18,
+                                    color: '#8b061d',
+                                    marginRight: 6,
+                                }}
+                            />
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    color: '#000000',
+                                }}>
+                                Shopping
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                marginVertical: 4,
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: 24,
+                                    fontWeight: '600',
+                                    letterSpacing: 0.5,
+                                    marginVertical: 4,
+                                    color: '#000000',
+                                    maxWidth: '84%',
+                                }}>
+                                {name}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                paddingHorizontal: 16,
+                                borderBottomColor: '#F0F0F3',
+                                borderBottomWidth: 1,
+                                paddingBottom: 6,
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    color: '#000000',
+                                    fontWeight: '400',
+                                    letterSpacing: 1,
+                                    opacity: 0.5,
+                                    lineHeight: 20,
+                                    maxWidth: '85%',
+                                    maxHeight: 44,
+                                    marginBottom: 12,
+                                }}>
+                                {description}
+                            </Text>
+                        </View>
+                        {/* <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
@@ -380,122 +356,123 @@ const ProductDetails = ({ route: { params } }) => {
                             }}
                         />
                     </View> */}
-                    <View
-                        style={{
-                            paddingHorizontal: 16,
-                            borderBottomColor: '#F0F0F3',
-                            borderBottomWidth: 1,
-                            paddingBottom: 20,
-                        }}>
-                        <Text
-                            style={{
-                                fontSize: 24,
-                                fontWeight: '500',
-                                maxWidth: '85%',
-                                color: '#e84219',
-                                marginBottom: 4,
-                                marginTop: 10,
-                            }}>
-                            $ {price}
-                        </Text>
-                        <Text>
-                            Tax Rate 2%~ ${price / 20} ($
-                            {price + price / 20})
-                        </Text>
-                    </View>
-
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            paddingHorizontal: 5,
-                            marginTop: 10,
-                        }}
-                    >
-                        <Text style={{ color: "rgb(45,45,45)", fontWeight: "400", fontSize: 18 }}>
-                            Quantity
-                        </Text>
                         <View
                             style={{
-                                width: 80,
+                                paddingHorizontal: 16,
+                                borderBottomColor: '#F0F0F3',
+                                borderBottomWidth: 1,
+                                paddingBottom: 20,
+                            }}>
+                            <Text
+                                style={{
+                                    fontSize: 24,
+                                    fontWeight: '500',
+                                    maxWidth: '85%',
+                                    color: '#e84219',
+                                    marginBottom: 4,
+                                    marginTop: 10,
+                                }}>
+                                $ {price}
+                            </Text>
+                            <Text>
+                                Tax Rate 2%~ ${price / 20} ($
+                                {price + price / 20})
+                            </Text>
+                        </View>
+
+                        <View
+                            style={{
                                 flexDirection: "row",
                                 justifyContent: "space-between",
                                 alignItems: "center",
+                                paddingHorizontal: 5,
+                                marginTop: 10,
                             }}
                         >
-                            <TouchableOpacity onPress={decrementQty}>
-                                <Avatar.Icon
-                                    icon={"minus"}
-                                    size={20}
-                                    style={{
-                                        borderRadius: 5,
-                                        backgroundColor: "#F4B546",
-                                        height: 25,
-                                        width: 25,
-                                    }}
-                                />
-                            </TouchableOpacity>
-                            <Text style={{
-                                backgroundColor: "transparent",
-                                height: 25,
-                                width: 25,
-                                textAlignVertical: "center",
-                                textAlign: "center",
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                borderColor: "#F4B546",
-                            }}>{quantity}</Text>
-                            <TouchableOpacity onPress={incrementQty}>
-                                <Avatar.Icon
-                                    icon={"plus"}
-                                    size={20}
-                                    style={{
-                                        borderRadius: 5,
-                                        backgroundColor: "#F4B546",
-                                        height: 25,
-                                        width: 25,
-                                    }}
-                                />
-                            </TouchableOpacity>
+                            <Text style={{ color: "rgb(45,45,45)", fontWeight: "400", fontSize: 18 }}>
+                                Quantity
+                            </Text>
+                            <View
+                                style={{
+                                    width: 80,
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <TouchableOpacity onPress={decrementQty}>
+                                    <Avatar.Icon
+                                        icon={"minus"}
+                                        size={20}
+                                        style={{
+                                            borderRadius: 5,
+                                            backgroundColor: "#F4B546",
+                                            height: 25,
+                                            width: 25,
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                                <Text style={{
+                                    backgroundColor: "transparent",
+                                    height: 25,
+                                    width: 25,
+                                    textAlignVertical: "center",
+                                    textAlign: "center",
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    borderColor: "#F4B546",
+                                }}>{quantity}</Text>
+                                <TouchableOpacity onPress={incrementQty}>
+                                    <Avatar.Icon
+                                        icon={"plus"}
+                                        size={20}
+                                        style={{
+                                            borderRadius: 5,
+                                            backgroundColor: "#F4B546",
+                                            height: 25,
+                                            width: 25,
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
 
-            <View
-                style={{
-                    position: 'absolute',
-                    bottom: 10,
-                    height: '8%',
-                    width: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                <TouchableOpacity
-                    onPress={addToCardHandler} 
-                    disabled={isOutOfStock}
+                <View
                     style={{
-                        width: '86%',
-                        height: '90%',
-                        backgroundColor: '#bc430b',
-                        borderRadius: 20,
+                        position: 'absolute',
+                        bottom: 10,
+                        height: '8%',
+                        width: '100%',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                    <Text
+                    <TouchableOpacity
+                        onPress={addToCardHandler}
+                        disabled={isOutOfStock}
                         style={{
-                            fontSize: 12,
-                            fontWeight: '500',
-                            letterSpacing: 1,
-                            color: '#ffffff',
-                            textTransform: 'uppercase',
+                            width: '86%',
+                            height: '90%',
+                            backgroundColor: '#bc430b',
+                            borderRadius: 20,
+                            justifyContent: 'center',
+                            alignItems: 'center',
                         }}>
-                        {isOutOfStock ? "Out Of Stock" : "Add To Cart"}
-                    </Text>
-                </TouchableOpacity>
+                        <Text
+                            style={{
+                                fontSize: 12,
+                                fontWeight: '500',
+                                letterSpacing: 1,
+                                color: '#ffffff',
+                                textTransform: 'uppercase',
+                            }}>
+                            {isOutOfStock ? "Out Of Stock" : "Add To Cart"}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </>
     );
 };
 

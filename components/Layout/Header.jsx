@@ -46,7 +46,7 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
         <>
             <View
                 style={{
-                    marginTop: 20,
+                    marginTop: 10,
                     width: '100%',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -54,21 +54,15 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                 }}>
                 {back && (
                     <TouchableOpacity
-                        style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}
+                        style={{ backgroundColor: "#bc430b" }}
                         onPress={() => navigate.goBack()}
+                        className="p-2 rounded-tr-2xl rounded-bl-2xl mt-2"
                     >
                         <Entypo
                             name="chevron-left"
                             style={{
                                 fontSize: 18,
                                 color: '#ffffff',
-                                padding: 12,
-                                backgroundColor: '#bc430b',
-                                borderRadius: 10,
                             }}
                         />
                     </TouchableOpacity>
@@ -125,9 +119,23 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                         top: 25,
                         zIndex: 10,
                     }}
-                    onPress={handleWishlistPress}
+                    onPress={() => {
+                        if (emptyCart) {
+                            handleCartPress();
+                        } else if (emptyWishlist) {
+                            handleWishlistPress();
+                        }
+                    }}
                 >
-                    {emptyWishlist ? (
+                    {emptyCart ? (
+                        <Ionicons
+                            name={emptyCart ? "trash-outline" : "cart-outline"}
+                            style={{
+                                fontSize: 30,
+                                color: route.name === "productdetails" ? "#ffffff" : "#FB6831",
+                            }}
+                        />
+                    ) : emptyWishlist ? (
                         //     <MaterialCommunityIcons
                         //     name="delete-outline"
                         //     style={{

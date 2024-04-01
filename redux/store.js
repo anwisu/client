@@ -5,7 +5,7 @@ import { productReducer } from "./reducers/productReducer";
 import { orderReducer } from "./reducers/orderReducer";
 import { cartReducer } from "./reducers/cartReducer";
 // import { commentReducer } from "./reducers/commentReducer";
-// import { wishlistReducer } from "./reducers/wishlistReducer";
+import { wishlistReducer } from "./reducers/wishlistReducer";
 // import { chatReducer } from "./reducers/chatReducer"
 
 export const store = configureStore({
@@ -16,7 +16,7 @@ export const store = configureStore({
         order: orderReducer,
         cart: cartReducer,
         // comment: commentReducer,
-        // wishlist: wishlistReducer,
+        wishlist: wishlistReducer,
         // chat: chatReducer
     },
 });
@@ -29,5 +29,8 @@ export const server = "https://barknmeow-backend.onrender.com/api/v1"
 // IP ni Jis
 // export const server = "http://192.168.1.24:5000/api/v1"
 
-// IP sa Kapehan
-// export const server = "http://192.168.0.192:5000/api/v1"
+// IP ni giya
+// export const server = "http://192.168.100.3:5000/api/v1"
+
+// IP ng kapehan
+// export const server = "http://192.168.0.177:5000/api/v1"

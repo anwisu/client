@@ -1,11 +1,8 @@
 import {
     StyleSheet,
     Text,
-    StatusBar,
     View,
     ScrollView,
-    TouchableOpacity,
-    RefreshControl,
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -53,26 +50,9 @@ const Wishlist = () => {
 
     return (
         <>
-        <Header back={true} />
-        <View style={styles.container}>
-            {/* <View style={styles.topBarContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigate.goBack();
-                    }}
-                >
-                    <Ionicons
-                        name="arrow-back-circle-outline"
-                        size={30}
-                        color="#707981"
-                    />
-                </TouchableOpacity>
-                <View></View>
-                <TouchableOpacity onPress={() => navigate.navigate('cart')}>
-                    <Ionicons name="cart-outline" size={30} color="#FB6831" />
-                </TouchableOpacity>
-            </View> */}
+        <Header back={true} emptyWishlist={true} />
 
+        <View style={styles.container}>
             <View style={styles.screenNameContainer}>
                 <View>
                     <Text style={styles.screenNameText}>My Wishlist</Text>
@@ -88,7 +68,7 @@ const Wishlist = () => {
                 showsVerticalScrollIndicator={false}
             >
 
-                {wishlistItems.length > 0 ? (
+{wishlistItems.length > 0 ? (
                     wishlistItems.map((i, index) => (
                         <WishListCard
                             navigate={navigate}
