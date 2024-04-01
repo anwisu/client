@@ -5,8 +5,8 @@ import React, { useState } from "react";
 // import Heading from "../components/Heading";
 import { Button, RadioButton } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
-import { placeOrder } from "../../redux/actions/cartActions";
-import { useMessageAndErrorCart } from "../../utils/hooks";
+import { placeOrder } from "../../redux/actions/orderActions";
+import { useMessageAndErrorOrder } from "../../utils/hooks";
 import { useStripe } from "@stripe/stripe-react-native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import axios from "axios";
@@ -108,7 +108,7 @@ const Payment = ({ navigation, route }) => {
 
 
 
-    const loading = useMessageAndErrorCart(
+    const loading = useMessageAndErrorOrder(
         dispatch,
         navigation,
         "profile",

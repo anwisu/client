@@ -6,7 +6,7 @@ import { StripeProvider } from "@stripe/stripe-react-native";
 
 
 const stripeKey =
-  "pk_test_51OqiCKKVKhFMk3HkO7nAdf8nPt6NTq9WmBdl5x0RGvPTAHcXzDjss5I6IZj5hIF9JZj1a8xlavsAXn5dbuOfwHgp00jufSjCZD";
+  "pk_test_51OyxJ32LKBKaPHzvYSwVDnVrfoB5MmhIhPzm7RrKnyEwQFjd7C3fJa6MR4UF3eCtfleKLiEMzw4zOuab9SLvmLLZ00I4y76pnb";
 
 export default function App() {
   return (

@@ -31,3 +31,6 @@ export const server = "https://barknmeow-backend.onrender.com/api/v1"
 
 // IP ni giya
 // export const server = "http://192.168.100.3:5000/api/v1"
+
+// IP ng kapehan
+// export const server = "http://192.168.0.177:5000/api/v1"

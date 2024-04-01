@@ -81,13 +81,13 @@ export const useMessageAndErrorOther = (
     return loading;
 };
 
-export const useMessageAndErrorCart = (
+export const useMessageAndErrorOrder = (
     dispatch,
     navigation,
     navigateTo,
     func
 ) => {
-    const { loading, message, error } = useSelector((state) => state.cart);
+    const { loading, message, error } = useSelector((state) => state.order);
 
     useEffect(() => {
         if (error) {
