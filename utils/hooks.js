@@ -4,7 +4,7 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "../redux/actions/userActions";
 import { server } from "../redux/store";
-// import { getAdminProducts } from "../redux/actions/productActions";
+import { getAdminProducts } from "../redux/actions/productActions";
 // import { fetchChart1Data, fetchChart2Data, fetchChart3Data } from "../redux/actions/otherActions";
 
 export const useMessageAndErrorUser = (
@@ -162,32 +162,32 @@ export const useGetOrders = (isFocused, isAdmin = false) => {
     };
 };
 
-// export const useAdminProducts = (dispatch, isFocused) => {
-//     const { products, inStock, outOfStock, error, loading } = useSelector(
-//         (state) => state.product
-//     );
+export const useAdminProducts = (dispatch, isFocused) => {
+    const { products, inStock, outOfStock, error, loading } = useSelector(
+        (state) => state.product
+    );
 
-//     useEffect(() => {
-//         if (error) {
-//             Toast.show({
-//                 type: "error",
-//                 text1: error,
-//             });
-//             dispatch({
-//                 type: "clearError",
-//             });
-//         }
+    useEffect(() => {
+        if (error) {
+            Toast.show({
+                type: "error",
+                text1: error,
+            });
+            dispatch({
+                type: "clearError",
+            });
+        }
 
-//         dispatch(getAdminProducts());
-//     }, [dispatch, isFocused, error]);
+        dispatch(getAdminProducts());
+    }, [dispatch, isFocused, error]);
 
-//     return {
-//         products,
-//         inStock,
-//         outOfStock,
-//         loading,
-//     };
-// };
+    return {
+        products,
+        inStock,
+        outOfStock,
+        loading,
+    };
+};
 
 // export const useChartData = (isFocused) => {
 //     const dispatch = useDispatch();

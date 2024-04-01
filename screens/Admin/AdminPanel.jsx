@@ -41,7 +41,7 @@ const AdminPanel = ({ navigation }) => {
             navigation.navigate("");
             break;
         case "Product":
-            navigation.navigate("");
+            navigation.navigate("products");
             break;
 
         default:
