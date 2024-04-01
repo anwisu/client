@@ -87,7 +87,7 @@ const Cart = ({ navigation }) => {
                 backgroundColor: '#ffffff',
                 position: 'relative',
             }}>
-            <Header back={true}/>
+            <Header back={true} emptyCart={true} emptyWishlist={false} />
                 {/* <View
                     style={{
                         width: '100%',

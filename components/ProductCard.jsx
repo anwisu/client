@@ -35,6 +35,7 @@ const ProductCard = ({
         <TouchableOpacity
             onPress={() => navigate.navigate("productdetails", { id })} style={{
                 width: '48%',
+                
                 marginVertical: 14,
             }}>
             <View
@@ -61,12 +62,12 @@ const ProductCard = ({
             </View>
             <Text
                 style={{
-                    fontSize: 12,
+                    fontSize: 16,
                     color: '#000000',
                     fontWeight: '600',
                     marginBottom: 2,
                 }}>
-                {truncateName(name, 50)}
+                {truncateName(name, 22)}
             </Text>
             {isOutOfStock ? (
                 <View

@@ -1,65 +1,45 @@
 import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Avatar } from "react-native-paper";
+import { colors } from "../constants";
 
 const WishListCard = ({
     name,
-    amount,
-    stock,
-    index,
-    imgSrc,
     price,
+    amount,
+    imgSrc,
     removeWishlistHandler,
     addToCartHandler,
     id,
     navigate,
-    }) => {
+}) => {
 
     return (
         <TouchableOpacity style={styles.container}>
-            <View style={styles.detailContainer}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={{
-                            uri: imgSrc,
-                        }}
-                        style={{ height: 40, width: "auto", resizeMode: "contain" }}
-                    />
-                </View>
-                <View style={styles.categoryInfo}>
-                    <Text style={styles.categoryTitle} onPress={() => navigate.navigate("productdetails", { id })}>{name ? `${name.substring(0, 30)}..` : ''}</Text>
-                    {/* <Text style={styles.categoryDescription}>
-                        {description ? `${description.substring(0, 20)}..` : ''}
-                    </Text> */}
-                    <Text style={styles.categoryDescription}>
-                    ${amount}
+            <View style={styles.imageContainer}>
+                <Image
+                    source={{ uri: imgSrc }}
+                    style={styles.image}
+                />
+            </View>
+            <View style={styles.detailsContainer}>
+                <Text style={styles.name} onPress={() => navigate.navigate("productdetails", { id })}>
+                    {name}
+                </Text>
+                <View style={styles.priceContainer}>
+                    <Text style={styles.price}>    ${price ? price : amount}
                     </Text>
-                    <Text style={styles.categoryTitle}>Add to cart</Text>
+                    <TouchableOpacity style={styles.cartButton} onPress={() => addToCartHandler()}>
+                        <Text style={styles.cartButtonText}>Add to Cart</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.categoryActionContainer}>
-                <View style={styles.infoButtonContainer}>
-                    <View style={styles.wishlistButtonContainer}>
-                        {/* <TouchableOpacity
-                            style={styles.iconContainer}
-                            onPress={() => handleChangeState()}
-                        >
-                            {onWishlist == false ? (
-                                <Ionicons name="heart" size={25} color="#707981" />
-                            ) : (
-                                <Ionicons name="heart" size={25} color="#FF4848" />
-                            )}
-                        </TouchableOpacity> */}
-                        <TouchableOpacity
-                            style={styles.iconContainer}
-                            onPress={() => removeWishlistHandler(id, name, amount, imgSrc, stock)}
-                        >
-                            <Ionicons name="heart" size={25} color="#FF4848" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
+            <TouchableOpacity
+                style={styles.removeButton}
+                onPress={() => removeWishlistHandler(id)}
+            >
+                <Ionicons name="trash-outline" size={20} color="#FF4848" />
+            </TouchableOpacity>
         </TouchableOpacity>
     );
 };
@@ -71,77 +51,68 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
-        padding: 5,
         backgroundColor: "#FFFFFF",
-        height: 80,
         borderRadius: 10,
+        marginHorizontal: 5,
+        marginBottom: 15,
         elevation: 5,
-        margin: 5,
-    },
-    detailContainer: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 10,
-        backgroundColor: "#FFFFFF",
-        height: 80,
-        borderRadius: 10,
-        margin: 5,
+        position: "relative",
+
     },
     imageContainer: {
-        width: 50,
-        height: 50,
+        margin: 10,
+        padding: 10,
         elevation: 5,
         display: "flex",
         justifyContent: "center",
-
-        backgroundColor: "#F5F5F5",
+    
+        backgroundColor: colors.light,
     },
-    categoryTitle: {
-        fontSize: 15,
-        fontWeight: "500",
+    image: {
+        width: 80,
+        height: 80,
+        resizeMode: "contain",
     },
-    categoryDescription: {
-        fontSize: 12,
-        color: "#707981",
+    detailsContainer: {
+        flex: 1,
+        padding: 10,
     },
-    categoryInfo: {
-        marginLeft: 10,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        alignItems: "flex-start",
+    name: {
+        fontSize: 14,
+        fontWeight: "bold",
+        marginBottom: 10,
+        textAlign: "left", // Center the text horizontally
+        flexWrap: "wrap", 
+        width: "80%",
     },
-
-    actionButton: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 5,
-        height: 30,
-        width: 30,
-        backgroundColor: "#FB6831",
-        borderRadius: 5,
-        elevation: 2,
-    },
-    infoButtonContainer: {
-        padding: 5,
-        paddingRight: 0,
-        display: "flex",
-
+    priceContainer: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
     },
-    wishlistButtonContainer: {
-        height: 50,
-        width: 50,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#F5F5F5",
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
+    price: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginTop: 10,
+        right: 15,
+        color: '#e84219',
+    },
+    cartButton: {
+        backgroundColor: "#FB6831",
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 5,
+        marginTop: 10,
+        left: 4,
+    },
+    cartButtonText: {
+        color: "#FFFFFF",
+        fontWeight: "bold",
+    },
+    removeButton: {
+        position: "absolute", 
+        top: 1, 
+        right: 1,
+        padding: 5,
     },
 });

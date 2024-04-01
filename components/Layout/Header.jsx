@@ -139,14 +139,10 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                         //         borderColor: '#F0F0F3',
                         //     }}
                         // />
-                        <Ionicons name="delete-outline"
+                        <Ionicons name="trash-outline"
                             style={{
-                                fontSize: 18,
+                                fontSize: 30,
                                 color: "#FB6831",
-                                padding: 12,
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                borderColor: '#F0F0F3',
                             }}
                         />
 
