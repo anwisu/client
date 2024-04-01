@@ -216,7 +216,7 @@ const CategoryCard = ({ name, id, image, deleteHandler, navigation }) => (
                     />
                 </TouchableOpacity>
                 {/* Edit button */}
-                <TouchableOpacity onPress={() => navigation.navigate("update", { id })}>
+                <TouchableOpacity onPress={() => navigation.navigate("updatecategory", { id })}>
                     <Avatar.Icon
                         icon="pen"
                         size={30}

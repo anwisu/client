@@ -18,11 +18,11 @@ import Profile from "./screens/User/Profile";
 import AdminPanel from "./screens/Admin/AdminPanel";
 import Categories from "./screens/Admin/Categories";
 import UpdateCategory from "./screens/Admin/UpdateCategory";
-import CategoryImages from "./screens/Admin/CategoryImages";
 import Wishlist from "./screens/Wishlist";
 import MyAccount from "./screens/User/MyAccount";
 import UpdateProfile from "./screens/User/UpdateProfile";
 import ChangePassword from "./screens/User/ChangePassword";
+import Products from "./screens/Admin/Products";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,7 +59,7 @@ const Main = () => {
             <Stack.Screen name="adminpanel" component={AdminPanel} />
             <Stack.Screen name="categories" component={Categories} />
             <Stack.Screen name="updatecategory" component={UpdateCategory} />
-            <Stack.Screen name="categoryimages" component={CategoryImages} />
+            <Stack.Screen name="products" component={Products} />
 
             {/* Password Reset Routes */}
             {/* <Stack.Screen name="forgetpassword" component={ForgetPassword} />

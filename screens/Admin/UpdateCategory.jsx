@@ -11,7 +11,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Carousel from "react-native-snap-carousel";
 import ImageCard from "../../components/Layout/ImageCard";
 
-const Update = ({ navigation, route }) => {
+const UpdateCategory = ({ navigation, route }) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
     const [categoryId] = useState(route.params.id);
@@ -175,4 +175,4 @@ const Update = ({ navigation, route }) => {
     );
 }
 
-export default Update;
+export default UpdateCategory;
