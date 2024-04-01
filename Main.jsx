@@ -24,6 +24,8 @@ import UpdateProfile from "./screens/User/UpdateProfile";
 import ChangePassword from "./screens/User/ChangePassword";
 import Products from "./screens/Admin/Products";
 import NewProduct from "./screens/Admin/NewProduct";
+import AdminOrders from "./screens/Admin/AdminOrders";
+import AdminOrderDetails from "./screens/Admin/AdminOrderDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +64,9 @@ const Main = () => {
             <Stack.Screen name="updatecategory" component={UpdateCategory} />
             <Stack.Screen name="products" component={Products} />
             <Stack.Screen name="newproduct" component={NewProduct} />
+            <Stack.Screen name="adminorders" component={AdminOrders} />
+            <Stack.Screen name="adminorderdetails" component={AdminOrderDetails} />
+
 
             {/* Password Reset Routes */}
             {/* <Stack.Screen name="forgetpassword" component={ForgetPassword} />

@@ -22,7 +22,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useGetOrders } from "../../utils/hooks";
 import { useMessageAndErrorOrder } from "../../utils/hooks";
 
-const OrderDetails = ({ admin }) => {
+const AdminOrderDetails = ({ admin = true }) => {
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
     const [statusDisable, setStatusDisable] = useState(false);
@@ -222,7 +222,7 @@ const OrderDetails = ({ admin }) => {
     );
 };
 
-export default OrderDetails
+export default AdminOrderDetails
 
 const styles = StyleSheet.create({
     container: {

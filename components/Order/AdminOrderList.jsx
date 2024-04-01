@@ -13,7 +13,7 @@ const OrderList = ({
     statusColor,
     paymentMethod,
     updateHandler,
-    admin = false,
+    admin = true,
     loading,
     i = 0,
     navigate,
@@ -50,7 +50,7 @@ const OrderList = ({
                 <Text style={styles.secondaryText} i={i}>Total Amount : ${price}</Text>
             </View>
             <View style={styles.innerRow}>
-                <TouchableOpacity style={styles.detailButton} onPress={() => navigate.navigate("orderdetails", { id })}>
+                <TouchableOpacity style={styles.detailButton} onPress={() => navigate.navigate("adminorderdetails", { id })}>
                     <Text>Details</Text>
                 </TouchableOpacity>
                 <View style={[styles.badge, { backgroundColor: statusColor }]}>
@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
         width: 100,
     },
     badge: {
-        borderRadius: 20, // Adjust this to change badge roundness
+        borderRadius: 20, 
         paddingHorizontal: 10,
         paddingVertical: 5,
-        backgroundColor: "#ff6347", // Default badge color
+        backgroundColor: "#ff6347", 
     },
     badgeText: {
         fontWeight: "bold",

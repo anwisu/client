@@ -35,7 +35,7 @@ const AdminPanel = ({ navigation }) => {
             navigation.navigate("categories");
             break;
         case "All Orders":
-            navigation.navigate("");
+            navigation.navigate("adminorders");
             break;
         case "Analytics":
             navigation.navigate("");
