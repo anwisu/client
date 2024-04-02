@@ -32,13 +32,25 @@ export default ImageCard;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "bc430b",
-        elevation: 5,
-        margin: 10,
-        padding: 15,
+        display: "flex",
+        justifyContent: "space-evenly",
         alignItems: "center",
+        width: "100%",
+        height: 250,
+        backgroundColor: colors.white,
         borderRadius: 10,
-        height: 230,
-        width: "80%"
+        elevation: 5,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    imageHolder: {
+        height: 200,
+        width: 200,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: colors.light,
+        borderRadius: 10,
+        elevation: 5,
     },
 });

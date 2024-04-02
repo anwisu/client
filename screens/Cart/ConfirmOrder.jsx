@@ -13,6 +13,7 @@ import ConfirmOrderItem from '../../components/Cart/ConfirmOrderItem'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { placeOrder } from "../../redux/actions/cartActions";
+import Header from '../../components/Layout/Header';
 
 
 const ConfirmOrder = () => {
@@ -34,38 +35,7 @@ const ConfirmOrder = () => {
                 backgroundColor: '#ffffff',
                 position: 'relative',
             }}>
-            
-                <View
-                    style={{
-                        width: '100%',
-                        flexDirection: 'row',
-                        paddingTop: 16,
-                        paddingHorizontal: 16,
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}>
-                    <TouchableOpacity onPress={() => navigate.goBack()}>
-                        <MaterialCommunityIcons
-                            name="chevron-left"
-                            style={{
-                                fontSize: 18,
-                                color: '#777777',
-                                padding: 12,
-                                backgroundColor: '#F0F0F3',
-                                borderRadius: 12,
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            fontSize: 14,
-                            color: '#000000',
-                            fontWeight: '400',
-                        }}>
-                        Order Details
-                    </Text>
-                    <View></View>
-                </View>
+            <Header back={true} />
                 <Text
                     style={{
                         fontSize: 20,
@@ -160,89 +130,6 @@ const ConfirmOrder = () => {
                         </View>
                     </View>
                 </View>
-                {/* <View
-                    style={{
-                        paddingHorizontal: 16,
-                        marginVertical: 10,
-                    }}>
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            color: '#000000',
-                            fontWeight: '500',
-                            letterSpacing: 1,
-                            marginBottom: 20,
-                        }}>
-                        Payment Method
-                    </Text>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                width: '80%',
-                                alignItems: 'center',
-                            }}>
-                            <View
-                                style={{
-                                    color: '#0043F9',
-                                    backgroundColor: '#F0F0F3',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    padding: 12,
-                                    borderRadius: 10,
-                                    marginRight: 18,
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 10,
-                                        fontWeight: '900',
-                                        color: '#0043F9',
-                                        letterSpacing: 1,
-                                    }}
-                                    >
-                                    VISA
-                                </Text>
-                            </View>
-                            <View>
-                                <Text
-                                    style={{
-                                        fontSize: 14,
-                                        color: '#000000',
-                                        fontWeight: '500',
-                                    }}>
-                                    Visa Classic
-                                </Text>
-                                <Text
-                                    style={{
-                                        fontSize: 12,
-                                        color: '#000000',
-                                        fontWeight: '400',
-                                        lineHeight: 20,
-                                        opacity: 0.5,
-                                    }}>
-                                    ****-9092
-                                </Text>
-                            </View>
-                        </View>
-                        <MaterialCommunityIcons
-                            name="chevron-right"
-                            style={{ fontSize: 22, color: '#000000' }}
-                            onPress={() =>
-                                navigate.navigate("payment", {
-                                    itemsPrice,
-                                    shippingCharges,
-                                    tax,
-                                    totalAmount,
-                                })
-                            }
-                        />
-                    </View>
-                </View> */}
                 <View
                     style={{
                         paddingHorizontal: 16,

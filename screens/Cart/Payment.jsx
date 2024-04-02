@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 // import { colors, defaultStyle } from "../styles/styles";
-// import Header from "../components/Header";
+import Header from "../../components/Layout/Header";
 // import Heading from "../components/Heading";
 import { Button, RadioButton } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
@@ -132,37 +132,7 @@ const Payment = ({ navigation, route }) => {
                     backgroundColor: '#ffffff',
                     position: 'relative',
                 }}>
-                <View
-                    style={{
-                        width: '100%',
-                        flexDirection: 'row',
-                        paddingTop: 16,
-                        paddingHorizontal: 16,
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons
-                            name="chevron-left"
-                            style={{
-                                fontSize: 18,
-                                color: '#777777',
-                                padding: 12,
-                                backgroundColor: '#F0F0F3',
-                                borderRadius: 12,
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            fontSize: 14,
-                            color: '#000000',
-                            fontWeight: '400',
-                        }}>
-                        Order Details
-                    </Text>
-                    <View></View>
-                </View>
+                <Header back={true} />
                 <Text
                     style={{
                         fontSize: 20,
