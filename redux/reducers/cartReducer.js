@@ -23,6 +23,13 @@ export const cartReducer = createReducer(
                     }
                 } else state.cartItems.push(item);
             })
+            .addCase("updateCartQuantity", (state, action) => {
+                const { product, quantity } = action.payload;
+                const item = state.cartItems.find((i) => i.product === product);
+                if (item) {
+                    item.quantity += quantity;
+                }
+            })
             .addCase("removeFromCart", (state, action) => {
                 const id = action.payload;
                 state.cartItems = state.cartItems.filter((i) => i.product !== id);

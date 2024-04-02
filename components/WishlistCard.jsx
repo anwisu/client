@@ -12,6 +12,7 @@ const WishListCard = ({
     addToCartHandler,
     id,
     navigate,
+    stock,
 }) => {
 
     return (
@@ -28,7 +29,7 @@ const WishListCard = ({
                 </Text>
                 
                 <View style={styles.priceContainer}>
-                    <Text style={styles.price}>    ${price ? price : amount}
+                    <Text style={styles.price}>    ${price}
                     </Text>
                     <TouchableOpacity style={styles.cartButton} onPress={() => addToCartHandler(id, name, price, imgSrc, stock)}>
                         <Text style={styles.cartButtonText}>Add to Cart</Text>

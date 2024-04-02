@@ -40,6 +40,8 @@ const Home = () => {
 
     const { products } = useSelector((state) => state.product);
     const { user } = useSelector((state) => state.user);
+    const wishlist = useSelector(state => state.wishlist.wishlistItems) || [];
+    const cart = useSelector(state => state.cart.cartItems);
 
     console.log(user)
     const categoryButtonHandler = (id) => {
@@ -56,29 +58,52 @@ const Home = () => {
             });
             
         }
-        else {
+        const cartItem = cart.find(item => item.product === id);
+
+    if (cartItem) {
+        if (cartItem.quantity < stock) {
             dispatch({
-                type: "addToCart",
+                type: "updateCartQuantity",
                 payload: {
                     product: id,
-                    name,
-                    price,
-                    image,
-                    stock,
                     quantity: 1,
                 },
             });
-    
+
             Toast.show({
-                type: "success",
-                text1: "Added To Cart",
+                type: "info",
+                text1: "Already in Cart. Quantity +1",
+            });
+        } else {
+            Toast.show({
+                type: "info",
+                text1: "Cannot add more. Stock limit reached.",
             });
         }
-        if (stock === 0)
-            return Toast.show({
-                type: "error",
-                text1: "Out Of Stock",
-            });
+    } else {
+        dispatch({
+            type: "addToCart",
+            payload: {
+                product: id,
+                name,
+                price,
+                image,
+                stock,
+                quantity: 1,
+            },
+        });
+
+        Toast.show({
+            type: "success",
+            text1: "Added To Cart",
+        });
+    }
+
+    if (stock === 0)
+        return Toast.show({
+            type: "error",
+            text1: "Out Of Stock",
+        });
 
     };
 
@@ -87,22 +112,31 @@ const Home = () => {
             navigate.navigate("login"); 
             return;
         }
-        dispatch({
-            type: "addToWishlist",
-            payload: {
-                product:
-                id,
-                name,
-                price,
-                image,
-                stock,
-            }
-        })
 
-        Toast.show({
-            type: "success",
-            text1: "Added To Wishlist",
-        });
+        const isAlreadyInWishlist = wishlist.some(item => item.product === id);
+
+        if (isAlreadyInWishlist) {
+            Toast.show({
+                type: "info",
+                text1: "Already in Wishlist",
+            });
+        } else {
+            dispatch({
+                type: "addToWishlist",
+                payload: {
+                    product: id,
+                    name,
+                    price,
+                    image,
+                    stock,
+                }
+            });
+    
+            Toast.show({
+                type: "success",
+                text1: "Added To Wishlist",
+            });
+        }
     };
 
     const handleCategoryClick = (categoryId) => {

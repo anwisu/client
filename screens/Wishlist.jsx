@@ -17,6 +17,7 @@ const Wishlist = () => {
     const dispatch = useDispatch();
 
     const { wishlistItems } = useSelector((state) => state.wishlist);
+    const cart = useSelector(state => state.cart.cartItems);
 
     const removeWishlistHandler = (id) => {
         dispatch({ type: "removeFromWishlist", payload: id });
@@ -27,24 +28,38 @@ const Wishlist = () => {
             return Toast.show({
                 type: "error",
                 text1: "Out Of Stock",
-            });
+            })
+            
+            const cartItem = cart.find(item => item.product === id);
 
-        dispatch({
-            type: "addToCart",
-            payload: {
-                product: id,
-                name,
-                price,
-                image,
-                stock,
-                quantity: 1,
-            },
-        });
+            if (cartItem) {
+                dispatch({ type: "removeFromWishlist", payload: id });
 
-        Toast.show({
-            type: "success",
-            text1: "Added To Cart",
-        });
+                return Toast.show({
+                    type: "info",
+                    text1: "Already in the cart.",
+                });
+            } else {
+                dispatch({
+                    type: "addToCart",
+                    payload: {
+                        product: id,
+                        name,
+                        price,
+                        image,
+                        stock,
+                        quantity: 1,
+                    },
+                });
+                dispatch({ type: "removeFromWishlist", payload: id });
+        
+                Toast.show({
+                    type: "success",
+                    text1: "Added To Cart",
+                });
+            }
+
+        
     };
 
 
@@ -68,31 +83,31 @@ const Wishlist = () => {
                     showsVerticalScrollIndicator={false}
                 >
 
-                    {wishlistItems.length > 0 ? (
-                        wishlistItems.map((i, index) => (
-                            <WishListCard
-                                navigate={navigate}
-                                key={i.product}
-                                id={i.product}
-                                name={i.name}
-                                stock={i.stock}
-                                amount={i.price}
-                                imgSrc={i.image}
-                                index={index}
-                                removeWishlistHandler={removeWishlistHandler}
-                                addToCartHandler={addToCardHandler}
-                            />
-                        ))
-                        // < View style={styles.emptyView}></View>
-                    ) : (
-                        <View style={styles.ListContiainerEmpty}>
-                            <Text style={styles.secondaryTextSmItalic}>
-                                "There are no product in wishlist yet."
-                            </Text>
-                        </View>
-                    )}
-                </ScrollView >
-            </View >
+{wishlistItems.length > 0 ? (
+                    wishlistItems.map((i, index) => (
+                        <WishListCard
+                            navigate={navigate}
+                            key={i.product}
+                            id={i.product}
+                            name={i.name}
+                            stock={i.stock}
+                            price={i.price}
+                            imgSrc={i.image}
+                            index={index}
+                            removeWishlistHandler={removeWishlistHandler}
+                            addToCartHandler={addToCardHandler}
+                        />
+                    ))
+                    // < View style={styles.emptyView}></View>
+                ) : (
+                    <View style={styles.ListContiainerEmpty}>
+                        <Text style={styles.secondaryTextSmItalic}>
+                            "There are no product in wishlist yet."
+                        </Text>
+                    </View>
+                )}
+            </ScrollView >
+        </View >
         </>
     );
 };

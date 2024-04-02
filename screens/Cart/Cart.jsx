@@ -20,6 +20,7 @@ const Cart = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const { cartItems } = useSelector((state) => state.cart);
+    const wishlist = useSelector(state => state.wishlist.wishlistItems) || [];
 
     const incrementHandler = (id, name, price, image, stock, quantity) => {
         const newQty = quantity + 1;
@@ -61,22 +62,30 @@ const Cart = ({ navigation }) => {
     };
 
     const addToWishlistHandler = (id, name, price, image, stock) => {
-        dispatch({
-            type: "addToWishlist",
-            payload: {
-                product:
-                    id,
-                name,
-                price,
-                image,
-                stock,
-            }
-        })
+        const isAlreadyInWishlist = wishlist.some(item => item.product === id);
 
-        Toast.show({
-            type: "success",
-            text1: "Added To Wishlist",
-        });
+        if (isAlreadyInWishlist) {
+            Toast.show({
+                type: "info",
+                text1: "Already in Wishlist",
+            });
+        } else {
+            dispatch({
+                type: "addToWishlist",
+                payload: {
+                    product: id,
+                    name,
+                    price,
+                    image,
+                    stock,
+                }
+            });
+    
+            Toast.show({
+                type: "success",
+                text1: "Added To Wishlist",
+            });
+        }
     };
 
     return (

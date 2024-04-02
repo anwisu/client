@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { defaultStyle, colors } from "../styles/styles";
-// import Header from "../components/Header";
+import Header from "../components/Layout/Header";
 import Comment from "../components/Comment";
 import Carousel from "react-native-snap-carousel";
 import { Avatar, Button } from "react-native-paper";
@@ -40,6 +40,8 @@ const ProductDetails = ({ route: { params } }) => {
   const comments = useSelector((state) => state.comment.comments); // Fetch comments from Redux store
   const average = useSelector((state) => state.comment.averageRating); // Fetch comments from Redux store
   const loading = useSelector((state) => state.comment.loading); // Fetch loading state from Redux store
+  const wishlist = useSelector(state => state.wishlist.wishlistItems) || [];
+  const cart = useSelector(state => state.cart.cartItems);
 
   // console.log("currently log in:", user);
   const {
@@ -71,34 +73,61 @@ const ProductDetails = ({ route: { params } }) => {
     setQuantity((prev) => prev - 1);
   };
 
-  const addToCardHandler = () => {
-    if (!user) {
+  const addToCardHandler = (id, name, price, image, stock) => {
+    if (!user || user === undefined || Object.keys(user).length === 0) {
       navigate.navigate("login");
-      return;
-    }
-    if (stock === 0) {
       return Toast.show({
-        type: "error",
-        text1: "Out Of Stock",
+          type: "info",
+          text1: "Log in to continue.",
       });
-    }
+      
+  }
+  const cartItem = cart.find(item => item.product === id);
 
-    dispatch({
-      type: "addToCart",
-      payload: {
-        product: params.id,
-        name,
-        price,
-        image: images[0]?.url,
-        stock,
-        quantity,
-      },
-    });
+      if (cartItem) {
+        if (cartItem.quantity < stock) {
+            dispatch({
+                type: "updateCartQuantity",
+                payload: {
+                    product: id,
+                    quantity: 1,
+                },
+            });
 
-    Toast.show({
-      type: "success",
-      text1: "Added To Cart",
-    });
+            Toast.show({
+                type: "info",
+                text1: "Already in Cart. Quantity +1",
+            });
+        } else {
+            Toast.show({
+                type: "info",
+                text1: "Cannot add more. Stock limit reached.",
+            });
+        }
+      } else {
+        dispatch({
+            type: "addToCart",
+            payload: {
+                product: id,
+                name,
+                price,
+                image,
+                stock,
+                quantity: 1,
+            },
+        });
+
+        Toast.show({
+            type: "success",
+            text1: "Added To Cart",
+        });
+      }
+
+      if (stock === 0)
+        return Toast.show({
+            type: "error",
+            text1: "Out Of Stock",
+        });
   };
 
   const addToWishlistHandler = (id, name, price, image, stock) => {
@@ -106,21 +135,30 @@ const ProductDetails = ({ route: { params } }) => {
       navigate.navigate("login");
       return;
     }
-    dispatch({
-      type: "addToWishlist",
-      payload: {
-        product: id,
-        name,
-        price,
-        image,
-        stock,
-      },
-    });
+    const isAlreadyInWishlist = wishlist.some(item => item.product === id);
 
-    Toast.show({
-      type: "success",
-      text1: "Added To Wishlist",
-    });
+        if (isAlreadyInWishlist) {
+            Toast.show({
+                type: "info",
+                text1: "Already in Wishlist",
+            });
+        } else {
+            dispatch({
+                type: "addToWishlist",
+                payload: {
+                    product: id,
+                    name,
+                    price,
+                    image,
+                    stock,
+                }
+            });
+    
+            Toast.show({
+                type: "success",
+                text1: "Added To Wishlist",
+            });
+        }
   };
 
   const handleDeleteComment = async (commentId) => {
@@ -138,18 +176,20 @@ const ProductDetails = ({ route: { params } }) => {
       });
     }
   };
-  
+
   return (
-    <ScrollView style={{ ...defaultStyle, padding: 0 }}>
-      {/* <Header back={true} /> */}
-      <Carousel
-        layout="stack"
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        ref={isCarousel}
-        data={images}
-        renderItem={CarouselCardItem}
-      />
+    <ScrollView style={{ ...defaultStyle, padding: 0 }} nestedScrollEnabled>
+      <Header back={true} />
+      {images && (
+        <Carousel
+          layout="stack"
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={ITEM_WIDTH}
+          ref={isCarousel}
+          data={images}
+          renderItem={CarouselCardItem}
+        />
+      )}
 
       <View
         style={{
@@ -245,7 +285,7 @@ const ProductDetails = ({ route: { params } }) => {
         <View style={{ flexDirection: "column", marginTop: 20 }}>
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={addToCardHandler}
+            onPress={() => addToCardHandler(params.id, name, price, images[0]?.url, stock)}
             style={{ flex: 8 }}
             disabled={isOutOfStock}
           >
