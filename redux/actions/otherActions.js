@@ -487,13 +487,13 @@ try {
     });
 }
 };
-/* export const fetchChart3Data = () => async (dispatch) => {
+export const fetchChart3Data = () => async (dispatch) => {
 try {
     dispatch({
     type: "fetchChart3DataRequest",
     });
 
-    const { data } = await axios.get(`${server}/order/Orders-per-month`, {
+    const { data } = await axios.get(`${server}/order/Most-Ordered-Product`, {
     headers: {
         "Content-Type": "application/json",
     },
@@ -510,4 +510,4 @@ try {
     payload: error.response.data.message,
     });
 }
-}; */
+};

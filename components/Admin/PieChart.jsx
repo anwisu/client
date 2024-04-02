@@ -30,7 +30,7 @@ function getRandomColorComplimentaryToYellow() {
 
 export default OrderStatusPieChart = ({ data }) => {
     const [chartData, setChartData] = useState([]);
-    console.log('console log from pie chart data:',data);
+    /* console.log('console log from pie chart data:',data); */
     useEffect(() => {
         if (data && Array.isArray(data.orderDetails)) {
             const transformedData = data.orderDetails.map(item => ({
@@ -41,7 +41,7 @@ export default OrderStatusPieChart = ({ data }) => {
             }));
             
             setChartData(transformedData);
-            console.log('console log from pie chart transformedData:', transformedData);
+            /* console.log('console log from pie chart transformedData:', transformedData); */
         }
     }, [data]);
 

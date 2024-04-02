@@ -5,6 +5,7 @@ import Header from "../../components/Layout/Header";
 import Loader from "../../components/Layout/Loader";
 import OrderStatusPieChart from "../../components/Admin/PieChart";
 import OrderSumByMonthLineChart from "../../components/Admin/LineChart";
+import MostOrderedProductBarChart from "../../components/Admin/BarChart";
 import { useMessageAndErrorOther, useChartData } from "../../utils/hooks";
 import { useDispatch } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
@@ -32,7 +33,15 @@ const Analytics = ({ navigation }) => {
 
     const formattedTime = date.toLocaleTimeString();
 
-    const { chartData, chartData2, /* chartData3, */ loading, error } = useChartData(
+    const getMonthName = (monthNumber) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return monthNames[monthNumber];
+      };
+      
+      const currentMonthName = getMonthName(new Date().getMonth());
+
+
+    const { chartData, chartData2, chartData3, loading, error } = useChartData(
         dispatch,
         isFocused
     );
@@ -88,7 +97,7 @@ const Analytics = ({ navigation }) => {
                         </View>
 
                         <View>
-                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Customer Sales</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Revenue Per Month</Text>
                             <View
                                 style={{
                                     backgroundColor: colors.color3,
@@ -107,7 +116,7 @@ const Analytics = ({ navigation }) => {
                         </View>
 
                         <View>
-                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Monthly Sales</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>{currentMonthName}: Top 3 Products</Text>
                             <View
                                 style={{
                                     backgroundColor: colors.color3,
@@ -116,13 +125,10 @@ const Analytics = ({ navigation }) => {
                                     marginBottom: 10,
                                 }}
                             >
-
-                               {/*  <MonthlySalesChart
-                                    inStock={inStock}
-                                    outOfStock={outOfStock}
+                                <MostOrderedProductBarChart
                                     loading={processAnalyticsLoading}
                                     data={chartData3}
-                                /> */}
+                                />
                             </View>
                         </View>
 

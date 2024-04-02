@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "../redux/actions/userActions";
 import { server } from "../redux/store";
 import { getAdminProducts } from "../redux/actions/productActions";
-import { fetchChart1Data, fetchChart2Data/* , fetchChart3Data */ } from "../redux/actions/otherActions";
+import { fetchChart1Data, fetchChart2Data, fetchChart3Data } from "../redux/actions/otherActions";
 
 export const useMessageAndErrorUser = (
     navigation,
@@ -191,7 +191,7 @@ export const useAdminProducts = (dispatch, isFocused) => {
 
 export const useChartData = (isFocused) => {
     const dispatch = useDispatch();
-    const { chartData, chartData2, /* chartData3, */ error, loading } = useSelector((state) => state.other);
+    const { chartData, chartData2, chartData3, error, loading } = useSelector((state) => state.other);
 
     useEffect(() => {
         if (error) {
@@ -207,14 +207,14 @@ export const useChartData = (isFocused) => {
         if (isFocused) {
             dispatch(fetchChart1Data());
             dispatch(fetchChart2Data());
-            /* dispatch(fetchChart3Data()); */
+            dispatch(fetchChart3Data());
         }
     }, [dispatch, isFocused, error]);
 
     return {
         chartData,
         chartData2,
-        /* chartData3, */
+        chartData3,
         loading,
     };
 };
