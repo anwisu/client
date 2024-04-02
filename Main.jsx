@@ -40,6 +40,7 @@ import ChangePassword from "./screens/User/ChangePassword";
 import Analytics from "./screens/Admin/Analytics";
 import Products from "./screens/Admin/Products";
 import NewProduct from "./screens/Admin/NewProduct";
+import UpdateProduct from "./screens/Admin/UpdateProduct";
 import AdminOrders from "./screens/Admin/AdminOrders";
 import AdminOrderDetails from "./screens/Admin/AdminOrderDetails";
 
@@ -55,7 +56,6 @@ import { CLIENT_ID_ANDROID, CLIENT_ID_IOS, CLIENT_ID_WEB } from "@env";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 import { useMessageAndErrorUser } from "./utils/hooks";
-import UpdateProduct from "./screens/Admin/UpdateProduct";
 // import UserLists from "./screens/Admin/UserLists";
 
 const CustomDrawerContent = (props) => {

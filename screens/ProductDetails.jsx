@@ -19,11 +19,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { getProductDetails } from "../redux/actions/productActions";
 import { server } from "../redux/store";
-import { AirbnbRating } from "react-native-ratings";
 import {
-  deleteComment,
-  getAllComments,
-  //   getProductRatings,
+    deleteComment,
+    getAllComments,
+    getProductRatings,
 } from "../redux/actions/commentActions";
 import { FontAwesome } from "react-native-vector-icons";
 
@@ -48,8 +47,6 @@ const ProductDetails = ({ route: { params } }) => {
 
   const [quantity, setQuantity] = useState(1);
   const isOutOfStock = stock === 0;
-
-  const checkLogin = !!user;
 
   useEffect(() => {
     dispatch(getAllComments(params.id)); // Fetch comments when component mounts
@@ -347,15 +344,15 @@ const ProductDetails = ({ route: { params } }) => {
                 }}
               />
               {/* Logging user.id */}
-              {console.log("User:", user)}
+              {/* {console.log("User:", user)}
               {console.log("Item User:", item.user)}
-              {console.log("User Role:", user.role)}
+              {console.log("User Role:", user.role)} */}
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-      {checkLogin && <Comment />}
+      <Comment />
     </ScrollView>
   );
 };
