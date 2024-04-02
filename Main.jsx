@@ -144,7 +144,7 @@ const CustomDrawerContent = (props) => {
             )} */}
                 <ImageBackground
                     source={require('./assets/images/bg5.png')}
-                    style={{ padding: 20, alignItems: 'center' }}>
+                    style={{ alignItems: "center", padding: 20, }}>
                     {!loading && (
                         <TouchableOpacity
                             activeOpacity={0.8}
