@@ -4,7 +4,7 @@ import { otherReducer } from "./reducers/otherReducer";
 import { productReducer } from "./reducers/productReducer";
 import { orderReducer } from "./reducers/orderReducer";
 import { cartReducer } from "./reducers/cartReducer";
-// import { commentReducer } from "./reducers/commentReducer";
+import { commentReducer } from "./reducers/commentReducer";
 import { wishlistReducer } from "./reducers/wishlistReducer";
 // import { chatReducer } from "./reducers/chatReducer"
 
@@ -15,12 +15,12 @@ export const store = configureStore({
         product: productReducer,
         order: orderReducer,
         cart: cartReducer,
-        // comment: commentReducer,
+        comment: commentReducer,
         wishlist: wishlistReducer,
         // chat: chatReducer
     },
 });
-//Deployed serverr
+//Deployed server
 export const server = "https://barknmeow-backend.onrender.com/api/v1"
 
 //IP ni wanel
