@@ -19,12 +19,10 @@ const Categories = ({ navigation, route }) => {
     const categories = useSelector((state) => state.other.categories);
     const loading = useMessageAndErrorOther(dispatch, navigation, "adminpanel");
 
-    // Fetch categories when the component mounts or when it's focused
     useEffect(() => {
         fetchCategories();
     }, [isFocused]);
 
-    // Function to fetch categories
     const fetchCategories = async () => {
         try {
             await dispatch(getAllCategories());
@@ -36,13 +34,12 @@ const Categories = ({ navigation, route }) => {
     const deleteHandler = async (id) => {
         try {
             await dispatch(deleteCategory(id));
-            fetchCategories(); // Refresh categories after deletion
+            fetchCategories();
         } catch (error) {
             console.error("Error deleting category:", error);
         }
     };
 
-    // Handler for submitting a new category
     const submitHandler = async () => {
         try {
             console.log('Submitting form data:', category, image);
@@ -55,9 +52,10 @@ const Categories = ({ navigation, route }) => {
                     name: imageUri.split("/").pop(),
                 });
             });
-            dispatch(addCategory(myForm));
+            await dispatch(addCategory(myForm));
             exitAddForm();
             fetchCategories();
+            navigation.navigate("categories");
         } catch (error) {
             console.log('Error adding category:', error);
         }
@@ -101,7 +99,6 @@ const Categories = ({ navigation, route }) => {
         </View>
     );
     
-    
     return (
         <View style={{ flex: 1, backgroundColor: "#F4B546", padding: 15 }}>
             {/* Navigation back button */}
@@ -127,7 +124,7 @@ const Categories = ({ navigation, route }) => {
             <ScrollView style={{ flex: 1 }}>
                 <View style={{ padding: 20 }}>
                     {/* Display categories */}
-                    {categories && categories.map((i) => (
+                    {categories &&  categories.map((i)=> (
                         <CategoryCard
                             key={i._id}
                             name={i.category}

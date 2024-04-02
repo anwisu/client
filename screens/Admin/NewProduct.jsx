@@ -16,8 +16,7 @@ const NewProduct = ({ navigation, route }) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
-
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -29,35 +28,34 @@ const NewProduct = ({ navigation, route }) => {
     useSetCategories(setCategories, isFocused);
     const loading = useMessageAndErrorOther(dispatch, navigation, "adminpanel");
 
+    const disableBtnCondition =
+        !name || !description || !price || !stock || !image;
+    
     const fetchProducts = async () => {
         try {
             await dispatch(getAdminProducts());
         } catch (error) {
-            console.error("Error fetching products:", error);
-        }
-    }
-
-    const disableBtnCondition =
-        !name || !description || !price || !stock || !image;
-
-    const openImagePicker = async () => {
-        try {
-            const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-                multiple: true, 
-            });
-    
-            if (!result.cancelled && result.assets.length > 0) {
-                const newImages = result.assets.map(asset => asset.uri);
-                setImage([...image, ...newImages]);
-            }
-        } catch (error) {
-            console.log('Error picking images:', error);
+            console.error("Error fetching categories:", error);
         }
     };
+        const openImagePicker = async () => {
+            try {
+                const result = await ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                    allowsEditing: true,
+                    aspect: [4, 3],
+                    quality: 1,
+                    multiple: true,
+                });
+        
+                if (!result.cancelled && result.assets.length > 0) {
+                    const newImages = result.assets.map(asset => asset.uri);
+                    setImage([...image, ...newImages]);
+                }
+            } catch (error) {
+                console.log('Error picking images:', error);
+            }
+        };
 
     const submitHandler = async () => {
         try {
@@ -76,12 +74,14 @@ const NewProduct = ({ navigation, route }) => {
             if (categoryID) {
                 myForm.append("category", categoryID);
             }
-            fetchProducts();
+            await dispatch(createProduct(myForm));
             navigation.navigate("products");
+            fetchProducts();
         } catch (error) {
             console.error("Error submitting form:", error);
         }
     };
+    
 
     useEffect(() => {
         if (route.params?.image) setImage(route.params.image);
@@ -97,8 +97,8 @@ const NewProduct = ({ navigation, route }) => {
 
     const deleteImage = (index) => {
         const updatedImages = [...image];
-        updatedImages.splice(index, 1); // Remove the image at the specified index
-        setImage(updatedImages); // Update the state with the new array of images
+        updatedImages.splice(index, 1);
+        setImage(updatedImages);
     };
 
     const renderCarouselItem = ({ item, index }) => (
@@ -199,9 +199,7 @@ const NewProduct = ({ navigation, route }) => {
                 style={{
                     padding: 10,
                     paddingLeft:15,
-                    // textAlign: "center",
                     textAlignVertical: "center",
-                    // borderRadius: 10,
                     marginBottom: 25,
                     backgroundColor: "transparent" 
                 }}

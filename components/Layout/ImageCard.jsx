@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: "center",
         borderRadius: 10,
-        height: 300,
+        height: 230,
+        width: "80%"
     },
 });

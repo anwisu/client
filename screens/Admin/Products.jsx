@@ -28,9 +28,13 @@ const Products = ({ navigation }) => {
         dispatch(getAllCategories());
     }, [dispatch, isFocused]);
 
-    const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id));
-        fetchProducts();
+    const deleteProductHandler = async (id) => {
+        try {
+            await dispatch(deleteProduct(id));
+            fetchProducts();
+        } catch (error) {
+            console.error("Error deleting category:", error);
+        }
     };
 
     const loadingDelete = useMessageAndErrorOther(
@@ -38,6 +42,17 @@ const Products = ({ navigation }) => {
         null,
         null,
         getAdminProducts
+    );
+
+    const renderCarouselItem = ({ item, index }) => (
+        <View key={index}>
+            {item && (
+                <Image
+                    style={{ width: 300, height: 150, resizeMode: 'contain' }}
+                    source={{ uri: item }}
+                />
+            )}
+        </View>
     );
 
     return(
@@ -58,21 +73,20 @@ const Products = ({ navigation }) => {
                 <Text style={{ fontSize: 24, color: "#FFFFFF", fontWeight: "800" }}>Products</Text>
             </View>
             <ScrollView style={{ flex: 1 }}>
-                <View>
-                    {!loadingDelete &&
-                        products.map((item) => (
-                            <ProductCard
-                                key={item._id}
-                                id={item._id}
-                                name={item.name}
-                                category={item.category?.category}
-                                price={item.price}
-                                stock={item.stock}
-                                images={item.images}
-                                deleteHandler={deleteProductHandler}
-                                navigation={navigation}
-                            />
-                        ))}
+                <View style={{ padding: 20 }}>
+                    {products && products.map((item) => (
+                        <ProductCard
+                            key={item._id}
+                            id={item._id}
+                            name={item.name}
+                            category={item.category ? item.category.category : "Uncategorized"} 
+                            price={item.price}
+                            stock={item.stock}
+                            images={item.images.length > 0 ? [item.images[0]] : []}
+                            deleteHandler={deleteProductHandler}
+                            navigation={navigation}
+                        />
+                    ))}
                 </View>
             </ScrollView>
             <TouchableOpacity
@@ -107,7 +121,7 @@ const ProductCard = ({ id, name, category, price, stock, images, deleteHandler, 
                 </View>
             </View>
             <View style={styles.rightColumn}>
-                <TouchableOpacity onPress={() => navigation.navigate("update", { id })}>
+                <TouchableOpacity onPress={() => navigation.navigate("updateproduct", { id })}>
                     <Avatar.Icon icon="pen" size={40} color="#BC430B" style={{ backgroundColor: "transparent" }} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => deleteHandler(id)}>
@@ -116,20 +130,27 @@ const ProductCard = ({ id, name, category, price, stock, images, deleteHandler, 
             </View>
         </View>
         <View style={styles.imageContainer}>
-            <Carousel
-                layout="stack"
-                data={images}
-                renderItem={({ item }) => (
-                    <Image source={{ uri: item.url }} style={styles.productImage} />
-                )}
-                sliderWidth={300}
-                itemWidth={300}
-                loop={true}
-            />
+            {Array.isArray(images) && images.length > 0 ? (
+                <Carousel
+                    layout="stack"
+                    data={images}
+                    renderItem={CarouselCardItem}
+                    sliderWidth={300}
+                    itemWidth={300}
+                    loop={true}
+                />
+            ) : (
+                <Text>No images available</Text>
+            )}
         </View>
     </View>
 );
 
+const CarouselCardItem = ({ item, index }) => (
+    <View key={index}>
+        <Image source={{ uri: item.url }} style={styles.productImage} />
+    </View>
+);
 const styles = StyleSheet.create({
     cardContainer: {
         backgroundColor: "#FFFFFF",

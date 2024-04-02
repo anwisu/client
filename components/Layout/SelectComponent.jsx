@@ -25,14 +25,15 @@ const SelectComponent = ({
         visible && (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => setVisible(false)}>
-                    <Avatar.Icon
-                        size={30}
-                        style={{
-                            alignSelf: "flex-end",
-                            backgroundColor: "#BC430B",
-                        }}
-                        icon={"close"}
-                    />
+                <Avatar.Icon
+                    size={30}
+                    style={{
+                        alignSelf: "flex-end",
+                        backgroundColor: "transparent",
+                    }}
+                    icon="close"
+                    color="#bc430b"
+                />
                 </TouchableOpacity>
                 <Headline style={styles.heading}> Select a Category</Headline>
                 <ScrollView>
@@ -60,20 +61,23 @@ const styles = StyleSheet.create({
         padding: 35,
         borderRadius: 20,
         width: "90%",
-        height: "80%",
+        height: "70%",
         alignSelf: "center",
-        elevation: 10,
-        top: 100,
+        elevation: 5,
+        top: 110,
     },
     heading: {
         textAlign: "center",
         marginVertical: 10,
         backgroundColor: "transparent",
-        color: "#BC430B",
+        borderRadius: 5,
+        padding: 3,
+        color: "#bc430b",
     },
     text: {
         fontSize: 17,
         fontWeight: "100",
         marginVertical: 10,
+        textAlign: "center"
     },
 });

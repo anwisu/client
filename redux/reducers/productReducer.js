@@ -3,8 +3,8 @@ import { createReducer } from "@reduxjs/toolkit";
 export const productReducer = createReducer({
     products: [],
     product: {},
-    comments: [], // Adding reviews state
-    comment: {}, // Adding reviews state
+    comments: [],
+    comment: {},
 
 }, (builder) => {
     builder

@@ -55,6 +55,7 @@ import { CLIENT_ID_ANDROID, CLIENT_ID_IOS, CLIENT_ID_WEB } from "@env";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 import { useMessageAndErrorUser } from "./utils/hooks";
+import UpdateProduct from "./screens/Admin/UpdateProduct";
 // import UserLists from "./screens/Admin/UserLists";
 
 const CustomDrawerContent = (props) => {
@@ -258,6 +259,7 @@ const HomeStack = () => {
                 <Stack.Screen name="updatecategory" component={UpdateCategory} />
                 <Stack.Screen name="products" component={Products} />
                 <Stack.Screen name="newproduct" component={NewProduct} />
+                <Stack.Screen name="updateproduct" component={UpdateProduct} />
                 <Stack.Screen name="adminorders" component={AdminOrders} />
                 <Stack.Screen name="adminorderdetails" component={AdminOrderDetails} />
 
