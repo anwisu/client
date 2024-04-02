@@ -463,13 +463,13 @@ export const createProduct = (formData) => async (dispatch) => {
           });
         }
       };
-/* export const fetchChart2Data = () => async (dispatch) => {
+export const fetchChart2Data = () => async (dispatch) => {
 try {
     dispatch({
     type: "fetchChart2DataRequest",
     });
 
-    const { data } = await axios.get(`${server}/order/Orders-per-week`, {
+    const { data } = await axios.get(`${server}/order/Orders-Sum-By-Month`, {
     headers: {
         "Content-Type": "application/json",
     },
@@ -487,7 +487,7 @@ try {
     });
 }
 };
-export const fetchChart3Data = () => async (dispatch) => {
+/* export const fetchChart3Data = () => async (dispatch) => {
 try {
     dispatch({
     type: "fetchChart3DataRequest",

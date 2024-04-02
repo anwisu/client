@@ -26,7 +26,7 @@ const AdminPanel = ({ navigation }) => {
         dispatch,
         isFocused
       );
-    // console.log(chartData, chartData2, chartData3, loading, error);
+    console.log(chartData/* , chartData2, chartData3 */, loading, error);
     // const { products } = useAdminProducts(dispatch, isFocused);
 
     const navigationHandler = (text) => {
@@ -70,9 +70,9 @@ const AdminPanel = ({ navigation }) => {
                 <Text style={{ fontSize: 24, color: "#bc430b", fontWeight: "800" }}>Admin Dashboard</Text>
             </View>
 
-        {loading ? (
+{/*         {loading ? (
             <Loader />
-        ) : (
+        ) : ( */}
             <>
             <View>
                 <View
@@ -84,7 +84,7 @@ const AdminPanel = ({ navigation }) => {
                 >
                 <AdminButtonBox
                     icon="cart-outline"
-                    text="Product"
+                    text={"Product"}
                     handler={navigationHandler}
                 />
 
@@ -134,7 +134,7 @@ const AdminPanel = ({ navigation }) => {
                 </View>
             </View>
             </>
-        )}
+        {/* )} */}
         </View>
     );
 };

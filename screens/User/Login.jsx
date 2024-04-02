@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
             index: 0,
             routes: [{ name: "home" }],
         });
-        console.log("is Authenticated:", isAuthenticated)
+        
     };
 
     useEffect(() => {
@@ -41,12 +41,12 @@ const Login = ({ navigation }) => {
         console.log(user);
         if (user && user.googleId) {
             console.log("User with Google ID found");
-            console.log("is Authenticated:", isAuthenticated)
+            
             navigateToHome();
         } else if (user && user.signInMethod === "local") {
             // User logged in via email and password
             console.log("User with email found");
-            console.log("is Authenticated:", isAuthenticated)
+            
             navigateToHome();
         } else if (newUser) {
             console.log("verified yung token at di pa existing");

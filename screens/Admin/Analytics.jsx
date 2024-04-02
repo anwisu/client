@@ -1,30 +1,41 @@
 import { View, Text, ScrollView, Dimensions,StyleSheet } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { colors, defaultStyle, formHeading } from "../../styles/styles";
 import Header from "../../components/Layout/Header";
 import Loader from "../../components/Layout/Loader";
-/* import Chart from "../../components/Chart";
-import ProductSalesChart from "../../components/ProductSalesChart";
-import MonthlySalesChart from "../../components/MonthlySalesChart";
-import UserSalesChart from "../../components/UserSalesChart"; */
 import OrderStatusPieChart from "../../components/Admin/PieChart";
-import { /* useAdminProducts, */ useMessageAndErrorOther, useChartData } from "../../utils/hooks";
+import OrderSumByMonthLineChart from "../../components/Admin/LineChart";
+import { useMessageAndErrorOther, useChartData } from "../../utils/hooks";
 import { useDispatch } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 
 const Analytics = ({ navigation }) => {
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
+    const [date, setDate] = useState(new Date());
 
-    const { chartData, /* chartData2, chartData3, */ loading, error } = useChartData(
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setDate(new Date());
+      }, 1000);
+  
+      return () => {
+        clearInterval(timer);
+      };
+    }, []);
+  
+    const formattedDate = date.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    const formattedTime = date.toLocaleTimeString();
+
+    const { chartData, chartData2, /* chartData3, */ loading, error } = useChartData(
         dispatch,
         isFocused
     );
-
-/*     const { inStock, outOfStock } = useAdminProducts(
-        dispatch,
-        isFocused
-    ); */
 
     const processAnalyticsLoading = useMessageAndErrorOther(
         navigation,
@@ -59,31 +70,16 @@ const Analytics = ({ navigation }) => {
             ) : (
                 <>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View>
-                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Stocks Chart</Text>
-                            <View
-                                style={{
-                                    backgroundColor: colors.color3,
-                                    borderRadius: 20,
-                                    alignItems: "center",
-                                    marginBottom: 10,
-                                }}
-                            >
-
-                               {/*  <Chart
-                                    inStock={inStock}
-                                    outOfStock={outOfStock}
-                                    loading={processAnalyticsLoading}
-                                /> */}
-                            </View>
-                        </View>
+                    <View>
+                    <Text>Current Date: {formattedDate}</Text>
+                    <Text>Current Time: {formattedTime}</Text>
+                    </View>
 
                         <View>
-                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>Product Sales</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 600, marginBottom: 10 }}>ORDER STATUS</Text>
                             <View
                                style={styles.container}
                             >
-
                                 <OrderStatusPieChart
                                     loading={processAnalyticsLoading}
                                     data={chartData}
@@ -102,13 +98,11 @@ const Analytics = ({ navigation }) => {
                                     
                                 }}
                             >
-                                {/* <UserSalesChart
-                                    inStock={inStock}
-                                    outOfStock={outOfStock}
+                                <OrderSumByMonthLineChart
                                     loading={processAnalyticsLoading}
                                     data={chartData2}
                                     
-                                /> */}
+                                />
                             </View>
                         </View>
 
