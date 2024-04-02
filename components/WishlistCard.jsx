@@ -26,6 +26,7 @@ const WishListCard = ({
                 <Text style={styles.name} onPress={() => navigate.navigate("productdetails", { id })}>
                     {name}
                 </Text>
+                
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>    ${price ? price : amount}
                     </Text>
@@ -38,7 +39,7 @@ const WishListCard = ({
                 style={styles.removeButton}
                 onPress={() => removeWishlistHandler(id, name, amount, imgSrc, stock)}
             >
-                <Ionicons name="trash-outline" size={20} color="#FF4848" />
+                <Ionicons name="remove-circle-outline" size={25} color="#FF4848" />
             </TouchableOpacity>
         </TouchableOpacity>
     );
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         elevation: 5,
         position: "relative",
-
     },
     imageContainer: {
         margin: 10,

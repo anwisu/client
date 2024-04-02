@@ -45,7 +45,6 @@ const Login = ({ navigation }) => {
         } else if (user && user.signInMethod === "local") {
             // User logged in via email and password
             console.log("User with email found");
-            
             navigateToHome();
         } else if (newUser) {
             console.log("verified yung token at di pa existing");

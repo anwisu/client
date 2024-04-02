@@ -37,6 +37,9 @@ const AdminPanel = ({ navigation }) => {
         case "All Orders":
             navigation.navigate("adminorders");
             break;
+        case "All Users":
+            navigation.navigate("adminusers");
+            break;
         case "Analytics":
             navigation.navigate("analytics");
             break;
@@ -70,7 +73,7 @@ const AdminPanel = ({ navigation }) => {
                 <Text style={{ fontSize: 24, color: "#bc430b", fontWeight: "800" }}>Admin Dashboard</Text>
             </View>
 
-{/*         {loading ? (
+        {/* {loading ? (
             <Loader />
         ) : ( */}
             <>

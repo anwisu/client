@@ -9,6 +9,7 @@ import { getAllCategories } from "../../redux/actions/otherActions";
 import { useDispatch, useSelector } from "react-redux";
 import * as Icons from "react-native-heroicons/solid";
 import Carousel from "react-native-snap-carousel";
+import Header from "../../components/Layout/Header";
 
 const Products = ({ navigation }) => {
     const isFocused = useIsFocused();
@@ -55,9 +56,11 @@ const Products = ({ navigation }) => {
         </View>
     );
 
-    return(
-        <View style={{ flex: 1, backgroundColor: "#F4B546", padding: 15 }}>
-            <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
+    return (
+        <>
+            <Header back={true} />
+            <View style={{ flex: 1, backgroundColor: "#F5F5F5", padding: 15 }}>
+                {/* <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
                 <TouchableOpacity onPress={() => {
                     if (navigation.canGoBack()) {
                         navigation.goBack();
@@ -68,34 +71,36 @@ const Products = ({ navigation }) => {
                     style={{ backgroundColor: "#bc430b", padding: 8, borderRadius: 10, marginLeft: 4, marginTop: 50 }}>
                     <Icons.ArrowLeftIcon size={20} color='white' />
                 </TouchableOpacity>
-            </View>
-            <View style={{ alignItems: "center", marginBottom: 20 }}>
-                <Text style={{ fontSize: 24, color: "#FFFFFF", fontWeight: "800" }}>Products</Text>
-            </View>
-            <ScrollView style={{ flex: 1 }}>
-                <View style={{ padding: 20 }}>
-                    {products && products.map((item) => (
-                        <ProductCard
-                            key={item._id}
-                            id={item._id}
-                            name={item.name}
-                            category={item.category ? item.category.category : "Uncategorized"} 
-                            price={item.price}
-                            stock={item.stock}
-                            images={item.images.length > 0 ? [item.images[0]] : []}
-                            deleteHandler={deleteProductHandler}
-                            navigation={navigation}
-                        />
-                    ))}
+            </View> */}
+                <View style={{ alignItems: "center", marginBottom: 20 }}>
+                    <Text style={{ fontSize: 24, color: "#000000", fontWeight: "800" }}>Products</Text>
                 </View>
-            </ScrollView>
-            <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => navigation.navigate("newproduct")}
-            >
-                <Text style={styles.addButtonText}>Add Product</Text>
-            </TouchableOpacity>
-        </View>
+                <ScrollView style={{ flex: 1 }}>
+                    <View>
+                        {!loadingDelete &&
+                            products.map((item) => (
+                                <ProductCard
+                                    key={item._id}
+                                    id={item._id}
+                                    name={item.name}
+                                    category={item.category?.category}
+                                    price={item.price}
+                                    stock={item.stock}
+                                    images={item.images}
+                                    deleteHandler={deleteProductHandler}
+                                    navigation={navigation}
+                                />
+                            ))}
+                    </View>
+                </ScrollView>
+                <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={() => navigation.navigate("newproduct")}
+                >
+                    <Text style={styles.addButtonText}>Add Product</Text>
+                </TouchableOpacity>
+            </View>
+        </>
     )
 }
 

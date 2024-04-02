@@ -50,49 +50,49 @@ const Wishlist = () => {
 
     return (
         <>
-        <Header back={true} emptyWishlist={true} />
+            <Header back={true} emptyWishlist={true} />
 
-        <View style={styles.container}>
-            <View style={styles.screenNameContainer}>
-                <View>
-                    <Text style={styles.screenNameText}>My Wishlist</Text>
-                </View>
-                <View>
-                    <Text style={styles.screenNameParagraph}>
-                        View, add or remove products from wishlist for later purchase
-                    </Text>
-                </View>
-            </View>
-            <ScrollView
-                style={{ flex: 1, width: "100%", padding: 20 }}
-                showsVerticalScrollIndicator={false}
-            >
-
-{wishlistItems.length > 0 ? (
-                    wishlistItems.map((i, index) => (
-                        <WishListCard
-                            navigate={navigate}
-                            key={i.product}
-                            id={i.product}
-                            name={i.name}
-                            stock={i.stock}
-                            amount={i.price}
-                            imgSrc={i.image}
-                            index={index}
-                            removeWishlistHandler={removeWishlistHandler}
-                            addToCartHandler={addToCardHandler}
-                        />
-                    ))
-                    // < View style={styles.emptyView}></View>
-                ) : (
-                    <View style={styles.ListContiainerEmpty}>
-                        <Text style={styles.secondaryTextSmItalic}>
-                            "There are no product in wishlist yet."
+            <View style={styles.container}>
+                <View style={styles.screenNameContainer}>
+                    <View>
+                        <Text style={styles.screenNameText}>My Wishlist</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.screenNameParagraph}>
+                            View, add or remove products from wishlist for later purchase
                         </Text>
                     </View>
-                )}
-            </ScrollView >
-        </View >
+                </View>
+                <ScrollView
+                    style={{ flex: 1, width: "100%", padding: 20 }}
+                    showsVerticalScrollIndicator={false}
+                >
+
+                    {wishlistItems.length > 0 ? (
+                        wishlistItems.map((i, index) => (
+                            <WishListCard
+                                navigate={navigate}
+                                key={i.product}
+                                id={i.product}
+                                name={i.name}
+                                stock={i.stock}
+                                amount={i.price}
+                                imgSrc={i.image}
+                                index={index}
+                                removeWishlistHandler={removeWishlistHandler}
+                                addToCartHandler={addToCardHandler}
+                            />
+                        ))
+                        // < View style={styles.emptyView}></View>
+                    ) : (
+                        <View style={styles.ListContiainerEmpty}>
+                            <Text style={styles.secondaryTextSmItalic}>
+                                "There are no product in wishlist yet."
+                            </Text>
+                        </View>
+                    )}
+                </ScrollView >
+            </View >
         </>
     );
 };

@@ -67,7 +67,7 @@ const ProductCard = ({
                     fontWeight: '600',
                     marginBottom: 2,
                 }}>
-                {truncateName(name, 22)}
+                {truncateName(name, 50)}
             </Text>
             {isOutOfStock ? (
                 <View

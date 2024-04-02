@@ -231,3 +231,58 @@ export const updateProfile =
             });
         }
     };
+
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: "getAllUsersRequest",
+        });
+
+        // Axios request
+
+        const { data } = await axios.get(
+            `${server}/user/admin/all`,
+
+            {
+                withCredentials: true,
+            }
+        );
+
+        dispatch({
+            type: "getAllUsersSuccess",
+            payload: data.users,
+        });
+    } catch (error) {
+        console.log("user action error", error);
+
+        dispatch({
+            type: "getAllUsersFail",
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const deleteUser = (userId) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "deleteUserRequest",
+        });
+
+        const { data } = await axios.delete(
+            `${server}/user/delete/${userId}`,
+            {
+                withCredentials: true,
+            }
+        );
+
+        dispatch({
+            type: "deleteUserSuccess",
+            payload: data.message,
+        });
+    } catch (error) {
+        dispatch({
+            type: "deleteUserFail",
+            payload: error.response.data.message,
+        });
+    }
+};

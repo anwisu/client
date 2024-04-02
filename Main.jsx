@@ -43,7 +43,7 @@ import NewProduct from "./screens/Admin/NewProduct";
 import UpdateProduct from "./screens/Admin/UpdateProduct";
 import AdminOrders from "./screens/Admin/AdminOrders";
 import AdminOrderDetails from "./screens/Admin/AdminOrderDetails";
-
+import AdminUsers from "./screens/Admin/AdminUsers";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "./redux/actions/userActions";
@@ -141,7 +141,7 @@ const CustomDrawerContent = (props) => {
             <DrawerItemList {...props} />
             {user && !loadingSignOut && (
                 <DrawerItem label="Sign Out" onPress={logoutHandler} />
-            )} tite */}
+            )} */}
                 <ImageBackground
                     source={require('./assets/images/bg5.png')}
                     style={{ padding: 20, alignItems: 'center' }}>
@@ -154,28 +154,36 @@ const CustomDrawerContent = (props) => {
                             }}
                         >
                             <Image
-                                source={user?.avatar ? { uri: user.avatar.url } : require("./assets/images/default-user-icon.jpg")}
-                                style={{ height: 100, width: 100, borderRadius: 40, marginBottom: 10 }}
+                                source={user?.avatar && user.avatar.url ? { uri: user.avatar.url } : require("./assets/images/default-user-icon.jpg")}
+                                style={{ height: 100, width: 100, borderRadius: 80, marginBottom: 10 }}
                             />
                         </TouchableOpacity>
                     )}
                     {!loading && (
                         <>
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => {
+                                    if (isAuthenticated) navigation.navigate("profile");
+                                    else navigation.navigate("login");
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: '#ffffff',
+                                        fontSize: 24,
+                                        fontFamily: 'Roboto-Medium',
+                                        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                                        textShadowOffset: { width: -1, height: 1 },
+                                        textShadowRadius: 10
+                                    }}>
+                                    {user?.name || 'Login'}
+                                </Text>
+                            </TouchableOpacity>
                             <Text
                                 style={{
                                     color: '#ffffff',
-                                    fontSize: 24,
-                                    fontFamily: 'Roboto-Medium',
-                                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                                    textShadowOffset: { width: -1, height: 1 },
-                                    textShadowRadius: 10
-                                }}>
-                                {user?.name || 'Login'}
-                            </Text>
-                            <Text
-                                style={{
-                                    color: '#ffffff',
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontFamily: 'Roboto-Medium',
                                     marginBottom: 5,
                                     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -262,7 +270,7 @@ const HomeStack = () => {
                 <Stack.Screen name="updateproduct" component={UpdateProduct} />
                 <Stack.Screen name="adminorders" component={AdminOrders} />
                 <Stack.Screen name="adminorderdetails" component={AdminOrderDetails} />
-
+                <Stack.Screen name="adminusers" component={AdminUsers} />
                 <Stack.Screen name="analytics" component={Analytics} />
 
                 {/* Password Reset Routes */}

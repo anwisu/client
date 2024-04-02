@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-export const userReducer = createReducer({users: [], user: {},}, (builder) => {
+export const userReducer = createReducer({ users: [], user: {}, loading: false, error: null, }, (builder) => {
     builder
         .addCase("loginRequest", (state) => {
             state.loading = true;
@@ -14,7 +14,13 @@ export const userReducer = createReducer({users: [], user: {},}, (builder) => {
         .addCase("registerRequest", (state) => {
             state.loading = true;
         })
-        .addCase("verifyTokenRequest", (state)=>{
+        .addCase("verifyTokenRequest", (state) => {
+            state.loading = true;
+        })
+        .addCase("getAllUsersRequest", (state) => {
+            state.loading = true;
+        })
+        .addCase("deleteUserRequest", (state) => {
             state.loading = true;
         })
 
@@ -41,10 +47,17 @@ export const userReducer = createReducer({users: [], user: {},}, (builder) => {
             state.isAuthenticated = true;
             state.message = action.payload;
         })
-        .addCase("verifyTokenSuccess", (state, action)=>{
+        .addCase("verifyTokenSuccess", (state, action) => {
             state.loading = false;
             state.isAuthenticated = true;
-            state.message =action.payload
+            state.message = action.payload
+        })
+        .addCase("getAllUsersSuccess", (state, action) => {
+            state.loading = false;
+            state.users = action.payload;
+        })
+        .addCase("deleteUserSuccess", (state) => {
+            state.loading = true;
         })
 
     builder
@@ -68,21 +81,28 @@ export const userReducer = createReducer({users: [], user: {},}, (builder) => {
             state.isAuthenticated = false;
             state.error = action.payload;
         })
-        .addCase("verifyTokenFail", (state, action)=>{
+        .addCase("verifyTokenFail", (state, action) => {
             state.loading = false;
             state.newUser = action.payload.newUser
             state.user = action.payload.payload
+        })
+        .addCase("getAllUsersFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        .addCase("deleteUserFail", (state) => {
+            state.loading = true;
         })
 
     builder.addCase("clearError", (state) => {
         state.error = null;
     });
-    
+
     builder.addCase("clearMessage", (state) => {
         state.message = null;
     });
 
-    builder.addCase("resetUser", (state)=> {
+    builder.addCase("resetUser", (state) => {
         state.user = null;
         state.newUser = false;
     })

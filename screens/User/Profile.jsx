@@ -153,7 +153,7 @@ const Profile = ({ navigation, route }) => {
                                 <View style={styles.avatarContainer}>
                                     <View>
                                         <Avatar.Image
-                                             source={
+                                            source={
                                                 typeof avatar === 'number'
                                                     ? avatar
                                                     : { uri: avatar }
@@ -227,7 +227,7 @@ const Profile = ({ navigation, route }) => {
                                 iconName={"help-circle"}
                                 onPress={() => console.log("working....")}
                                 /> */}
-                                <OptionList
+                                {/* <OptionList
                                     text={"Logout"}
                                     Icon={Ionicons}
                                     iconName={"log-out"}
@@ -239,7 +239,7 @@ const Profile = ({ navigation, route }) => {
                                             routes: [{ name: "home" }],
                                         });
                                     }}
-                                />
+                                /> */}
                             </View>
                         </View>
                     </>
