@@ -68,50 +68,6 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                     </TouchableOpacity>
                 )}
 
-                {/* {back && (
-                    <TouchableOpacity
-                        style={{
-                            position: "absolute",
-                            left: 20,
-                            top: 10,
-                            zIndex: 10,
-                        }}
-                        onPress={() => navigate.goBack()}
-                    >
-                        <Avatar.Icon
-                            style={{
-                                backgroundColor:  '#bc430b',
-                            }}
-                            icon={"arrow-left"}
-                            color={
-                                route.name === "productdetails" ? "#ffffff" : "rgb(45,45,45)"
-                            }
-                        />
-                    </TouchableOpacity>
-                )} */}
-
-                {/* <TouchableOpacity
-                    style={{
-                        position: "absolute",
-                        right: 20,
-                        top: 10,
-                        zIndex: 10,
-                    }}
-                    onPress={handleCartPress}
-                >
-                    <MaterialCommunityIcons
-                        name={emptyCart ? "delete-outline" : "cart-outline"}
-                        style={{
-                            fontSize: 18,
-                            color: route.name === "productdetails" ? "#ffffff" : "rgb(45,45,45)",
-                            padding: 12,
-                            borderRadius: 10,
-                            borderWidth: 1,
-                            borderColor: '#F0F0F3',
-                        }}
-                    />
-                </TouchableOpacity> */}
-
                 <TouchableOpacity
                     style={{
                         position: "absolute",
@@ -130,23 +86,12 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                     {emptyCart ? (
                         <Ionicons
                             name={emptyCart ? "trash-outline" : "cart-outline"}
+                            size={30}
                             style={{
-                                fontSize: 30,
                                 color: route.name === "productdetails" ? "#ffffff" : "#FB6831",
                             }}
                         />
                     ) : emptyWishlist ? (
-                        //     <MaterialCommunityIcons
-                        //     name="delete-outline"
-                        //     style={{
-                        //         fontSize: 18,
-                        //         color: "#FB6831",
-                        //         padding: 12,
-                        //         borderRadius: 10,
-                        //         borderWidth: 1,
-                        //         borderColor: '#F0F0F3',
-                        //     }}
-                        // />
                         <Ionicons name="trash-outline"
                             style={{
                                 fontSize: 30,
@@ -155,17 +100,6 @@ const Header = ({ back, emptyCart = false, emptyWishlist = false }) => {
                         />
 
                     ) : (
-                        //     <MaterialCommunityIcons
-                        //     name="heart-outline"
-                        //     style={{
-                        //         fontSize: 18,
-                        //         color: "#FB6831",
-                        //         padding: 12,
-                        //         borderRadius: 10,
-                        //         borderWidth: 1,
-                        //         borderColor: '#F0F0F3',
-                        //     }}
-                        // />
                         <Ionicons name="heart-outline" size={30} color="#FB6831" />
                     )}
                 </TouchableOpacity>

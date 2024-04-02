@@ -78,8 +78,7 @@ const Home = () => {
 
     const addToWishlistHandler = (id, name, price, image, stock) => {
         if (!user) {
-            // If no user is logged in, navigate to the login page
-            navigate.navigate("login"); // Replace "Login" with your actual login screen name
+            navigate.navigate("login"); 
             return;
         }
         dispatch({
@@ -126,40 +125,6 @@ const Home = () => {
                     backgroundColor: "#ffffff",
                 }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <Header />
-                    {/* <View
-                        style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            padding: 16,
-                        }}>
-                        <TouchableOpacity>
-                            <Entypo
-                                name="shopping-bag"
-                                style={{
-                                    fontSize: 18,
-                                    color: '#B9B9B9',
-                                    padding: 12,
-                                    borderRadius: 10,
-                                    backgroundColor: '#F0F0F3',
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigate.navigate('cart')}>
-                            <MaterialCommunityIcons
-                                name="cart"
-                                style={{
-                                    fontSize: 18,
-                                    color: '#B9B9B9',
-                                    padding: 12,
-                                    borderRadius: 10,
-                                    borderWidth: 1,
-                                    borderColor: '#F0F0F3',
-                                }}
-                            />
-                        </TouchableOpacity>
-                    </View> */}
                     <View style={styles.promotiomSliderContainer}>
                         <SliderBox
                             images={slides}
