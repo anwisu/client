@@ -37,11 +37,10 @@ const Login = ({ navigation }) => {
     };
 
     useEffect(() => {
-        dispatch(loadUser(user));
-        /* console.log(user); */
+        
+        console.log(user);
         if (user && user.googleId) {
             console.log("User with Google ID found");
-            
             navigateToHome();
         } else if (user && user.signInMethod === "local") {
             // User logged in via email and password
@@ -55,7 +54,7 @@ const Login = ({ navigation }) => {
         } else if (user === null && newUser === false) {
             console.log("User null")
         }
-    }, [newUser, user,dispatch, navigation]);
+    }, [newUser, user, navigation]);
 
     useEffect(() => {
         configureGoogleSignIn();

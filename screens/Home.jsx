@@ -41,16 +41,38 @@ const Home = () => {
     const { products } = useSelector((state) => state.product);
     const { user } = useSelector((state) => state.user);
 
-    /* console.log(user) */
+    console.log(user)
     const categoryButtonHandler = (id) => {
         setCategory(id);
     };
 
 
     const addToCardHandler = (id, name, price, image, stock) => {
-        if (!user) {
+        if (!user || user === undefined || Object.keys(user).length === 0) {
             navigate.navigate("login");
-            return;
+            return Toast.show({
+                type: "info",
+                text1: "Log in to continue.",
+            });
+            
+        }
+        else {
+            dispatch({
+                type: "addToCart",
+                payload: {
+                    product: id,
+                    name,
+                    price,
+                    image,
+                    stock,
+                    quantity: 1,
+                },
+            });
+    
+            Toast.show({
+                type: "success",
+                text1: "Added To Cart",
+            });
         }
         if (stock === 0)
             return Toast.show({
@@ -58,22 +80,6 @@ const Home = () => {
                 text1: "Out Of Stock",
             });
 
-        dispatch({
-            type: "addToCart",
-            payload: {
-                product: id,
-                name,
-                price,
-                image,
-                stock,
-                quantity: 1,
-            },
-        });
-
-        Toast.show({
-            type: "success",
-            text1: "Added To Cart",
-        });
     };
 
     const addToWishlistHandler = (id, name, price, image, stock) => {

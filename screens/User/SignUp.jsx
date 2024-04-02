@@ -28,6 +28,17 @@ const SignUp = ({ navigation, route }) => {
         !name || !email || !password || !address || !city || !country || !pinCode;
 
         console.log(name, email, password, address, city, country, pinCode, googleId, avatar)
+
+        useEffect(() => {
+            if (user) {
+                setName(user.name);
+                setEmail(user.email);
+                setAvatar(user.picture);
+                setGoogleId(user.sub);
+                setPassword(googleId);
+              }
+            }, [user]);
+
         const submitHandler = async () => {
             const myForm = new FormData();
           
@@ -76,15 +87,7 @@ const SignUp = ({ navigation, route }) => {
         };
 
           const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
-          useEffect(() => {
-            if (user && googleId) {
-                setName(user.name);
-                setEmail(user.email);
-                setAvatar(user.picture);
-                setGoogleId(user.sub);
-                setPassword(googleId);
-              }
-            }, [user, googleId]);
+          
             
           useEffect(() => {
             console.log("Route params:", route.params); // Check if route.params is defined
