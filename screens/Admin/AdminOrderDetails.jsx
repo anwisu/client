@@ -30,7 +30,7 @@ const AdminOrderDetails = ({ admin = true }) => {
     const { id } = route.params;
 
     const updateHandler = () => {
-        dispatch(processOrder(id));
+        dispatch(processOrder(id, value));
     };
 
     useEffect(() => {

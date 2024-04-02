@@ -49,7 +49,33 @@ export const placeOrder =
             }
         };
 
-export const processOrder = (id) => async (dispatch) => {
+// export const processOrder = (id) => async (dispatch) => {
+//     try {
+//         dispatch({
+//             type: "processOrderRequest",
+//         });
+
+//         const { data } = await axios.put(
+//             `${server}/order/single/${id}`,
+
+//             {},
+//             {
+//                 withCredentials: true,
+//             }
+//         );
+//         dispatch({
+//             type: "processOrderSuccess",
+//             payload: data.message,
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: "processOrderFail",
+//             payload: error.response.data.message,
+//         });
+//     }
+// };
+
+export const processOrder = (id, status) => async (dispatch) => {
     try {
         dispatch({
             type: "processOrderRequest",
@@ -58,7 +84,7 @@ export const processOrder = (id) => async (dispatch) => {
         const { data } = await axios.put(
             `${server}/order/single/${id}`,
 
-            {},
+            {status},
             {
                 withCredentials: true,
             }

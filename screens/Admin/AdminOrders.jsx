@@ -65,7 +65,9 @@ const AdminOrders = ({ navigation }) => {
                         style={{ flex: 1, width: "100%", padding: 20 }}
                         showsVerticalScrollIndicator={false}
                     >
-                        {orders.length > 0 ? (orders.map((item, index) => (
+                        {orders.length > 0 ? (orders
+                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                        .map((item, index) => (
                             <View key={item._id}>
                                 <AdminOrderList
                                     key={item._id}

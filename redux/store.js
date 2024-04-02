@@ -21,7 +21,7 @@ export const store = configureStore({
     },
 });
 //Deployed server
-export const server = "https://barknmeow-backend.onrender.com/api/v1"
+// export const server = "https://barknmeow-backend.onrender.com/api/v1"
 //Deployed serverr
 /* export const server = "https://barknmeow-backend.onrender.com/api/v1" */
 
@@ -32,7 +32,7 @@ export const server = "https://barknmeow-backend.onrender.com/api/v1"
 // export const server = "http://192.168.1.24:5000/api/v1"
 
 // IP ni giya
-// export const server = "http://192.168.100.3:5000/api/v1"
+export const server = "http://192.168.100.3:5000/api/v1"
 
 // IP ni kapehan wanel
 /* export const server = "http://192.168.0.153:5000/api/v1" */
