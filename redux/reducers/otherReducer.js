@@ -151,6 +151,41 @@ export const otherReducer = createReducer(initialState, (builder) => {
         .addCase("deleteProductImageRequest", (state) => {
         state.loading = true;
         })
+
+        //Charts
+        .addCase("fetchChart1DataRequest", (state) => {
+            state.loading = true;
+          })
+          .addCase("fetchChart1DataSuccess", (state, action) => {
+            state.loading = false;
+            state.chartData = action.payload;
+          })
+          .addCase("fetchChart1DataFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          })
+          .addCase("fetchChart2DataRequest", (state) => {
+            state.loading = true;
+          })
+          .addCase("fetchChart2DataSuccess", (state, action) => {
+            state.loading = false;
+            state.chartData2 = action.payload;
+          })
+          .addCase("fetchChart2DataFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          })
+          .addCase("fetchChart3DataRequest", (state) => {
+            state.loading = true;
+          })
+          .addCase("fetchChart3DataSuccess", (state, action) => {
+            state.loading = false;
+            state.chartData3 = action.payload;
+          })
+          .addCase("fetchChart3DataFail", (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          });
     
     builder.addCase("clearError", (state) => {
         state.error = null;

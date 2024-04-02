@@ -12,7 +12,7 @@ import AdminButtonBox from "../../components/Layout/AdminButtonBox";
 import {
     useAdminProducts,
     // useMessageAndErrorOther,
-    // useChartData,
+    useChartData,
     } from "../../utils/hooks";
 import { useDispatch } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
@@ -22,10 +22,10 @@ const AdminPanel = ({ navigation }) => {
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
 
-    const { loading } = (
+    const { chartData,/*  chartData2, chartData3, */ loading, error } = useChartData(
         dispatch,
         isFocused
-    );
+      );
     // console.log(chartData, chartData2, chartData3, loading, error);
     // const { products } = useAdminProducts(dispatch, isFocused);
 
@@ -38,7 +38,7 @@ const AdminPanel = ({ navigation }) => {
             navigation.navigate("adminorders");
             break;
         case "Analytics":
-            navigation.navigate("");
+            navigation.navigate("analytics");
             break;
         case "Product":
             navigation.navigate("products");

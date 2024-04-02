@@ -11,7 +11,7 @@ import Toast from "react-native-toast-message";
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { login, verifyToken } from "../../redux/actions/userActions";
+import { login, verifyToken, loadUser } from "../../redux/actions/userActions";
 import { useMessageAndErrorUser } from "../../utils/hooks";
 import { CLIENT_ID_WEB, CLIENT_ID_ANDROID, CLIENT_ID_IOS } from "@env";
 import Header from "../../components/Layout/Header";
@@ -37,6 +37,7 @@ const Login = ({ navigation }) => {
     };
 
     useEffect(() => {
+        dispatch(loadUser(user));
         console.log(user);
         if (user && user.googleId) {
             console.log("User with Google ID found");
@@ -54,7 +55,7 @@ const Login = ({ navigation }) => {
         } else if (user === null && newUser === false) {
             console.log("User null")
         }
-    }, [newUser, user, navigation]);
+    }, [newUser, user,dispatch, navigation]);
 
     useEffect(() => {
         configureGoogleSignIn();
@@ -79,6 +80,9 @@ const Login = ({ navigation }) => {
     const submitHandler = () => {
         dispatch(login(email, password));
     };
+/*     useEffect(() => {
+        dispatch(loadUser(user));
+      }, [dispatch]); */
 
     const signIn = async () => {
         try {

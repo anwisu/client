@@ -153,9 +153,11 @@ const Profile = ({ navigation, route }) => {
                                 <View style={styles.avatarContainer}>
                                     <View>
                                         <Avatar.Image
-                                            source={{
-                                                uri: avatar,
-                                            }}
+                                             source={
+                                                typeof avatar === 'number'
+                                                    ? avatar
+                                                    : { uri: avatar }
+                                            }
                                             size={100}
                                             style={{ backgroundColor: "#c70049" }}
                                         />

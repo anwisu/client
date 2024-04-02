@@ -20,7 +20,7 @@ export const store = configureStore({
         // chat: chatReducer
     },
 });
-//Deployed server
+//Deployed serverr
 export const server = "https://barknmeow-backend.onrender.com/api/v1"
 
 //IP ni wanel
@@ -31,6 +31,12 @@ export const server = "https://barknmeow-backend.onrender.com/api/v1"
 
 // IP ni giya
 // export const server = "http://192.168.100.3:5000/api/v1"
+
+// IP ni kapehan wanel
+/* export const server = "http://192.168.0.153:5000/api/v1" */
+
+// IP ni kapehan wanel sa hotspot ni EJ
+/* export const server = "http://192.168.65.91:5000/api/v1" */
 
 // IP ng kapehan
 // export const server = "http://192.168.0.177:5000/api/v1"
