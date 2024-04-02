@@ -20,8 +20,9 @@ const Footer = ({ activeRoute = "home" }) => {
             navigate.navigate("cart");
             break;
         case 2:
-            if (isAuthenticated) console.log("is Authenticated:",isAuthenticated), navigate.navigate("profile");
-            else navigate.navigate("login");
+/*             if (isAuthenticated) console.log("is Authenticated:",isAuthenticated), navigate.navigate("profile"); */
+            navigate.navigate("wishlist");
+            /* else navigate.navigate("login"); */
             break;
         default:
             navigate.navigate("home");
@@ -45,21 +46,24 @@ const Footer = ({ activeRoute = "home" }) => {
     }
 
     const iconStyle = {
-        color:"rgb(45,45,45)",
+        color:"#F4B546",
         fontSize: 30,
     };
 
     return (
         <View
         style={{
-            backgroundColor: "#F4B546",
+            backgroundColor: "#000000",
             position: "absolute",
-            width: "100%",
-            bottom: 0,
+            width: "50%",
+            bottom: 20,
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
+            borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 30,
+            justifyContent: "center",
+            alignSelf: "center",
             height: 50,
-            justifyContent: "center"
         }}
         >
         <View
@@ -93,13 +97,7 @@ const Footer = ({ activeRoute = "home" }) => {
                 onPress={() => navigationHandler(2)}
             >
                 <Icon
-                name={
-                    isAuthenticated !== true
-                    ? "login"
-                    : activeRoute === "profile"
-                    ? "account"
-                    : "account-outline"
-                }
+                name={activeRoute === "wishlist" ? "wishlist" : "heart-outline"}
                 style={iconStyle}
                 />
             </TouchableOpacity>

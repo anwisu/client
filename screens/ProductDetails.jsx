@@ -35,6 +35,7 @@ const ProductDetails = ({ route: { params } }) => {
   const isCarousel = useRef(null);
   const isFocused = useIsFocused();
   const { user } = useSelector((state) => state.user);
+ 
 
   const comments = useSelector((state) => state.comment.comments); // Fetch comments from Redux store
   const average = useSelector((state) => state.comment.averageRating); // Fetch comments from Redux store
@@ -44,6 +45,8 @@ const ProductDetails = ({ route: { params } }) => {
   const {
     product: { name, price, stock, description, images },
   } = useSelector((state) => state.product);
+
+  console.log("Product image:", images);
 
   const [quantity, setQuantity] = useState(1);
   const isOutOfStock = stock === 0;
@@ -135,6 +138,7 @@ const ProductDetails = ({ route: { params } }) => {
       });
     }
   };
+  
   return (
     <ScrollView style={{ ...defaultStyle, padding: 0 }}>
       {/* <Header back={true} /> */}

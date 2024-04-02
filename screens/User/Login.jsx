@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
 
     useEffect(() => {
         dispatch(loadUser(user));
-        console.log(user);
+        /* console.log(user); */
         if (user && user.googleId) {
             console.log("User with Google ID found");
             

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import React, { useEffect } from 'react';
-import SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from 'expo-splash-screen';
 
 
 
