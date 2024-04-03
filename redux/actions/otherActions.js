@@ -203,6 +203,35 @@ export const updateProduct =
     }
   };
 
+  export const updateProductImage = (productId, formData) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "updateProductImageRequest",
+      });
+  
+      const { data } = await axios.post(
+        `${server}/product/images/${productId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+  
+      dispatch({
+        type: "updateProductImageSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updateProductImageFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 export const deleteCategory = (id) => async (dispatch) => {
     try {
         dispatch({
@@ -494,30 +523,30 @@ export const deleteProduct = (productId) => async (dispatch) => {
     }
   };
 
-export const createProduct = (formData) => async (dispatch) => {
+  export const createProduct = (formData) => async (dispatch) => {
     try {
-        dispatch({
-            type: "addProductRequest",
-        });
-    
-        const { data } = await axios.post(`${server}/product/new`, formData, {
-            headers: {
-            "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-        });
-    
-        dispatch({
-            type: "addProductSuccess",
-            payload: data.message,
-        });
-        } catch (error) {
-        dispatch({
-            type: "addProductFail",
-            payload: error.response.data.message,
-        });
+      dispatch({
+        type: "addProductRequest",
+      });
+  
+      const { data } = await axios.post(`${server}/product/new`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+  
+      dispatch({
+        type: "addProductSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "addProductFail",
+        payload: error.response.data.message,
+      });
     }
-};
+  };
 
 
     export const fetchChart1Data = () => async (dispatch) => {
