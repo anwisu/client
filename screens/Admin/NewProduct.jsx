@@ -150,16 +150,21 @@ const NewProduct = ({ navigation, route }) => {
                 height: 630,
                 }}
             >
-                <View style={{ marginTop:20, alignItems: "center" }}>
-                    <Carousel
-                        layout="default"
-                        data={image}
-                        renderItem={renderCarouselItem}
-                        sliderWidth={300}
-                        itemWidth={300}
-                        // loop={true}
-                    />
-                </View>
+<View style={{ marginTop:20, alignItems: "center" }}>
+    {image && image.length > 0 ? (
+        <Carousel
+            layout="default"
+            data={image}
+            renderItem={renderCarouselItem}
+            sliderWidth={300}
+            itemWidth={300}
+            // loop={true}
+        />
+    ) : (
+        <Text>No images selected</Text>
+    )}
+</View>
+
                 <Button
                     mode="contained"
                     onPress={openImagePicker}
