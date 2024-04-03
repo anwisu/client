@@ -87,6 +87,31 @@ export const getAllCategories = () => async (dispatch) => {
     }
 };
 
+export const deleteProductImage = (productId, imageId) => async (dispatch) => {
+    try {
+        dispatch({
+            type: "deleteProductImageRequest",
+        });
+    
+        const { data } = await axios.delete(
+            `${server}/product/images/${productId}?id=${imageId}`,
+            {
+            withCredentials: true,
+            }
+        );
+    
+        dispatch({
+            type: "deleteProductImageSuccess",
+            payload: data.message,
+        });
+        } catch (error) {
+        dispatch({
+            type: "deleteProductImageFail",
+            payload: error.response.data.message,
+        });
+    }
+};
+
 export const getCategoryDetails = (id) => async (dispatch) => {
     
     try {
