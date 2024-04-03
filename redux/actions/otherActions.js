@@ -168,6 +168,41 @@ export const updateCategory =
     }
 };
 
+export const updateProduct =
+  (id, name, description, price, stock, category) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "updateProductRequest",
+      });
+      const { data } = await axios.put(
+        `${server}/product/single/${id}`,
+        {
+          name,
+          description,
+          price,
+          stock,
+          category,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      dispatch({
+        type: "updateProductSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updateProductFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 export const deleteCategory = (id) => async (dispatch) => {
     try {
         dispatch({
