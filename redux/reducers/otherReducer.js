@@ -140,21 +140,29 @@ export const otherReducer = createReducer(initialState, (builder) => {
 
         .addCase("addProductRequest", (state) => {
             state.loading = true;
+            state.error = action.payload;
         })
     
         .addCase("updateProductRequest", (state) => {
-        state.loading = true;
+            state.loading = true;
+            state.error = action.payload;
         })
         .addCase("updateProductImageRequest", (state) => {
-        state.loading = true;
+            state.loading = true;
+            state.error = action.payload;
         })
         .addCase("deleteProductImageRequest", (state) => {
-        state.loading = true;
+            state.loading = true;
+            state.error = action.payload;
+        })
+        .addCase("deleteProductRequest", (state) => {
+            state.loading = true;
+            state.error = action.payload;
         })
 
         //Charts
         .addCase("fetchChart1DataRequest", (state) => {
-            state.loading = true;
+            state.loading = true;rv
           })
           .addCase("fetchChart1DataSuccess", (state, action) => {
             state.loading = false;

@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { useAdminProducts, useMessageAndErrorOther } from "../../utils/hooks";
+import { useMessageAndErrorOther } from "../../utils/hooks";
 import { Avatar } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { deleteProduct } from "../../redux/actions/otherActions";
 import { getAdminProducts } from "../../redux/actions/productActions";
 import { getAllCategories } from "../../redux/actions/otherActions";
 import { useDispatch, useSelector } from "react-redux";
-import * as Icons from "react-native-heroicons/solid";
 import Carousel from "react-native-snap-carousel";
 import Header from "../../components/Layout/Header";
 
 const Products = ({ navigation }) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
-    // const { products } = useAdminProducts(dispatch, isFocused);
     const products = useSelector((state) => state.product.products);
 
     const fetchProducts = async () => {
@@ -34,7 +32,7 @@ const Products = ({ navigation }) => {
             await dispatch(deleteProduct(id));
             fetchProducts();
         } catch (error) {
-            console.error("Error deleting category:", error);
+            console.error("Error deleting cproduct:", error);
         }
     };
 
@@ -45,52 +43,40 @@ const Products = ({ navigation }) => {
         getAdminProducts
     );
 
-    const renderCarouselItem = ({ item, index }) => (
-        <View key={index}>
-            {item && (
-                <Image
-                    style={{ width: 300, height: 150, resizeMode: 'contain' }}
-                    source={{ uri: item }}
-                />
-            )}
-        </View>
-    );
+    // const renderCarouselItem = ({ item, index }) => (
+    //     <View key={index}>
+    //         {item && (
+    //             <Image
+    //                 style={{ width: 300, height: 150, resizeMode: 'contain' }}
+    //                 source={{ uri: item }}
+    //             />
+    //         )}
+    //     </View>
+    // );
 
     return (
         <>
-            <Header back={true} />
+        <Header back={true} />
             <View style={{ flex: 1, backgroundColor: "#F5F5F5", padding: 15 }}>
-                {/* <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
-                <TouchableOpacity onPress={() => {
-                    if (navigation.canGoBack()) {
-                        navigation.goBack();
-                    } else {
-                        console.log("Can't go back");
-                    }
-                }}
-                    style={{ backgroundColor: "#bc430b", padding: 8, borderRadius: 10, marginLeft: 4, marginTop: 50 }}>
-                    <Icons.ArrowLeftIcon size={20} color='white' />
-                </TouchableOpacity>
-            </View> */}
                 <View style={{ alignItems: "center", marginBottom: 20 }}>
                     <Text style={{ fontSize: 24, color: "#000000", fontWeight: "800" }}>Products</Text>
                 </View>
                 <ScrollView style={{ flex: 1 }}>
                     <View>
                         {!loadingDelete &&
-                            products.map((item) => (
-                                <ProductCard
-                                    key={item._id}
-                                    id={item._id}
-                                    name={item.name}
-                                    category={item.category?.category}
-                                    price={item.price}
-                                    stock={item.stock}
-                                    images={item.images}
-                                    deleteHandler={deleteProductHandler}
-                                    navigation={navigation}
-                                />
-                            ))}
+                        products.map((item) => (
+                            <ProductCard
+                                key={item._id}
+                                id={item._id}
+                                name={item.name}
+                                category={item.category?.category}
+                                price={item.price}
+                                stock={item.stock}
+                                images={item.images}
+                                deleteHandler={deleteProductHandler}
+                                navigation={navigation}
+                            />
+                        ))}
                     </View>
                 </ScrollView>
                 <TouchableOpacity

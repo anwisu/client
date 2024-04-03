@@ -9,47 +9,34 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button, TextInput } from "react-native-paper";
-import { useSetCategories, useMessageAndErrorOther } from "../../utils/hooks";
+import { useMessageAndErrorOther } from "../../utils/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import mime from "mime";
-import { createProduct, getAdminProducts } from "../../redux/actions/otherActions";
+import { getAllCategories, deleteCategory, addCategory } from "../../redux/actions/otherActions";
 import * as ImagePicker from 'expo-image-picker';
 import Carousel from "react-native-snap-carousel";
 import { IconButton } from "react-native-paper";
-import { colors, network } from "../../constants";
+import { colors } from "../../constants";
 import { AntDesign } from "@expo/vector-icons";
-import DropDownPicker from "react-native-dropdown-picker";
 import Header from "../../components/Layout/Header";
 
-const NewProduct = ({ navigation, route }) => {
+const NewCategory = ({ navigation, route}) => {
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [statusDisable, setStatusDisable] = useState(false);
     const [image, setImage] = useState([]);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [stock, setStock] = useState("");
-    const [category, setCategory] = useState("Choose Category");
-    const [categoryID, setCategoryID] = useState(undefined);
-    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState("");
 
-    useSetCategories(setCategories, isFocused);
+    const disableBtnCondition = !category || !image;
     const loading = useMessageAndErrorOther(dispatch, navigation, "adminpanel");
 
-    const disableBtnCondition =
-        !name || !description || !price || !stock || !image;
-    
-    const fetchProducts = async () => {
+    const fetchCategories = async () => {
         try {
-            await dispatch(getAdminProducts());
+            await dispatch(getAllCategories());
         } catch (error) {
             console.error("Error fetching categories:", error);
         }
-    }
+    };
 
     const openImagePicker = async () => {
         try {
@@ -73,10 +60,7 @@ const NewProduct = ({ navigation, route }) => {
     const submitHandler = async () => {
         try {
             const myForm = new FormData();
-            myForm.append("name", name);
-            myForm.append("description", description);
-            myForm.append("price", price);
-            myForm.append("stock", stock);
+            myForm.append("category", category);
             image.forEach((imageUri) => {
                 myForm.append(`files`, {
                     uri: imageUri,
@@ -84,17 +68,13 @@ const NewProduct = ({ navigation, route }) => {
                     name: imageUri.split("/").pop(),
                 });
             });
-            if (categoryID) {
-                myForm.append("category", categoryID);
-            }
-            await dispatch(createProduct(myForm));
-            navigation.navigate("products");
-            fetchProducts();
+            await dispatch(addCategory(myForm));
+            fetchCategories();
+            navigation.navigate("categories");
         } catch (error) {
-            console.error("Error submitting form:", error);
+            console.log('Error adding category:', error);
         }
     };
-    
 
     useEffect(() => {
         if (route.params?.image) setImage(route.params.image);
@@ -179,99 +159,36 @@ const NewProduct = ({ navigation, route }) => {
                             Select Images
                         </Button>
                         <TextInput
-                            placeholder="Name"
-                            value={name}
-                            onChangeText={setName}
+                            placeholder="Category"
+                            value={category}
+                            onChangeText={setCategory}
                             style={styles.customInput}
                         />
-                        <TextInput
-                            placeholder="Description"
-                            value={description}
-                            onChangeText={setDescription}
-                            style={styles.customInput}
-                        />
-
-                <TextInput
-                placeholder="Price"
-                keyboardType="number-pad"
-                value={price}
-                onChangeText={setPrice}
-                style={styles.customInput}
-                />
-                <TextInput
-                keyboardType="number-pad"
-                placeholder="Stock"
-                value={stock}
-                onChangeText={setStock}
-                style={styles.customInput}
-                />
-
-                {/* <Text
-                style={{
-                    padding: 10,
-                    paddingLeft:15,
-                    textAlignVertical: "center",
-                    marginBottom: 25,
-                    backgroundColor: "transparent" ,
-                    
-                }}
-                onPress={() => setVisible(true)}
-                >
-                {category}
-                </Text> */}
-                <DropDownPicker
-                    placeholder={"Select Product Category"}
-                    open={open}
-                    value={categoryID}
-                    items={categories.map((category) => {
-                        return { label: category.category, value: category._id };
-                    })}
-                    setOpen={setOpen}
-                    setValue={setCategoryID}
-                    setItems={setCategories}
-                    disabled={statusDisable}
-                    disabledStyle={{
-                        backgroundColor: colors.light,
-                        borderColor: colors.white,
-                    }}
-                    labelStyle={{ color: colors.muted }}
-                    style={{ borderColor: "#fff", elevation: 5, marginBottom: 18 }}
-                />
-
-                <Button
-                textColor={"#FFFFFF"}
-                style={{                     
-                    backgroundColor: "#BC430B",
-                    padding: 15,
-                    width: "100%",
-                    marginBottom: 10,
-                    alignItems: "center",
-                    borderRadius: 10,
-                    color: "#FFFFFF",
-                }}
-                onPress={submitHandler}
-                loading={loading}
-                disabled={disableBtnCondition}
-                >
-                Create
-                </Button>
-            </View>
+                        <Button
+                            textColor={"#FFFFFF"}
+                            style={{                     
+                                backgroundColor: "#BC430B",
+                                padding: 15,
+                                width: "100%",
+                                marginBottom: 10,
+                                alignItems: "center",
+                                borderRadius: 10,
+                                color: "#FFFFFF",
+                            }}
+                            onPress={submitHandler}
+                            loading={loading}
+                            disabled={disableBtnCondition}
+                        >
+                        Create
+                    </Button>
+                </View>
             </ScrollView>
         </KeyboardAvoidingView>
-
-        {/* <SelectComponent
-            categories={categories}
-            setCategoryID={setCategoryID}
-            setCategory={setCategory}
-            visible={visible}
-            setVisible={setVisible}
-        /> */}
         </>
     );
-};
+}
 
-
-export default NewProduct;
+export default NewCategory;
 
 const styles = StyleSheet.create({
     container: {
