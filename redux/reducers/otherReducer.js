@@ -145,19 +145,15 @@ export const otherReducer = createReducer(initialState, (builder) => {
     
         .addCase("updateProductRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("updateProductImageRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("deleteProductImageRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("deleteProductRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
 
         //Charts
