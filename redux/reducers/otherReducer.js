@@ -158,7 +158,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
 
         //Charts
         .addCase("fetchChart1DataRequest", (state) => {
-            state.loading = true;rv
+            state.loading = true;
           })
           .addCase("fetchChart1DataSuccess", (state, action) => {
             state.loading = false;
