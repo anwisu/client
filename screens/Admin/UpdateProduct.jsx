@@ -194,7 +194,7 @@ const UpdateProduct = ({ navigation, route }) => {
                                     placeholder="Name"
                                     value={name}
                                     onChangeText={setName}
-                                    style={styles.customInput}
+                                    style={styles.priceInput}
                                 />
                             </View>
 
@@ -205,7 +205,7 @@ const UpdateProduct = ({ navigation, route }) => {
                                     placeholder="Description"
                                     value={description}
                                     onChangeText={setDescription}
-                                    style={styles.customInput}
+                                    style={styles.priceInput}
                                 />
                             </View>
 
