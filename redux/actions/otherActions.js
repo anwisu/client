@@ -434,6 +434,30 @@ export const getAllReviews = (id) => async (dispatch) => {
         });
     }
 };
+export const deleteProduct = (productId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "deleteUserRequest",
+      });
+  
+      const { data } = await axios.delete(
+        `${server}/product/single/${productId}`,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      dispatch({
+        type: "deleteProductSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "deleteProductFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const createProduct = (formData) => async (dispatch) => {
     try {
