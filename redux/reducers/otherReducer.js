@@ -13,7 +13,7 @@ const initialState = {
 
 export const otherReducer = createReducer(initialState, (builder) => {
     builder
-    // START UPDATE PIC
+        // START UPDATE PIC
         .addCase("updatePicRequest", (state) => {
             state.loading = true;
         })
@@ -49,7 +49,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    
+
         //Delete category
         .addCase("deleteCategoryRequest", (state) => {
             state.loading = true;
@@ -62,7 +62,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    
+
         // Update Category
         .addCase("updateCategoryRequest", (state) => {
             state.loading = true;
@@ -75,7 +75,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    
+
         //Update Category Images
         .addCase("updateCategoryImageRequest", (state) => {
             state.loading = true;
@@ -88,7 +88,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    
+
         //Delete Category Images
         .addCase("deleteCategoryImageRequest", (state) => {
             state.loading = true;
@@ -101,7 +101,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-    
+
         //Get Category
         .addCase("getCategoryDetailsRequest", (state) => {
             state.loading = true;
@@ -127,7 +127,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-        
+
         // UPDATE PASSWORD
         .addCase("updatePasswordSuccess", (state, action) => {
             state.loading = false;
@@ -140,61 +140,56 @@ export const otherReducer = createReducer(initialState, (builder) => {
 
         .addCase("addProductRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
-    
+
         .addCase("updateProductRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("updateProductImageRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("deleteProductImageRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
         .addCase("deleteProductRequest", (state) => {
             state.loading = true;
-            state.error = action.payload;
         })
 
         //Charts
         .addCase("fetchChart1DataRequest", (state) => {
-            state.loading = true;rv
-          })
-          .addCase("fetchChart1DataSuccess", (state, action) => {
+            state.loading = true; 
+        })
+        .addCase("fetchChart1DataSuccess", (state, action) => {
             state.loading = false;
             state.chartData = action.payload;
-          })
-          .addCase("fetchChart1DataFail", (state, action) => {
+        })
+        .addCase("fetchChart1DataFail", (state, action) => {
             state.loading = false;
             state.error = action.payload;
-          })
-          .addCase("fetchChart2DataRequest", (state) => {
+        })
+        .addCase("fetchChart2DataRequest", (state) => {
             state.loading = true;
-          })
-          .addCase("fetchChart2DataSuccess", (state, action) => {
+        })
+        .addCase("fetchChart2DataSuccess", (state, action) => {
             state.loading = false;
             state.chartData2 = action.payload;
-          })
-          .addCase("fetchChart2DataFail", (state, action) => {
+        })
+        .addCase("fetchChart2DataFail", (state, action) => {
             state.loading = false;
             state.error = action.payload;
-          })
-          .addCase("fetchChart3DataRequest", (state) => {
+        })
+        .addCase("fetchChart3DataRequest", (state) => {
             state.loading = true;
-          })
-          .addCase("fetchChart3DataSuccess", (state, action) => {
+        })
+        .addCase("fetchChart3DataSuccess", (state, action) => {
             state.loading = false;
             state.chartData3 = action.payload;
-          })
-          .addCase("fetchChart3DataFail", (state, action) => {
+        })
+        .addCase("fetchChart3DataFail", (state, action) => {
             state.loading = false;
             state.error = action.payload;
-          });
-    
+        });
+
     builder.addCase("clearError", (state) => {
         state.error = null;
     });
@@ -207,7 +202,7 @@ export const otherReducer = createReducer(initialState, (builder) => {
 
 
 
-    
+
 });
 
 
